@@ -1,0 +1,2 @@
+run: problem1.py
+	python problem1.py

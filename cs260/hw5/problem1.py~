@@ -1,0 +1,22 @@
+#!/usr/bin/python
+
+import sys
+import math
+import random
+import time
+
+
+
+# lowest number = highest priority
+#def make_heap(heap):
+    
+
+
+
+n = input("Enter size of queue to generate: ")
+
+for i in range(n):
+    heap.append(random.randint(1,n))
+
+for i in range(n):
+    print heap.pop()
