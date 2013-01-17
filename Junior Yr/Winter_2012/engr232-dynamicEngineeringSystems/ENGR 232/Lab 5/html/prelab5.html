@@ -1,0 +1,126 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Lab 5 Prelab- Krishnateja Pemmaraju, Section 62, 7/27/2011</title><meta name="generator" content="MATLAB 7.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2011-07-27"><meta name="DC.source" content="prelab5.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>Lab 5 Prelab- Krishnateja Pemmaraju, Section 62, 7/27/2011</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Problem Statement</a></li><li><a href="#2">Solution Code</a></li><li><a href="#3">Conclusion</a></li></ul></div><h2>Problem Statement<a name="1"></a></h2><p>In this prelab, we varied the variable alpha from -10 to 10 to determine the systems eigenvalues. Then plot the values against the real and imaginary eigen values. Then simulate a portrait phase using PPLANE.</p><h2>Solution Code<a name="2"></a></h2><pre class="codeinput">x = -10:.01:10;
+b = zeros(2,numel(x));
+
+<span class="keyword">for</span> k = 1:numel(x)
+    A = [x(k) 2; -2 0];
+    b(:,k) = eig(A);
+<span class="keyword">end</span>
+
+subplot(2,1,1)
+plot(x,real(b))
+legend(<span class="string">'\lambda_1'</span>,<span class="string">'\lambda_2'</span>)
+xlabel(<span class="string">'alpha'</span>)
+ylabel(<span class="string">'Real Part of Eigenvalues'</span>)
+grid <span class="string">on</span>
+
+subplot(2,1,2)
+plot(x,imag(b))
+axis([-10 10 -3 3])
+legend(<span class="string">'\lambda_1'</span>,<span class="string">'\lambda_2'</span>)
+xlabel(<span class="string">'alpha'</span>)
+ylabel(<span class="string">'Imaginary Part of Eigenvalues'</span>)
+grid <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="prelab5_01.png" alt=""> <h2>Conclusion<a name="3"></a></h2><p>In conclusion, using the codes from the previous labs and the newly learned 'eig()' function, it was possible to get the graph properly.</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.11<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Lab 5 Prelab- Krishnateja Pemmaraju, Section 62, 7/27/2011
+
+%% Problem Statement
+% In this prelab, we varied the variable alpha from -10 to 10 to determine
+% the systems eigenvalues. Then plot the values against the real and
+% imaginary eigen values. Then simulate a portrait phase using PPLANE.
+
+%% Solution Code
+
+x = -10:.01:10;
+b = zeros(2,numel(x));
+
+for k = 1:numel(x)
+    A = [x(k) 2; -2 0];
+    b(:,k) = eig(A);
+end
+
+subplot(2,1,1)
+plot(x,real(b))
+legend('\lambda_1','\lambda_2')
+xlabel('alpha')
+ylabel('Real Part of Eigenvalues')
+grid on
+
+subplot(2,1,2)
+plot(x,imag(b))
+axis([-10 10 -3 3])
+legend('\lambda_1','\lambda_2')
+xlabel('alpha')
+ylabel('Imaginary Part of Eigenvalues')
+grid on
+
+%% Conclusion
+% In conclusion, using the codes from the previous labs and the newly
+% learned 'eig()' function, it was possible to get the graph properly.
+##### SOURCE END #####
+--></body></html>

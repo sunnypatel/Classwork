@@ -1,0 +1,22 @@
+﻿Sunny V. Patel
+Systems Architecture I
+Programming Assignment 1
+email: svp28@drexel.edu
+
+There are two files included: gcd_iterative.asm, and gcd_recursive.asm.  Obviously gcd_iterative.asm commutes gcd of two integers by iteration or loop while gcd_resursive.asm commutes using recursive Euclidean algorithm.  You can simply load each file into QtSpim and run the program.  Console should ask you to enter a A value, once entered press [enter] and then it will ask for you B value, once again please press [enter] after data entry.  It should quickly display "Iterative GCD is ___" or "Recursive GCD is ___" depending on what file your using.
+
+My testing procedure was rather simple for iterative.  I looked at Lab1 and the C++ code provided as reference and was able to quickly come up with the MIPS iterative version for computing GCD.  Once I wrote it up, I ran the code in QtSpim and as expected there were a few minor syntax errors and a few wrong registers used, nothing to crazy.  Once fixed I ran it a few more times to ensure everything was running smoothly.  I found a gcd calc online and tried some very complex numbers to make sure everything still held up and I very quickly discovered MIPS was commuting much faster than the JavaScript version of the program found online.  
+
+Writing the recursive version was much harder.  I had gotten stuck multiple times because I wasn't using the stack properly.  I had to use Spim's step through and keep track of which registers were changing.  Few things were going wrong at first I was saving user entered values for a&b straight into regs a0,a1 and then when I prepared to make the next syscall the a0 register would be overwritten so I was loosing my user data.  Then I had to figure out how to do recursion with MIPS and it is a little bit different for this algorithm than it is for doing factorials.  After that I was unsure where exactly v0 was being returned from was it gcd procedure or L1, so I had to do step-by-step again.  Then finally on to the testing which I did the same way as with Iterative.  
+
+Both versions of this algorithm were tested throughly and do indeed work as expected.
+
+This assignment gave me good practice with the MIPS stack and how to write recursive code in assembly code.  It also gave me better appreciation for compilers and higher level languages because they are able to create even more complex assembly instructions from the high-level code that we feed them.  I also noticed while testing that my code computed much faster than the gcd calcs I found on-line. That was really cool to know.  
+
+I am not really sure how much more you could improve this assignment, really it is up to the student to practice and learn the material and this assignment is really good for understanding recursion programming in MIPS.
+
+System used for testing:
+Ubuntu 12.04 LXDE; 1GB Memory; Quad-core intel 64bit
+
+Screenshots:
+

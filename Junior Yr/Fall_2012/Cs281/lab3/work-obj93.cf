@@ -1,0 +1,4 @@
+v 3
+file . "tb_halfadderb.vhd" "20121026200307.000" "20121112170850.918":
+  entity tb_halfadderb at 1( 0) + 0 on 11;
+  architecture behavioral of tb_halfadderb at 7( 88) + 0 on 12;

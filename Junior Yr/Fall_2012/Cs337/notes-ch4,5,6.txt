@@ -1,0 +1,92 @@
+Ways in which CTA can be appled:
+Marketing - What do consumers know or believe?
+Knowledge perservation- keeping wisdom even if experts leave.
+knowledge sharing - knowledge representations can be used to form the core content of training programs and procedures, knowledge reused, disseminated and extended.
+Decision aiding- help the practitioners apply knowledge concepts and principles with technology as aids.
+Revealing skill - domain experts hav developed many tactics to help do their job better, this is teaching those tactics to newbies so that they can stand on the shoulders of experts instead of starting from stratch.
+
+Concept maps - researchers abopted for both eliciting and representing knowledge.  basically diagrams. leads to longer retention, better ability to apply knowledge.
+experts usually have developed their own maps over the years, leading to better organization of info. 
+  ex. retiring nasa engineer, maps information organized for avg reader, 
+
+'Is a' relationships
+
+
+The six steps for creating maps 
+1. domain and focus, practitionar and the interview identify a 'focus question'. it could be helpful to make a concept map of the big picture to help the person. 
+	- focus question is put at the top left corner of the map; helps stay on topic.
+	- participant is asked to name 5/10 broad concepts
+	- 
+
+2. set up the 'parking lot' 
+	- nodes are moved around based on importance.
+	- important are moved closer to the top
+
+3. Begin to Link the Concepts
+	- define relationships between two concepts.
+	- figure out the linking working
+
+4. Refine the concept map
+	- adding/removing nodes
+
+5. Look for new relations and cross-links, further refine
+	- 
+
+6. Build the Knowledge Model
+	- concept maps all on a particular topic but hyperlinked together is referred to as a knowledge model.
+	- Build in all additional resources like manuals, standard operating docs, web pages, digital videos, resources can be many forms of digital media.
+
+
+Chapter 5: helping practitioners tell their stories
+
+Most powerful knowledge elicitation tactic for CTA practitioners is to probe actual incidents.  Ppl tell us about all kinds of details, challenges, subtle cues, background influences, and strategies that might never come to light in a general interview or a controlled simulation.  
+What can CTA researchers find:
+	- Cues and patterns experts perceive
+	- Rules of thumb
+	- Decisions they make
+	- Features that make the decision tough
+	- Features that make cases typical
+	- Features of rare cases
+	
+Critical Decision Method(CDM) - learn from incidents
+	- avoids genernic questions
+	- collect stories from past experiences
+
+Steps for collecting info
+
+Sweep 1: Selecting a incident
+	- select nonroutine, challenging event; cuz they have the greatest potential for uncovering elements of expertise
+	- get the full story, beginning to end
+Sweep 2: Constructing a Timeline
+	- diagram the sequence of events
+	- aimed at getting clear, refined overview of the incident
+Sweep 3: Deepening (Fun step)
+	- "What is the story behind the story"
+	- After 1st two steps u know what happened, know figure out who knew what, when did they know it, and how did they know, what did they do after they knew.
+	- "knocking on the door" example; trying different approches 
+Sweep 4: What ifs
+	- get into experience, skill and knowledge.
+	- expert -novice differences
+
+Ppl share their experiences and sometimes learn bout what happened and why 
+
+LIMITS;
+ when there are no experts to talk to. 
+
+
+
+Chapter 6: experiment-like tasks
+	
+Constrained processing(cp) - user asked to perform daily routines are constrained in some way.
+Limited information (LI) - user are asked to solve problems given incomplete information.
+
+CANNOT deviate to far from familar task (cant be too hard) or it wont tell us anything.
+-  Withholding of information to show strategies and reasoning sequences in different situations.
+
+Thinking out loud (TAPS)
+- participates are instructed to speak their thoughts while they solve puzzles.
+
+Researchers can tinker with aspects of a familiar task in a variety of ways, thereby eliciting experts' strategies and reasoning, and do so in structured ways that provide empirical leverage.
+
+
+	- 

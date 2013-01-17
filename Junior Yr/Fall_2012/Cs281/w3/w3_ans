@@ -1,0 +1,17 @@
+Sunny Patel
+Written Assignment 3
+
+4.9.1) 100011 00110 00001 00000000000101000
+
+4.9.2) 00110, yes it is read. 00001, also read
+
+4.9.3) 00001, yes this reg is written to
+
+4.9.4) RegDst = 0, MemRead=1
+
+4.9.5) Since all of those instructions(lw, sw, beq, add and j) require the
+op code 100011, and the last bit( of the 32) is 1 we would need a NOT 1 for regdst to
+be 0.  So the logic diagram inside the control unit would be NOT I31,
+assuming I31 is the last bit of the 32. Same goes for MemRead, since we want 1, and the instruction value bit for this I29 in this case is 0, we will want to do a NOT I29 in control unit.
+
+4.9.6) RegDst = NOT I31; 

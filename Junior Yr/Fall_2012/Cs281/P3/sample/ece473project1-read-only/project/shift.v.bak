@@ -1,0 +1,43 @@
+module shift (DI, rl, sel, SO); 
+input  [31:0] DI; 
+
+input [1:0] rl;
+input  [4:0] sel; 
+output [31:0] SO; 
+reg    [31:0] SO; 
+
+
+  always @(DI or sel) 
+  begin 
+	case (rl)
+		2'b00	: SO <= ((DI >> sel) + (((1 << sel) - 1) << (32 - sel)));
+		2'b01	: SO <= (DI >> sel);
+		2'b10	: SO <= DI << sel;
+	endcase
+	
+   /* case (sel) 
+      2'b00   : SO <= DI; 
+      2'b01   : SO <= DI << 1;
+      2'b00   : SO <= DI << 1; 
+      2'b01   : SO <= DI << 1; 
+      2'b00   : SO <= DI << 1; 
+      2'b01   : SO <= DI << 1; 
+      2'b00   : SO <= DI << 1; 
+      2'b01   : SO <= DI << 1; 
+      2'b00   : SO <= DI << 1; 
+      2'b01   : SO <= DI << 1; 
+      2'b00   : SO <= DI << 1; 
+      2'b01   : SO <= DI << 1; 
+      2'b00   : SO <= DI << 1; 
+      2'b01   : SO <= DI << 1; 
+      2'b00   : SO <= DI << 1; 
+      2'b01   : SO <= DI << 1; 
+      2'b00   : SO <= DI << 1; 
+      2'b01   : SO <= DI << 1; 
+      
+      default : SO <= DI << 2; 
+
+      endcase 
+*/
+  end 
+endmodule

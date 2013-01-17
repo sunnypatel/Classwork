@@ -1,0 +1,20 @@
+INV 4A
+
+1. 10
+2. northwest
+3. 50,60,70
+4. 10
+5. D
+6. B
+7. warm
+8. cold
+9. cold
+10. warm
+11. cold
+12. warm
+13. neither warm no cold
+14. sunrise
+15. warm
+
+CWS 
+1. 

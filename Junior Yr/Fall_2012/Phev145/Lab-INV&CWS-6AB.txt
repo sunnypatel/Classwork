@@ -1,0 +1,35 @@
+INV - 6B
+1.-35
+2.-15
+3.lower than
+4.more
+5.less than
+6.saturated
+7. equal to 100%
+8. saturated
+9. -27
+10. higher than
+11. lost
+12. equal to 100%
+13. 27
+14. higher than
+15. less than
+16. released
+
+CWS - 6B
+1. south
+2. was not
+3. scattered
+4. was
+5. was
+6.was not
+7. straight, green
+8. was
+9. was
+10. were
+11. curved dash blue
+12. nearly same as 
+13. straight green
+14. cruved blue
+15. saturateds
+16. above

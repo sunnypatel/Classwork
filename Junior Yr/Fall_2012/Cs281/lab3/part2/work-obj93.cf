@@ -1,0 +1,19 @@
+v 3
+file . "muxs_online.vhd" "20121027063946.000" "20121027024055.128":
+  entity andgate at 34( 1283) + 0 on 41;
+  architecture func of andgate at 42( 1428) + 0 on 42;
+  entity orgate at 48( 1580) + 0 on 43;
+  architecture func of orgate at 56( 1717) + 0 on 44;
+  entity notgate at 62( 1861) + 0 on 45;
+  architecture func of notgate at 70( 2006) + 0 on 46;
+  entity mux_4_to_1 at 77( 2192) + 0 on 47;
+  architecture func of mux_4_to_1 at 86( 2435) + 0 on 48;
+file . "muxs.vhd" "20121027064608.000" "20121027024646.101":
+  entity and_3 at 2( 7) + 0 on 49;
+  architecture func of and_3 at 10( 147) + 0 on 50;
+  entity or_3 at 17( 226) + 0 on 51;
+  architecture func of or_3 at 25( 359) + 0 on 52;
+  entity not_3 at 32( 429) + 0 on 53;
+  architecture func of not_3 at 40( 560) + 0 on 54;
+  entity mux4 at 45( 623) + 0 on 55;
+  architecture structural of mux4 at 54( 775) + 0 on 56;

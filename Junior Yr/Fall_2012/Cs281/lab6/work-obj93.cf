@@ -1,0 +1,13 @@
+v 3
+file . "pcAndClock_tb.vhd" "20121113234419.000" "20121113184512.492":
+  entity pcandclock_tb at 1( 0) + 0 on 107;
+  architecture archpc of pcandclock_tb at 12( 210) + 0 on 108;
+file . "tb_clock.vhd" "20121113220205.000" "20121113170207.978":
+  entity tb_clock at 1( 0) + 0 on 81;
+  architecture behavioral of tb_clock at 7( 76) + 0 on 82;
+file . "clock.vhd" "20121113225906.000" "20121113182218.251":
+  entity clock at 1( 0) + 0 on 105;
+  architecture arclock of clock at 8( 107) + 0 on 106;
+file . "pcAndClock.vhd" "20121113231711.000" "20121113181712.627":
+  entity pcandclock at 1( 0) + 0 on 103;
+  architecture archpc of pcandclock at 12( 204) + 0 on 104;

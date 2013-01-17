@@ -1,0 +1,1333 @@
+Analysis & Synthesis report for 473project
+Wed Dec 08 22:51:06 2010
+Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Analysis & Synthesis RAM Summary
+  9. State Machine - |mips|LCD_Display:inst46|next_command
+ 10. State Machine - |mips|LCD_Display:inst46|state
+ 11. User-Specified and Inferred Latches
+ 12. Registers Removed During Synthesis
+ 13. Removed Registers Triggering Further Register Optimizations
+ 14. General Register Statistics
+ 15. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 16. Source assignments for ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component|altsyncram_fh91:auto_generated
+ 17. Source assignments for dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component|altsyncram_nnd1:auto_generated
+ 18. Parameter Settings for User Entity Instance: ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component
+ 19. Parameter Settings for User Entity Instance: dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component
+ 20. Parameter Settings for User Entity Instance: LCD_Display:inst46
+ 21. altsyncram Parameter Settings by Entity Instance
+ 22. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2010 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                      ;
++------------------------------------+----------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Wed Dec 08 22:51:06 2010        ;
+; Quartus II Version                 ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
+; Revision Name                      ; 473project                                   ;
+; Top-level Entity Name              ; mips                                         ;
+; Family                             ; Cyclone II                                   ;
+; Total logic elements               ; 5,184                                        ;
+;     Total combinational functions  ; 4,102                                        ;
+;     Dedicated logic registers      ; 1,546                                        ;
+; Total registers                    ; 1546                                         ;
+; Total pins                         ; 153                                          ;
+; Total virtual pins                 ; 0                                            ;
+; Total memory bits                  ; 40,960                                       ;
+; Embedded Multiplier 9-bit elements ; 0                                            ;
+; Total PLLs                         ; 0                                            ;
++------------------------------------+----------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                     ; EP2C35F672C6       ;                    ;
+; Top-level entity name                                                      ; mips               ; 473project         ;
+; Family name                                                                ; Cyclone II         ; Stratix II         ;
+; Use smart compilation                                                      ; On                 ; Off                ;
+; Use Generated Physical Constraints File                                    ; Off                ;                    ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto ROM Replacement                                                       ; On                 ; On                 ;
+; Auto RAM Replacement                                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; Off                ; Off                ;
+; Show Parameter Settings Tables in Synthesis Report                         ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 2      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                           ;
++----------------------------------+-----------------+----------------------------------------+------------------------------------------------------------------------------------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                              ; File Name with Absolute Path                                                       ;
++----------------------------------+-----------------+----------------------------------------+------------------------------------------------------------------------------------+
+; ZEROfinder.vhdl                  ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/ZEROfinder.vhdl           ;
+; instruction_select.v             ; yes             ; User Verilog HDL File                  ; C:/Users/Tyler/Documents/ece473/project1/project/project/instruction_select.v      ;
+; register32bit.vhd                ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/register32bit.vhd         ;
+; ifetch_pc_calc.vhd               ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/ifetch_pc_calc.vhd        ;
+; ifetchROM.bdf                    ; yes             ; User Block Diagram/Schematic File      ; C:/Users/Tyler/Documents/ece473/project1/project/project/ifetchROM.bdf             ;
+; dmem.bdf                         ; yes             ; User Block Diagram/Schematic File      ; C:/Users/Tyler/Documents/ece473/project1/project/project/dmem.bdf                  ;
+; MWreg.vhd                        ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/MWreg.vhd                 ;
+; 2x32Mux.bdf                      ; yes             ; User Block Diagram/Schematic File      ; C:/Users/Tyler/Documents/ece473/project1/project/project/2x32Mux.bdf               ;
+; ALU.vhd                          ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/ALU.vhd                   ;
+; control.vhd                      ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/control.vhd               ;
+; pccalc.vhd                       ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/pccalc.vhd                ;
+; shift.v                          ; yes             ; User Verilog HDL File                  ; C:/Users/Tyler/Documents/ece473/project1/project/project/shift.v                   ;
+; lshift64.v                       ; yes             ; User Verilog HDL File                  ; C:/Users/Tyler/Documents/ece473/project1/project/project/lshift64.v                ;
+; LCD_Display.vhd                  ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/LCD_Display.vhd           ;
+; accum.vhd                        ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/accum.vhd                 ;
+; DEC_7SEG.VHD                     ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/DEC_7SEG.VHD              ;
+; ONEPULSE.VHD                     ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/ONEPULSE.VHD              ;
+; DEBOUNCE.VHD                     ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/DEBOUNCE.VHD              ;
+; CLK_DIV.VHD                      ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/CLK_DIV.VHD               ;
+; mips.bdf                         ; yes             ; User Block Diagram/Schematic File      ; C:/Users/Tyler/Documents/ece473/project1/project/project/mips.bdf                  ;
+; 2x10Mux.bdf                      ; yes             ; User Block Diagram/Schematic File      ; C:/Users/Tyler/Documents/ece473/project1/project/project/2x10Mux.bdf               ;
+; 2lshift.v                        ; yes             ; User Verilog HDL File                  ; C:/Users/Tyler/Documents/ece473/project1/project/project/2lshift.v                 ;
+; signext.v                        ; yes             ; User Verilog HDL File                  ; C:/Users/Tyler/Documents/ece473/project1/project/project/signext.v                 ;
+; lshift210.v                      ; yes             ; User Verilog HDL File                  ; C:/Users/Tyler/Documents/ece473/project1/project/project/lshift210.v               ;
+; 4x10mux.bdf                      ; yes             ; User Block Diagram/Schematic File      ; C:/Users/Tyler/Documents/ece473/project1/project/project/4x10mux.bdf               ;
+; EMreg.vhdl                       ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/EMreg.vhdl                ;
+; fu.vhd                           ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/fu.vhd                    ;
+; regfile.vhd                      ; yes             ; User VHDL File                         ; C:/Users/Tyler/Documents/ece473/project1/project/project/regfile.vhd               ;
+; RAMdmem.vhd                      ; yes             ; User Wizard-Generated File             ; C:/Users/Tyler/Documents/ece473/project1/project/project/RAMdmem.vhd               ;
+; ROMifetch.vhd                    ; yes             ; User Wizard-Generated File             ; C:/Users/Tyler/Documents/ece473/project1/project/project/ROMifetch.vhd             ;
+; turbo_select.v                   ; yes             ; User Verilog HDL File                  ; C:/Users/Tyler/Documents/ece473/project1/project/project/turbo_select.v            ;
+; dereg_verilog.v                  ; yes             ; User Verilog HDL File                  ; C:/Users/Tyler/Documents/ece473/project1/project/project/dereg_verilog.v           ;
+; 21mux.bdf                        ; yes             ; Megafunction                           ; c:/altera/91sp2/quartus/libraries/others/maxplus2/21mux.bdf                        ;
+; 2x8mux.bdf                       ; yes             ; Megafunction                           ; c:/altera/91sp2/quartus/libraries/others/maxplus2/2x8mux.bdf                       ;
+; fdreg_verilog.v                  ; yes             ; Auto-Found Verilog HDL File            ; C:/Users/Tyler/Documents/ece473/project1/project/project/fdreg_verilog.v           ;
+; altsyncram.tdf                   ; yes             ; Megafunction                           ; c:/altera/91sp2/quartus/libraries/megafunctions/altsyncram.tdf                     ;
+; db/altsyncram_fh91.tdf           ; yes             ; Auto-Generated Megafunction            ; C:/Users/Tyler/Documents/ece473/project1/project/project/db/altsyncram_fh91.tdf    ;
+; all_prog_instructions.mif        ; yes             ; Auto-Found Memory Initialization File  ; C:/Users/Tyler/Documents/ece473/project1/project/project/all_prog_instructions.mif ;
+; db/altsyncram_nnd1.tdf           ; yes             ; Auto-Generated Megafunction            ; C:/Users/Tyler/Documents/ece473/project1/project/project/db/altsyncram_nnd1.tdf    ;
+; all_prog_data.mif                ; yes             ; Auto-Found Memory Initialization File  ; C:/Users/Tyler/Documents/ece473/project1/project/project/all_prog_data.mif         ;
++----------------------------------+-----------------+----------------------------------------+------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimated Total logic elements              ; 5,184          ;
+;                                             ;                ;
+; Total combinational functions               ; 4102           ;
+; Logic element usage by number of LUT inputs ;                ;
+;     -- 4 input functions                    ; 3077           ;
+;     -- 3 input functions                    ; 702            ;
+;     -- <=2 input functions                  ; 323            ;
+;                                             ;                ;
+; Logic elements by mode                      ;                ;
+;     -- normal mode                          ; 3920           ;
+;     -- arithmetic mode                      ; 182            ;
+;                                             ;                ;
+; Total registers                             ; 1546           ;
+;     -- Dedicated logic registers            ; 1546           ;
+;     -- I/O registers                        ; 0              ;
+;                                             ;                ;
+; I/O pins                                    ; 153            ;
+; Total memory bits                           ; 40960          ;
+; Maximum fan-out node                        ; 21mux:inst16|5 ;
+; Maximum fan-out                             ; 1433           ;
+; Total fan-out                               ; 20066          ;
+; Average fan-out                             ; 3.42           ;
++---------------------------------------------+----------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                             ;
++----------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node                   ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                   ; Library Name ;
++----------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------+--------------+
+; |mips                                        ; 4102 (0)          ; 1546 (0)     ; 40960       ; 0            ; 0       ; 0         ; 153  ; 0            ; |mips                                                                                                 ; work         ;
+;    |21mux:inst16|                            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|21mux:inst16                                                                                    ;              ;
+;    |2x10Mux:inst14|                          ; 22 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x10Mux:inst14                                                                                  ;              ;
+;       |21mux:inst|                           ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x10Mux:inst14|21mux:inst                                                                       ;              ;
+;       |2x8mux:inst16|                        ; 19 (19)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x10Mux:inst14|2x8mux:inst16                                                                    ;              ;
+;    |2x32Mux:inst15|                          ; 32 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst15                                                                                  ;              ;
+;       |2x8mux:inst16|                        ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst15|2x8mux:inst16                                                                    ;              ;
+;       |2x8mux:inst1|                         ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst15|2x8mux:inst1                                                                     ;              ;
+;       |2x8mux:inst2|                         ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst15|2x8mux:inst2                                                                     ;              ;
+;       |2x8mux:inst|                          ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst15|2x8mux:inst                                                                      ;              ;
+;    |2x32Mux:inst4|                           ; 36 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst4                                                                                   ;              ;
+;       |2x8mux:inst16|                        ; 15 (15)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst4|2x8mux:inst16                                                                     ;              ;
+;       |2x8mux:inst2|                         ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst4|2x8mux:inst2                                                                      ;              ;
+;       |2x8mux:inst|                          ; 16 (16)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst4|2x8mux:inst                                                                       ;              ;
+;    |2x32Mux:inst9|                           ; 32 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst9                                                                                   ;              ;
+;       |2x8mux:inst16|                        ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst9|2x8mux:inst16                                                                     ;              ;
+;       |2x8mux:inst1|                         ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst9|2x8mux:inst1                                                                      ;              ;
+;       |2x8mux:inst2|                         ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst9|2x8mux:inst2                                                                      ;              ;
+;       |2x8mux:inst|                          ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|2x32Mux:inst9|2x8mux:inst                                                                       ;              ;
+;    |ALU:inst11|                              ; 231 (231)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|ALU:inst11                                                                                      ;              ;
+;    |DEreg_verilog:inst59|                    ; 169 (169)         ; 169 (169)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|DEreg_verilog:inst59                                                                            ;              ;
+;    |EMreg:inst60|                            ; 0 (0)             ; 101 (101)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|EMreg:inst60                                                                                    ;              ;
+;    |FDreg_verilog:inst49|                    ; 0 (0)             ; 40 (40)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|FDreg_verilog:inst49                                                                            ;              ;
+;    |FU:inst8|                                ; 634 (634)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|FU:inst8                                                                                        ;              ;
+;    |LCD_Display:inst46|                      ; 894 (894)         ; 59 (59)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|LCD_Display:inst46                                                                              ;              ;
+;    |MWreg:inst43|                            ; 0 (0)             ; 66 (66)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|MWreg:inst43                                                                                    ;              ;
+;    |ZEROfinder:inst6|                        ; 20 (20)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|ZEROfinder:inst6                                                                                ;              ;
+;    |accumulator:inst37|                      ; 16 (16)           ; 16 (16)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|accumulator:inst37                                                                              ;              ;
+;    |clk_div:inst42|                          ; 35 (35)           ; 42 (42)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|clk_div:inst42                                                                                  ;              ;
+;    |control:inst5|                           ; 90 (90)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|control:inst5                                                                                   ;              ;
+;    |debounce:inst21|                         ; 2 (2)             ; 5 (5)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|debounce:inst21                                                                                 ;              ;
+;    |debounce:inst23|                         ; 2 (2)             ; 5 (5)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|debounce:inst23                                                                                 ;              ;
+;    |dec_7seg:inst26|                         ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dec_7seg:inst26                                                                                 ;              ;
+;    |dec_7seg:inst27|                         ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dec_7seg:inst27                                                                                 ;              ;
+;    |dec_7seg:inst28|                         ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dec_7seg:inst28                                                                                 ;              ;
+;    |dec_7seg:inst29|                         ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dec_7seg:inst29                                                                                 ;              ;
+;    |dec_7seg:inst30|                         ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dec_7seg:inst30                                                                                 ;              ;
+;    |dec_7seg:inst31|                         ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dec_7seg:inst31                                                                                 ;              ;
+;    |dec_7seg:inst32|                         ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dec_7seg:inst32                                                                                 ;              ;
+;    |dmem:inst|                               ; 9 (1)             ; 32 (0)       ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dmem:inst                                                                                       ;              ;
+;       |2x8mux:inst12|                        ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dmem:inst|2x8mux:inst12                                                                         ;              ;
+;       |RAMdmem:inst|                         ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dmem:inst|RAMdmem:inst                                                                          ;              ;
+;          |altsyncram:altsyncram_component|   ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component                                          ;              ;
+;             |altsyncram_nnd1:auto_generated| ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component|altsyncram_nnd1:auto_generated           ;              ;
+;       |register32bit:inst1|                  ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|dmem:inst|register32bit:inst1                                                                   ;              ;
+;    |ifetchROM:inst13|                        ; 19 (0)            ; 17 (0)       ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|ifetchROM:inst13                                                                                ;              ;
+;       |ROMifetch:inst1|                      ; 0 (0)             ; 0 (0)        ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|ifetchROM:inst13|ROMifetch:inst1                                                                ;              ;
+;          |altsyncram:altsyncram_component|   ; 0 (0)             ; 0 (0)        ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component                                ;              ;
+;             |altsyncram_fh91:auto_generated| ; 0 (0)             ; 0 (0)        ; 32768       ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component|altsyncram_fh91:auto_generated ;              ;
+;       |ifetch_pc_calc:inst|                  ; 19 (19)           ; 17 (17)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|ifetchROM:inst13|ifetch_pc_calc:inst                                                            ;              ;
+;    |inst_select:inst54|                      ; 132 (132)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|inst_select:inst54                                                                              ;              ;
+;    |onepulse:inst36|                         ; 1 (1)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|onepulse:inst36                                                                                 ;              ;
+;    |pccalc:inst2|                            ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|pccalc:inst2                                                                                    ;              ;
+;    |regfile:inst50|                          ; 973 (973)         ; 992 (992)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|regfile:inst50                                                                                  ;              ;
+;    |shift:inst20|                            ; 691 (691)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|shift:inst20                                                                                    ;              ;
+;    |turbo_select:inst58|                     ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips|turbo_select:inst58                                                                             ;              ;
++----------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                                ;
++------------------------------------------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+-------+---------------------------+
+; Name                                                                                                       ; Type ; Mode        ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF                       ;
++------------------------------------------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+-------+---------------------------+
+; dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component|altsyncram_nnd1:auto_generated|ALTSYNCRAM           ; AUTO ; Single Port ; 1024         ; 32           ; --           ; --           ; 32768 ; all_prog_data.mif         ;
+; ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component|altsyncram_fh91:auto_generated|ALTSYNCRAM ; AUTO ; ROM         ; 1024         ; 32           ; --           ; --           ; 32768 ; all_prog_instructions.mif ;
++------------------------------------------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+-------+---------------------------+
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |mips|LCD_Display:inst46|next_command                                                                                                                                                                                                                                                                                                    ;
++----------------------------+----------------------------+--------------------------+---------------------+-------------------+---------------------+-------------------------+--------------------------+--------------------+---------------------------+-----------------------+-------------------------+-----------------------+---------------------+
+; Name                       ; next_command.DISPLAY_CLEAR ; next_command.DISPLAY_OFF ; next_command.RESET3 ; next_command.HOLD ; next_command.RESET1 ; next_command.DROP_LCD_E ; next_command.RETURN_HOME ; next_command.LINE2 ; next_command.Print_String ; next_command.MODE_SET ; next_command.DISPLAY_ON ; next_command.FUNC_SET ; next_command.RESET2 ;
++----------------------------+----------------------------+--------------------------+---------------------+-------------------+---------------------+-------------------------+--------------------------+--------------------+---------------------------+-----------------------+-------------------------+-----------------------+---------------------+
+; next_command.RESET2        ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 0                   ;
+; next_command.FUNC_SET      ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 1                     ; 1                   ;
+; next_command.DISPLAY_ON    ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 1                       ; 0                     ; 1                   ;
+; next_command.MODE_SET      ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 1                     ; 0                       ; 0                     ; 1                   ;
+; next_command.Print_String  ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 1                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.LINE2         ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 1                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.RETURN_HOME   ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 1                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.DROP_LCD_E    ; 0                          ; 0                        ; 0                   ; 0                 ; 0                   ; 1                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.RESET1        ; 0                          ; 0                        ; 0                   ; 0                 ; 1                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.HOLD          ; 0                          ; 0                        ; 0                   ; 1                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.RESET3        ; 0                          ; 0                        ; 1                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.DISPLAY_OFF   ; 0                          ; 1                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
+; next_command.DISPLAY_CLEAR ; 1                          ; 0                        ; 0                   ; 0                 ; 0                   ; 0                       ; 0                        ; 0                  ; 0                         ; 0                     ; 0                       ; 0                     ; 1                   ;
++----------------------------+----------------------------+--------------------------+---------------------+-------------------+---------------------+-------------------------+--------------------------+--------------------+---------------------------+-----------------------+-------------------------+-----------------------+---------------------+
+
+
+Encoding Type:  One-Hot
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |mips|LCD_Display:inst46|state                                                                                                                                                                                                         ;
++---------------------+---------------------+-------------------+--------------+--------------+------------+------------------+-------------------+-------------+--------------------+----------------+------------------+----------------+--------------+
+; Name                ; state.DISPLAY_CLEAR ; state.DISPLAY_OFF ; state.RESET3 ; state.RESET2 ; state.HOLD ; state.DROP_LCD_E ; state.RETURN_HOME ; state.LINE2 ; state.Print_String ; state.MODE_SET ; state.DISPLAY_ON ; state.FUNC_SET ; state.RESET1 ;
++---------------------+---------------------+-------------------+--------------+--------------+------------+------------------+-------------------+-------------+--------------------+----------------+------------------+----------------+--------------+
+; state.RESET1        ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 0            ;
+; state.FUNC_SET      ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 1              ; 1            ;
+; state.DISPLAY_ON    ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 1                ; 0              ; 1            ;
+; state.MODE_SET      ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 1              ; 0                ; 0              ; 1            ;
+; state.Print_String  ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 1                  ; 0              ; 0                ; 0              ; 1            ;
+; state.LINE2         ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 1           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.RETURN_HOME   ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 1                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.DROP_LCD_E    ; 0                   ; 0                 ; 0            ; 0            ; 0          ; 1                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.HOLD          ; 0                   ; 0                 ; 0            ; 0            ; 1          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.RESET2        ; 0                   ; 0                 ; 0            ; 1            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.RESET3        ; 0                   ; 0                 ; 1            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.DISPLAY_OFF   ; 0                   ; 1                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
+; state.DISPLAY_CLEAR ; 1                   ; 0                 ; 0            ; 0            ; 0          ; 0                ; 0                 ; 0           ; 0                  ; 0              ; 0                ; 0              ; 1            ;
++---------------------+---------------------+-------------------+--------------+--------------+------------+------------------+-------------------+-------------+--------------------+----------------+------------------+----------------+--------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                            ;
++-----------------------------------------------------+---------------------------------+------------------------+
+; Latch Name                                          ; Latch Enable Signal             ; Free of Timing Hazards ;
++-----------------------------------------------------+---------------------------------+------------------------+
+; control:inst5|RegDst                                ; control:inst5|Mux5              ; yes                    ;
+; control:inst5|reg_imm_ctl                           ; control:inst5|Mux32             ; yes                    ;
+; control:inst5|alu_mem_ctl                           ; control:inst5|Mux1              ; yes                    ;
+; control:inst5|ALUop[3]                              ; control:inst5|Mux8              ; yes                    ;
+; control:inst5|ALUop[2]                              ; control:inst5|Mux8              ; yes                    ;
+; control:inst5|ALUop[1]                              ; control:inst5|Mux8              ; yes                    ;
+; control:inst5|ALUop[0]                              ; control:inst5|Mux8              ; yes                    ;
+; control:inst5|sh_reg_ctl                            ; control:inst5|Mux3              ; yes                    ;
+; control:inst5|rl[1]                                 ; control:inst5|Mux13             ; yes                    ;
+; control:inst5|rl[0]                                 ; control:inst5|Mux13             ; yes                    ;
+; control:inst5|shamt[4]                              ; control:inst5|Mux38             ; yes                    ;
+; control:inst5|shamt[3]                              ; control:inst5|Mux38             ; yes                    ;
+; control:inst5|shamt[2]                              ; control:inst5|Mux38             ; yes                    ;
+; control:inst5|shamt[1]                              ; control:inst5|Mux38             ; yes                    ;
+; control:inst5|shamt[0]                              ; control:inst5|Mux38             ; yes                    ;
+; shift:inst20|SO[0]                                  ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[1]                                  ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[2]                                  ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[3]                                  ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[4]                                  ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[5]                                  ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[6]                                  ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[7]                                  ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[8]                                  ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[9]                                  ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[10]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[11]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[12]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[13]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[14]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[15]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[16]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[17]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[18]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[19]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[20]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[21]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[22]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[23]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[24]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[25]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[26]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[27]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[28]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[29]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[30]                                 ; shift:inst20|Mux32              ; yes                    ;
+; shift:inst20|SO[31]                                 ; shift:inst20|Mux32              ; yes                    ;
+; turbo_select:inst58|out_clock                       ; turbo_select:inst58|out_clock   ; yes                    ;
+; inst_select:inst54|out_inst[26]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[10]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[2]                      ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[18]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[30]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[14]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[6]                      ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[22]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[25]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[9]                      ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[1]                      ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[17]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[29]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[13]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[5]                      ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[21]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[27]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[11]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[3]                      ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[19]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[31]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[15]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[7]                      ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[23]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[24]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[8]                      ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[0]                      ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[16]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[28]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[12]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[4]                      ; inst_select:inst54|out_inst[31] ; yes                    ;
+; inst_select:inst54|out_inst[20]                     ; inst_select:inst54|out_inst[31] ; yes                    ;
+; Number of user-specified and inferred latches = 80  ;                                 ;                        ;
++-----------------------------------------------------+---------------------------------+------------------------+
+Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++-------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                ;
++------------------------------------------------------+------------------------------------------------------------+
+; Register name                                        ; Reason for Removal                                         ;
++------------------------------------------------------+------------------------------------------------------------+
+; ifetchROM:inst13|ifetch_pc_calc:inst|PC_plus_4[0..1] ; Stuck at GND due to stuck port data_in                     ;
+; FDreg_verilog:inst49|PC_plus_4_fd[0..1]              ; Stuck at GND due to stuck port data_in                     ;
+; onepulse:inst36|Power_on                             ; Stuck at VCC due to stuck port data_in                     ;
+; LCD_Display:inst46|LCD_RW_INT                        ; Stuck at GND due to stuck port data_in                     ;
+; ifetchROM:inst13|ifetch_pc_calc:inst|PC_out[9]       ; Merged with ifetchROM:inst13|ifetch_pc_calc:inst|PC_out[8] ;
+; regfile:inst50|register_array[0][31]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][30]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][29]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][28]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][27]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][26]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][25]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][24]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][23]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][22]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][21]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][20]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][19]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][18]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][17]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][16]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][15]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][14]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][13]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][12]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][11]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][10]                 ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][9]                  ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][8]                  ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][7]                  ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][6]                  ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][5]                  ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][4]                  ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][3]                  ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][2]                  ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][1]                  ; Stuck at GND due to stuck port data_in                     ;
+; regfile:inst50|register_array[0][0]                  ; Stuck at GND due to stuck port data_in                     ;
+; LCD_Display:inst46|next_command.DROP_LCD_E           ; Stuck at GND due to stuck port data_in                     ;
+; LCD_Display:inst46|next_command.HOLD                 ; Stuck at GND due to stuck port data_in                     ;
+; LCD_Display:inst46|next_command.RESET1               ; Stuck at GND due to stuck port data_in                     ;
+; Total Number of Removed Registers = 42               ;                                                            ;
++------------------------------------------------------+------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                            ;
++---------------------------------------------------+---------------------------+----------------------------------------+
+; Register name                                     ; Reason for Removal        ; Registers Removed due to This Register ;
++---------------------------------------------------+---------------------------+----------------------------------------+
+; ifetchROM:inst13|ifetch_pc_calc:inst|PC_plus_4[0] ; Stuck at GND              ; FDreg_verilog:inst49|PC_plus_4_fd[0]   ;
+;                                                   ; due to stuck port data_in ;                                        ;
+; ifetchROM:inst13|ifetch_pc_calc:inst|PC_plus_4[1] ; Stuck at GND              ; FDreg_verilog:inst49|PC_plus_4_fd[1]   ;
+;                                                   ; due to stuck port data_in ;                                        ;
++---------------------------------------------------+---------------------------+----------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 1546  ;
+; Number of registers using Synchronous Clear  ; 83    ;
+; Number of registers using Synchronous Load   ; 5     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 1061  ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------+
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |mips|DEreg_verilog:inst59|aluin2_de[11]    ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[30][13] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[29][20] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[28][28] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[27][17] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[26][10] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[25][10] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[24][10] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[23][10] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[22][23] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[21][14] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[20][23] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[19][23] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[18][6]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[17][2]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[16][1]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[15][3]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[14][1]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[13][23] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[12][27] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[11][21] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[10][11] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[9][20]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[8][18]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[7][14]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[6][22]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[5][2]   ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[4][20]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[3][23]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[2][0]   ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[1][24]  ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[0][1]   ;
+; 5:1                ; 24 bits   ; 72 LEs        ; 48 LEs               ; 24 LEs                 ; Yes        ; |mips|regfile:inst50|register_array[31][18] ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |mips|regfile:inst50|register_array[31][5]  ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |mips|LCD_Display:inst46|DATA_BUS_VALUE[5]  ;
+; 3:1                ; 11 bits   ; 22 LEs        ; 22 LEs               ; 0 LEs                  ; No         ; |mips|LCD_Display:inst46|state              ;
+; 3:1                ; 9 bits    ; 18 LEs        ; 18 LEs               ; 0 LEs                  ; No         ; |mips|FU:inst8|forward_rd1[0]               ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |mips|FU:inst8|forward_rd2[27]              ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |mips|shift:inst20|ShiftRight0              ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; No         ; |mips|LCD_Display:inst46|next_command       ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |mips|shift:inst20|ShiftLeft1               ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 21 LEs               ; 0 LEs                  ; No         ; |mips|2x10Mux:inst14|2x8mux:inst16|12       ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |mips|shift:inst20|Mux15                    ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |mips|shift:inst20|ShiftRight0              ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |mips|shift:inst20|ShiftLeft1               ;
+; 8:1                ; 32 bits   ; 160 LEs       ; 96 LEs               ; 64 LEs                 ; No         ; |mips|inst_select:inst54|out_inst[15]       ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; No         ; |mips|ALU:inst11|Add0                       ;
+; 16:1               ; 31 bits   ; 310 LEs       ; 124 LEs              ; 186 LEs                ; No         ; |mips|ALU:inst11|Mux18                      ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; No         ; |mips|ALU:inst11|Add0                       ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |mips|shift:inst20|Mux21                    ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |mips|shift:inst20|ShiftRight0              ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |mips|shift:inst20|ShiftLeft1               ;
+; 32:1               ; 9 bits    ; 189 LEs       ; 189 LEs              ; 0 LEs                  ; No         ; |mips|regfile:inst50|Mux56                  ;
+; 32:1               ; 32 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |mips|regfile:inst50|Mux73                  ;
+; 6:1                ; 4 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |mips|shift:inst20|Mux26                    ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |mips|shift:inst20|ShiftRight0              ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |mips|shift:inst20|ShiftLeft1               ;
+; 60:1               ; 3 bits    ; 120 LEs       ; 30 LEs               ; 90 LEs                 ; No         ; |mips|control:inst5|Mux12                   ;
+; 12:1               ; 5 bits    ; 40 LEs        ; 5 LEs                ; 35 LEs                 ; No         ; |mips|control:inst5|Mux34                   ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |mips|shift:inst20|Mux28                    ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |mips|shift:inst20|ShiftLeft1               ;
+; 34:1               ; 23 bits   ; 506 LEs       ; 506 LEs              ; 0 LEs                  ; No         ; |mips|FU:inst8|forward_rd1[23]              ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |mips|shift:inst20|Mux31                    ;
+; 304:1              ; 4 bits    ; 808 LEs       ; 784 LEs              ; 24 LEs                 ; No         ; |mips|LCD_Display:inst46|Mux3               ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component|altsyncram_fh91:auto_generated ;
++---------------------------------+--------------------+------+----------------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                       ;
++---------------------------------+--------------------+------+----------------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                        ;
++---------------------------------+--------------------+------+----------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------+
+; Source assignments for dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component|altsyncram_nnd1:auto_generated ;
++---------------------------------+--------------------+------+------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                             ;
++---------------------------------+--------------------+------+------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                              ;
++---------------------------------+--------------------+------+------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component ;
++------------------------------------+---------------------------+----------------------------------------------+
+; Parameter Name                     ; Value                     ; Type                                         ;
++------------------------------------+---------------------------+----------------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                         ; Untyped                                      ;
+; AUTO_CARRY_CHAINS                  ; ON                        ; AUTO_CARRY                                   ;
+; IGNORE_CARRY_BUFFERS               ; OFF                       ; IGNORE_CARRY                                 ;
+; AUTO_CASCADE_CHAINS                ; ON                        ; AUTO_CASCADE                                 ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                       ; IGNORE_CASCADE                               ;
+; WIDTH_BYTEENA                      ; 1                         ; Untyped                                      ;
+; OPERATION_MODE                     ; ROM                       ; Untyped                                      ;
+; WIDTH_A                            ; 32                        ; Signed Integer                               ;
+; WIDTHAD_A                          ; 10                        ; Signed Integer                               ;
+; NUMWORDS_A                         ; 1024                      ; Signed Integer                               ;
+; OUTDATA_REG_A                      ; UNREGISTERED              ; Untyped                                      ;
+; ADDRESS_ACLR_A                     ; NONE                      ; Untyped                                      ;
+; OUTDATA_ACLR_A                     ; NONE                      ; Untyped                                      ;
+; WRCONTROL_ACLR_A                   ; NONE                      ; Untyped                                      ;
+; INDATA_ACLR_A                      ; NONE                      ; Untyped                                      ;
+; BYTEENA_ACLR_A                     ; NONE                      ; Untyped                                      ;
+; WIDTH_B                            ; 1                         ; Untyped                                      ;
+; WIDTHAD_B                          ; 1                         ; Untyped                                      ;
+; NUMWORDS_B                         ; 1                         ; Untyped                                      ;
+; INDATA_REG_B                       ; CLOCK1                    ; Untyped                                      ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                    ; Untyped                                      ;
+; RDCONTROL_REG_B                    ; CLOCK1                    ; Untyped                                      ;
+; ADDRESS_REG_B                      ; CLOCK1                    ; Untyped                                      ;
+; OUTDATA_REG_B                      ; UNREGISTERED              ; Untyped                                      ;
+; BYTEENA_REG_B                      ; CLOCK1                    ; Untyped                                      ;
+; INDATA_ACLR_B                      ; NONE                      ; Untyped                                      ;
+; WRCONTROL_ACLR_B                   ; NONE                      ; Untyped                                      ;
+; ADDRESS_ACLR_B                     ; NONE                      ; Untyped                                      ;
+; OUTDATA_ACLR_B                     ; NONE                      ; Untyped                                      ;
+; RDCONTROL_ACLR_B                   ; NONE                      ; Untyped                                      ;
+; BYTEENA_ACLR_B                     ; NONE                      ; Untyped                                      ;
+; WIDTH_BYTEENA_A                    ; 1                         ; Signed Integer                               ;
+; WIDTH_BYTEENA_B                    ; 1                         ; Untyped                                      ;
+; RAM_BLOCK_TYPE                     ; AUTO                      ; Untyped                                      ;
+; BYTE_SIZE                          ; 8                         ; Untyped                                      ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                 ; Untyped                                      ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ      ; Untyped                                      ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ      ; Untyped                                      ;
+; INIT_FILE                          ; all_prog_instructions.mif ; Untyped                                      ;
+; INIT_FILE_LAYOUT                   ; PORT_A                    ; Untyped                                      ;
+; MAXIMUM_DEPTH                      ; 0                         ; Untyped                                      ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS                    ; Untyped                                      ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                    ; Untyped                                      ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS                    ; Untyped                                      ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                    ; Untyped                                      ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN           ; Untyped                                      ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN           ; Untyped                                      ;
+; ENABLE_ECC                         ; FALSE                     ; Untyped                                      ;
+; DEVICE_FAMILY                      ; Cyclone II                ; Untyped                                      ;
+; CBXI_PARAMETER                     ; altsyncram_fh91           ; Untyped                                      ;
++------------------------------------+---------------------------+----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component ;
++------------------------------------+----------------------+-----------------------------------------+
+; Parameter Name                     ; Value                ; Type                                    ;
++------------------------------------+----------------------+-----------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                                 ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                              ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                            ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                            ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                          ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                                 ;
+; OPERATION_MODE                     ; SINGLE_PORT          ; Untyped                                 ;
+; WIDTH_A                            ; 32                   ; Signed Integer                          ;
+; WIDTHAD_A                          ; 10                   ; Signed Integer                          ;
+; NUMWORDS_A                         ; 1024                 ; Signed Integer                          ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                                 ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                                 ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                                 ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                                 ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                                 ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                                 ;
+; WIDTH_B                            ; 1                    ; Untyped                                 ;
+; WIDTHAD_B                          ; 1                    ; Untyped                                 ;
+; NUMWORDS_B                         ; 1                    ; Untyped                                 ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                                 ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                                 ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                                 ;
+; ADDRESS_REG_B                      ; CLOCK1               ; Untyped                                 ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                                 ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                                 ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                                 ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                                 ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                                 ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                                 ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                                 ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                                 ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Signed Integer                          ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                                 ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                                 ;
+; BYTE_SIZE                          ; 8                    ; Untyped                                 ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                                 ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                                 ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                                 ;
+; INIT_FILE                          ; all_prog_data.mif    ; Untyped                                 ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                                 ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                                 ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS               ; Untyped                                 ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                                 ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS               ; Untyped                                 ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                                 ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                                 ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                                 ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                                 ;
+; DEVICE_FAMILY                      ; Cyclone II           ; Untyped                                 ;
+; CBXI_PARAMETER                     ; altsyncram_nnd1      ; Untyped                                 ;
++------------------------------------+----------------------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: LCD_Display:inst46 ;
++----------------+-------+----------------------------------------+
+; Parameter Name ; Value ; Type                                   ;
++----------------+-------+----------------------------------------+
+; num_hex_digits ; 16    ; Signed Integer                         ;
++----------------+-------+----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                                             ;
++-------------------------------------------+------------------------------------------------------------------+
+; Name                                      ; Value                                                            ;
++-------------------------------------------+------------------------------------------------------------------+
+; Number of entity instances                ; 2                                                                ;
+; Entity Instance                           ; ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component ;
+;     -- OPERATION_MODE                     ; ROM                                                              ;
+;     -- WIDTH_A                            ; 32                                                               ;
+;     -- NUMWORDS_A                         ; 1024                                                             ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                                     ;
+;     -- WIDTH_B                            ; 1                                                                ;
+;     -- NUMWORDS_B                         ; 1                                                                ;
+;     -- ADDRESS_REG_B                      ; CLOCK1                                                           ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                                     ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                                             ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                        ;
+; Entity Instance                           ; dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component           ;
+;     -- OPERATION_MODE                     ; SINGLE_PORT                                                      ;
+;     -- WIDTH_A                            ; 32                                                               ;
+;     -- NUMWORDS_A                         ; 1024                                                             ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                                     ;
+;     -- WIDTH_B                            ; 1                                                                ;
+;     -- NUMWORDS_B                         ; 1                                                                ;
+;     -- ADDRESS_REG_B                      ; CLOCK1                                                           ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                                     ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                                             ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                        ;
++-------------------------------------------+------------------------------------------------------------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II Analysis & Synthesis
+    Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+    Info: Processing started: Wed Dec 08 22:50:36 2010
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off 473project -c 473project
+Info: Found 2 design units, including 1 entities, in source file zerofinder.vhdl
+    Info: Found design unit 1: ZEROfinder-behavior
+    Info: Found entity 1: ZEROfinder
+Info: Found 1 design units, including 1 entities, in source file instruction_select.v
+    Info: Found entity 1: inst_select
+Info: Found 2 design units, including 1 entities, in source file register32bit.vhd
+    Info: Found design unit 1: register32bit-behavior
+    Info: Found entity 1: register32bit
+Info: Found 2 design units, including 1 entities, in source file ifetch_pc_calc.vhd
+    Info: Found design unit 1: ifetch_pc_calc-behavior
+    Info: Found entity 1: ifetch_pc_calc
+Info: Found 1 design units, including 1 entities, in source file ifetchrom.bdf
+    Info: Found entity 1: ifetchROM
+Info: Found 1 design units, including 1 entities, in source file dmem.bdf
+    Info: Found entity 1: dmem
+Warning: Can't analyze file -- file mw.vhd is missing
+Info: Found 2 design units, including 1 entities, in source file mwreg.vhd
+    Info: Found design unit 1: MWreg-behavior
+    Info: Found entity 1: MWreg
+Info: Found 2 design units, including 1 entities, in source file branch_control.vhd
+    Info: Found design unit 1: branch_control-behavior
+    Info: Found entity 1: branch_control
+Info: Found 1 design units, including 1 entities, in source file 2x32mux.bdf
+    Info: Found entity 1: 2x32Mux
+Info: Found 2 design units, including 1 entities, in source file alu.vhd
+    Info: Found design unit 1: ALU-behavior
+    Info: Found entity 1: ALU
+Info: Found 2 design units, including 1 entities, in source file control.vhd
+    Info: Found design unit 1: control-behavior
+    Info: Found entity 1: control
+Info: Found 2 design units, including 1 entities, in source file dmemory.vhd
+    Info: Found design unit 1: dmemory-behavior
+    Info: Found entity 1: dmemory
+Info: Found 2 design units, including 1 entities, in source file ifetch.vhd
+    Info: Found design unit 1: Ifetch-behavior
+    Info: Found entity 1: Ifetch
+Info: Found 2 design units, including 1 entities, in source file pccalc.vhd
+    Info: Found design unit 1: pccalc-behavior
+    Info: Found entity 1: pccalc
+Info: Found 1 design units, including 1 entities, in source file shift.v
+    Info: Found entity 1: shift
+Info: Found 1 design units, including 1 entities, in source file lshift64.v
+    Info: Found entity 1: lshift64
+Info: Found 2 design units, including 1 entities, in source file lcd_display.vhd
+    Info: Found design unit 1: LCD_Display-a
+    Info: Found entity 1: LCD_Display
+Info: Found 2 design units, including 1 entities, in source file accum.vhd
+    Info: Found design unit 1: accumulator-behavior
+    Info: Found entity 1: accumulator
+Info: Found 2 design units, including 1 entities, in source file dec_7seg.vhd
+    Info: Found design unit 1: dec_7seg-a
+    Info: Found entity 1: dec_7seg
+Info: Found 2 design units, including 1 entities, in source file onepulse.vhd
+    Info: Found design unit 1: onepulse-a
+    Info: Found entity 1: onepulse
+Info: Found 2 design units, including 1 entities, in source file debounce.vhd
+    Info: Found design unit 1: debounce-a
+    Info: Found entity 1: debounce
+Info: Found 2 design units, including 1 entities, in source file clk_div.vhd
+    Info: Found design unit 1: clk_div-a
+    Info: Found entity 1: clk_div
+Info: Found 1 design units, including 1 entities, in source file mips.bdf
+    Info: Found entity 1: mips
+Info: Found 1 design units, including 1 entities, in source file 2x10mux.bdf
+    Info: Found entity 1: 2x10Mux
+Info: Found 1 design units, including 1 entities, in source file 2lshift.v
+    Info: Found entity 1: lshift
+Info: Found 1 design units, including 1 entities, in source file signext.v
+    Info: Found entity 1: signext
+Info: Found 1 design units, including 1 entities, in source file lshift210.v
+    Info: Found entity 1: lshift210
+Info: Found 1 design units, including 1 entities, in source file 4x10mux.bdf
+    Info: Found entity 1: 4x10mux
+Info: Found 2 design units, including 1 entities, in source file emreg.vhdl
+    Info: Found design unit 1: EMreg-behavior
+    Info: Found entity 1: EMreg
+Info: Found 2 design units, including 1 entities, in source file fdreg.vhdl
+    Info: Found design unit 1: FDreg-behavior
+    Info: Found entity 1: FDreg
+Info: Found 2 design units, including 1 entities, in source file fu.vhd
+    Info: Found design unit 1: FU-behavior
+    Info: Found entity 1: FU
+Info: Found 2 design units, including 1 entities, in source file dereg.vhdl
+    Info: Found design unit 1: DEreg-behavior
+    Info: Found entity 1: DEreg
+Info: Found 2 design units, including 1 entities, in source file regfile.vhd
+    Info: Found design unit 1: regfile-behavior
+    Info: Found entity 1: regfile
+Info: Found 2 design units, including 1 entities, in source file ramdmem.vhd
+    Info: Found design unit 1: ramdmem-SYN
+    Info: Found entity 1: RAMdmem
+Info: Found 2 design units, including 1 entities, in source file romifetch.vhd
+    Info: Found design unit 1: romifetch-SYN
+    Info: Found entity 1: ROMifetch
+Warning: Can't analyze file -- file 473project.v is missing
+Info: Found 1 design units, including 1 entities, in source file turbo_select.v
+    Info: Found entity 1: turbo_select
+Info: Found 1 design units, including 1 entities, in source file dereg_verilog.v
+    Info: Found entity 1: DEreg_verilog
+Info: Elaborating entity "mips" for the top level hierarchy
+Warning: Not all bits in bus "SW[17..0]" are used
+Warning: Pin "LEDG[7..0]" is missing source
+Warning: Pin "LEDR[17..0]" is missing source
+Warning: Pin "PC9[9..0]" is missing source
+Info: Elaborating entity "control" for hierarchy "control:inst5"
+Warning (10492): VHDL Process Statement warning at control.vhd(67): signal "old_opcode" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(69): signal "read_addr1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(69): signal "write_addr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(69): signal "read_addr2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(75): signal "read_addr1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(75): signal "write_addr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(75): signal "read_addr2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(80): signal "read_addr1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(80): signal "write_addr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(95): signal "shamti" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(229): signal "shamti" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(243): signal "shamti" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(257): signal "shamti" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(285): signal "shamti" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(290): signal "zero" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(299): signal "shamti" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(304): signal "zero" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(313): signal "shamti" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(327): signal "shamti" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(341): signal "shamti" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(369): signal "shamti" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at control.vhd(383): signal "shamti" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10631): VHDL Process Statement warning at control.vhd(64): inferring latch(es) for signal or variable "shamt", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at control.vhd(64): inferring latch(es) for signal or variable "reg_imm_ctl", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at control.vhd(64): inferring latch(es) for signal or variable "alu_mem_ctl", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at control.vhd(64): inferring latch(es) for signal or variable "sh_reg_ctl", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at control.vhd(64): inferring latch(es) for signal or variable "RegDst", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at control.vhd(64): inferring latch(es) for signal or variable "ALUop", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at control.vhd(64): inferring latch(es) for signal or variable "rl", which holds its previous value in one or more paths through the process
+Info (10041): Inferred latch for "rl[0]" at control.vhd(64)
+Info (10041): Inferred latch for "rl[1]" at control.vhd(64)
+Info (10041): Inferred latch for "ALUop[0]" at control.vhd(64)
+Info (10041): Inferred latch for "ALUop[1]" at control.vhd(64)
+Info (10041): Inferred latch for "ALUop[2]" at control.vhd(64)
+Info (10041): Inferred latch for "ALUop[3]" at control.vhd(64)
+Info (10041): Inferred latch for "RegDst" at control.vhd(64)
+Info (10041): Inferred latch for "sh_reg_ctl" at control.vhd(64)
+Info (10041): Inferred latch for "alu_mem_ctl" at control.vhd(64)
+Info (10041): Inferred latch for "reg_imm_ctl" at control.vhd(64)
+Info (10041): Inferred latch for "shamt[0]" at control.vhd(64)
+Info (10041): Inferred latch for "shamt[1]" at control.vhd(64)
+Info (10041): Inferred latch for "shamt[2]" at control.vhd(64)
+Info (10041): Inferred latch for "shamt[3]" at control.vhd(64)
+Info (10041): Inferred latch for "shamt[4]" at control.vhd(64)
+Info: Elaborating entity "21mux" for hierarchy "21mux:inst16"
+Info: Elaborated megafunction instantiation "21mux:inst16"
+Info: Elaborating entity "turbo_select" for hierarchy "turbo_select:inst58"
+Warning (10240): Verilog HDL Always Construct warning at turbo_select.v(10): inferring latch(es) for variable "out_clock", which holds its previous value in one or more paths through the always construct
+Info (10041): Inferred latch for "out_clock" at turbo_select.v(18)
+Info: Elaborating entity "clk_div" for hierarchy "clk_div:inst42"
+Info: Elaborating entity "onepulse" for hierarchy "onepulse:inst36"
+Info: Elaborating entity "debounce" for hierarchy "debounce:inst23"
+Info: Elaborating entity "ZEROfinder" for hierarchy "ZEROfinder:inst6"
+Info: Elaborating entity "FU" for hierarchy "FU:inst8"
+Info: Elaborating entity "DEreg_verilog" for hierarchy "DEreg_verilog:inst59"
+Info: Elaborating entity "2x32Mux" for hierarchy "2x32Mux:inst10"
+Info: Elaborating entity "2x8mux" for hierarchy "2x32Mux:inst10|2x8mux:inst16"
+Info: Elaborated megafunction instantiation "2x32Mux:inst10|2x8mux:inst16"
+Info: Elaborating entity "signext" for hierarchy "signext:inst45"
+Warning: Using design file fdreg_verilog.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info: Found entity 1: FDreg_verilog
+Info: Elaborating entity "FDreg_verilog" for hierarchy "FDreg_verilog:inst49"
+Info: Elaborating entity "ifetchROM" for hierarchy "ifetchROM:inst13"
+Info: Elaborating entity "ROMifetch" for hierarchy "ifetchROM:inst13|ROMifetch:inst1"
+Info: Elaborating entity "altsyncram" for hierarchy "ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component"
+Info: Elaborated megafunction instantiation "ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component"
+Info: Instantiated megafunction "ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component" with the following parameter:
+    Info: Parameter "clock_enable_input_a" = "BYPASS"
+    Info: Parameter "clock_enable_output_a" = "BYPASS"
+    Info: Parameter "init_file" = "all_prog_instructions.mif"
+    Info: Parameter "intended_device_family" = "Cyclone II"
+    Info: Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=NO"
+    Info: Parameter "lpm_type" = "altsyncram"
+    Info: Parameter "numwords_a" = "1024"
+    Info: Parameter "operation_mode" = "ROM"
+    Info: Parameter "outdata_aclr_a" = "NONE"
+    Info: Parameter "outdata_reg_a" = "UNREGISTERED"
+    Info: Parameter "widthad_a" = "10"
+    Info: Parameter "width_a" = "32"
+    Info: Parameter "width_byteena_a" = "1"
+Info: Found 1 design units, including 1 entities, in source file db/altsyncram_fh91.tdf
+    Info: Found entity 1: altsyncram_fh91
+Info: Elaborating entity "altsyncram_fh91" for hierarchy "ifetchROM:inst13|ROMifetch:inst1|altsyncram:altsyncram_component|altsyncram_fh91:auto_generated"
+Warning: 40 out of 256 addresses are reinitialized. The latest initialized data will replace the existing data. There are 40 warnings found, and 10 warnings are reported.
+    Warning: Memory Initialization File address 0 is reinitialized
+    Warning: Memory Initialization File address 4 is reinitialized
+    Warning: Memory Initialization File address 8 is reinitialized
+    Warning: Memory Initialization File address 12 is reinitialized
+    Warning: Memory Initialization File address 16 is reinitialized
+    Warning: Memory Initialization File address 20 is reinitialized
+    Warning: Memory Initialization File address 24 is reinitialized
+    Warning: Memory Initialization File address 28 is reinitialized
+    Warning: Memory Initialization File address 32 is reinitialized
+    Warning: Memory Initialization File address 36 is reinitialized
+Critical Warning: Memory depth (1024) in the design file differs from memory depth (256) in the Memory Initialization File "all_prog_instructions.mif" -- setting initial value for remaining addresses to 0
+Info: Elaborating entity "2x10Mux" for hierarchy "ifetchROM:inst13|2x10Mux:inst14"
+Info: Elaborating entity "ifetch_pc_calc" for hierarchy "ifetchROM:inst13|ifetch_pc_calc:inst"
+Info: Elaborating entity "4x10mux" for hierarchy "4x10mux:inst1"
+Info: Elaborating entity "lshift210" for hierarchy "lshift210:inst3"
+Warning (10230): Verilog HDL assignment warning at lshift210.v(10): truncated value with size 32 to match size of target (10)
+Info: Elaborating entity "pccalc" for hierarchy "pccalc:inst2"
+Info: Elaborating entity "lshift" for hierarchy "lshift:inst17"
+Info: Elaborating entity "regfile" for hierarchy "regfile:inst50"
+Info: Elaborating entity "MWreg" for hierarchy "MWreg:inst43"
+Info: Elaborating entity "EMreg" for hierarchy "EMreg:inst60"
+Info: Elaborating entity "ALU" for hierarchy "ALU:inst11"
+Warning (10492): VHDL Process Statement warning at ALU.vhd(63): signal "slt" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ALU.vhd(66): signal "shin" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Info: Elaborating entity "dmem" for hierarchy "dmem:inst"
+Warning: Pin "clock" not connected
+Warning: Pin "reset" not connected
+Info: Elaborating entity "RAMdmem" for hierarchy "dmem:inst|RAMdmem:inst"
+Info: Elaborating entity "altsyncram" for hierarchy "dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component"
+Info: Elaborated megafunction instantiation "dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component"
+Info: Instantiated megafunction "dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component" with the following parameter:
+    Info: Parameter "clock_enable_input_a" = "BYPASS"
+    Info: Parameter "clock_enable_output_a" = "BYPASS"
+    Info: Parameter "init_file" = "all_prog_data.mif"
+    Info: Parameter "intended_device_family" = "Cyclone II"
+    Info: Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=NO"
+    Info: Parameter "lpm_type" = "altsyncram"
+    Info: Parameter "numwords_a" = "1024"
+    Info: Parameter "operation_mode" = "SINGLE_PORT"
+    Info: Parameter "outdata_aclr_a" = "NONE"
+    Info: Parameter "outdata_reg_a" = "UNREGISTERED"
+    Info: Parameter "power_up_uninitialized" = "FALSE"
+    Info: Parameter "widthad_a" = "10"
+    Info: Parameter "width_a" = "32"
+    Info: Parameter "width_byteena_a" = "1"
+Info: Found 1 design units, including 1 entities, in source file db/altsyncram_nnd1.tdf
+    Info: Found entity 1: altsyncram_nnd1
+Info: Elaborating entity "altsyncram_nnd1" for hierarchy "dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component|altsyncram_nnd1:auto_generated"
+Warning: 8 out of 256 addresses are reinitialized. The latest initialized data will replace the existing data. There are 8 warnings found, and 8 warnings are reported.
+    Warning: Memory Initialization File address 0 is reinitialized
+    Warning: Memory Initialization File address 4 is reinitialized
+    Warning: Memory Initialization File address 8 is reinitialized
+    Warning: Memory Initialization File address 12 is reinitialized
+    Warning: Memory Initialization File address 16 is reinitialized
+    Warning: Memory Initialization File address 20 is reinitialized
+    Warning: Memory Initialization File address 24 is reinitialized
+    Warning: Memory Initialization File address 28 is reinitialized
+Critical Warning: Memory depth (1024) in the design file differs from memory depth (256) in the Memory Initialization File "all_prog_data.mif" -- setting initial value for remaining addresses to 0
+Info: Elaborating entity "register32bit" for hierarchy "dmem:inst|register32bit:inst1"
+Info: Elaborating entity "shift" for hierarchy "shift:inst20"
+Warning (10235): Verilog HDL Always Construct warning at shift.v(18): variable "rl" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10270): Verilog HDL Case Statement warning at shift.v(18): incomplete case statement has no default case item
+Warning (10240): Verilog HDL Always Construct warning at shift.v(16): inferring latch(es) for variable "SO", which holds its previous value in one or more paths through the always construct
+Info (10041): Inferred latch for "SO[0]" at shift.v(16)
+Info (10041): Inferred latch for "SO[1]" at shift.v(16)
+Info (10041): Inferred latch for "SO[2]" at shift.v(16)
+Info (10041): Inferred latch for "SO[3]" at shift.v(16)
+Info (10041): Inferred latch for "SO[4]" at shift.v(16)
+Info (10041): Inferred latch for "SO[5]" at shift.v(16)
+Info (10041): Inferred latch for "SO[6]" at shift.v(16)
+Info (10041): Inferred latch for "SO[7]" at shift.v(16)
+Info (10041): Inferred latch for "SO[8]" at shift.v(16)
+Info (10041): Inferred latch for "SO[9]" at shift.v(16)
+Info (10041): Inferred latch for "SO[10]" at shift.v(16)
+Info (10041): Inferred latch for "SO[11]" at shift.v(16)
+Info (10041): Inferred latch for "SO[12]" at shift.v(16)
+Info (10041): Inferred latch for "SO[13]" at shift.v(16)
+Info (10041): Inferred latch for "SO[14]" at shift.v(16)
+Info (10041): Inferred latch for "SO[15]" at shift.v(16)
+Info (10041): Inferred latch for "SO[16]" at shift.v(16)
+Info (10041): Inferred latch for "SO[17]" at shift.v(16)
+Info (10041): Inferred latch for "SO[18]" at shift.v(16)
+Info (10041): Inferred latch for "SO[19]" at shift.v(16)
+Info (10041): Inferred latch for "SO[20]" at shift.v(16)
+Info (10041): Inferred latch for "SO[21]" at shift.v(16)
+Info (10041): Inferred latch for "SO[22]" at shift.v(16)
+Info (10041): Inferred latch for "SO[23]" at shift.v(16)
+Info (10041): Inferred latch for "SO[24]" at shift.v(16)
+Info (10041): Inferred latch for "SO[25]" at shift.v(16)
+Info (10041): Inferred latch for "SO[26]" at shift.v(16)
+Info (10041): Inferred latch for "SO[27]" at shift.v(16)
+Info (10041): Inferred latch for "SO[28]" at shift.v(16)
+Info (10041): Inferred latch for "SO[29]" at shift.v(16)
+Info (10041): Inferred latch for "SO[30]" at shift.v(16)
+Info (10041): Inferred latch for "SO[31]" at shift.v(16)
+Info: Elaborating entity "LCD_Display" for hierarchy "LCD_Display:inst46"
+Info: Elaborating entity "lshift64" for hierarchy "lshift64:inst40"
+Info: Elaborating entity "inst_select" for hierarchy "inst_select:inst54"
+Warning (10240): Verilog HDL Always Construct warning at instruction_select.v(12): inferring latch(es) for variable "out_inst", which holds its previous value in one or more paths through the always construct
+Info (10041): Inferred latch for "out_inst[0]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[1]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[2]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[3]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[4]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[5]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[6]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[7]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[8]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[9]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[10]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[11]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[12]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[13]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[14]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[15]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[16]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[17]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[18]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[19]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[20]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[21]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[22]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[23]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[24]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[25]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[26]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[27]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[28]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[29]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[30]" at instruction_select.v(28)
+Info (10041): Inferred latch for "out_inst[31]" at instruction_select.v(28)
+Info: Elaborating entity "dec_7seg" for hierarchy "dec_7seg:inst31"
+Info: Elaborating entity "accumulator" for hierarchy "accumulator:inst37"
+Warning: Clock multiplexers are found and protected
+    Warning: Found clock multiplexer 21mux:inst16|5~synth
+Warning: Always-enabled tri-state buffer(s) removed
+    Warning: Converted the fanout from the always-enabled tri-state buffer "LCD_Display:inst46|DATA_BUS[7]" to the node "LCD_DATA[7]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "LCD_Display:inst46|DATA_BUS[6]" to the node "LCD_DATA[6]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "LCD_Display:inst46|DATA_BUS[5]" to the node "LCD_DATA[5]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "LCD_Display:inst46|DATA_BUS[4]" to the node "LCD_DATA[4]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "LCD_Display:inst46|DATA_BUS[3]" to the node "LCD_DATA[3]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "LCD_Display:inst46|DATA_BUS[2]" to the node "LCD_DATA[2]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "LCD_Display:inst46|DATA_BUS[1]" to the node "LCD_DATA[1]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "LCD_Display:inst46|DATA_BUS[0]" to the node "LCD_DATA[0]" into a wire
+Warning: Latch control:inst5|RegDst has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[28]
+Warning: Latch control:inst5|reg_imm_ctl has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[27]
+Warning: Latch control:inst5|alu_mem_ctl has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[26]
+Warning: Latch control:inst5|ALUop[3] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[29]
+Warning: Latch control:inst5|ALUop[2] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[27]
+Warning: Latch control:inst5|ALUop[1] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[31]
+Warning: Latch control:inst5|ALUop[0] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[31]
+Warning: Latch control:inst5|sh_reg_ctl has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[26]
+Warning: Latch control:inst5|rl[1] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[26]
+Warning: Latch control:inst5|rl[0] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[0]
+Warning: Latch control:inst5|shamt[4] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[28]
+Warning: Latch control:inst5|shamt[3] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[28]
+Warning: Latch control:inst5|shamt[2] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[28]
+Warning: Latch control:inst5|shamt[1] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[28]
+Warning: Latch control:inst5|shamt[0] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal FDreg_verilog:inst49|instruction_fd[28]
+Warning: Latch shift:inst20|SO[0] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[1] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[2] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[3] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[4] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[5] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[6] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[7] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[8] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[9] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[10] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[11] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[12] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[13] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[14] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[15] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[16] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[17] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[18] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[19] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[20] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[21] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[22] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[23] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[24] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[25] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[26] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[27] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[28] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[1]
+Warning: Latch shift:inst20|SO[29] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[30] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch shift:inst20|SO[31] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal control:inst5|rl[0]
+Warning: Latch turbo_select:inst58|out_clock has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[7]
+Warning: Latch inst_select:inst54|out_inst[26] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[10] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[2] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[18] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[30] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[14] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[6] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[22] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[25] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[9] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[1] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[17] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[29] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[13] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[5] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[21] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[27] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[11] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[3] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[19] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[31] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[15] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[7] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[23] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[24] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[8] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[0] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[16] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[28] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[12] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[4] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Latch inst_select:inst54|out_inst[20] has unsafe behavior
+    Warning: Ports D and ENA on the latch are fed by the same signal SW[15]
+Warning: Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LCD_ON" is stuck at VCC
+    Warning (13410): Pin "LCD_BLON" is stuck at VCC
+    Warning (13410): Pin "LCD_RW" is stuck at GND
+    Warning (13410): Pin "HEX7[6]" is stuck at VCC
+    Warning (13410): Pin "HEX7[2]" is stuck at GND
+    Warning (13410): Pin "HEX7[1]" is stuck at GND
+    Warning (13410): Pin "LEDG[7]" is stuck at GND
+    Warning (13410): Pin "LEDG[6]" is stuck at GND
+    Warning (13410): Pin "LEDG[5]" is stuck at GND
+    Warning (13410): Pin "LEDG[4]" is stuck at GND
+    Warning (13410): Pin "LEDG[3]" is stuck at GND
+    Warning (13410): Pin "LEDG[2]" is stuck at GND
+    Warning (13410): Pin "LEDG[1]" is stuck at GND
+    Warning (13410): Pin "LEDG[0]" is stuck at GND
+    Warning (13410): Pin "LEDR[17]" is stuck at GND
+    Warning (13410): Pin "LEDR[16]" is stuck at GND
+    Warning (13410): Pin "LEDR[15]" is stuck at GND
+    Warning (13410): Pin "LEDR[14]" is stuck at GND
+    Warning (13410): Pin "LEDR[13]" is stuck at GND
+    Warning (13410): Pin "LEDR[12]" is stuck at GND
+    Warning (13410): Pin "LEDR[11]" is stuck at GND
+    Warning (13410): Pin "LEDR[10]" is stuck at GND
+    Warning (13410): Pin "LEDR[9]" is stuck at GND
+    Warning (13410): Pin "LEDR[8]" is stuck at GND
+    Warning (13410): Pin "LEDR[7]" is stuck at GND
+    Warning (13410): Pin "LEDR[6]" is stuck at GND
+    Warning (13410): Pin "LEDR[5]" is stuck at GND
+    Warning (13410): Pin "LEDR[4]" is stuck at GND
+    Warning (13410): Pin "LEDR[3]" is stuck at GND
+    Warning (13410): Pin "LEDR[2]" is stuck at GND
+    Warning (13410): Pin "LEDR[1]" is stuck at GND
+    Warning (13410): Pin "LEDR[0]" is stuck at GND
+    Warning (13410): Pin "PC9[9]" is stuck at GND
+    Warning (13410): Pin "PC9[8]" is stuck at GND
+    Warning (13410): Pin "PC9[7]" is stuck at GND
+    Warning (13410): Pin "PC9[6]" is stuck at GND
+    Warning (13410): Pin "PC9[5]" is stuck at GND
+    Warning (13410): Pin "PC9[4]" is stuck at GND
+    Warning (13410): Pin "PC9[3]" is stuck at GND
+    Warning (13410): Pin "PC9[2]" is stuck at GND
+    Warning (13410): Pin "PC9[1]" is stuck at GND
+    Warning (13410): Pin "PC9[0]" is stuck at GND
+Info: Removed 2 MSB VCC or GND address nodes from RAM block "dmem:inst|RAMdmem:inst|altsyncram:altsyncram_component|altsyncram_nnd1:auto_generated|ALTSYNCRAM"
+Info: Found the following redundant logic cells in design
+    Info (17048): Logic cell "shift:inst20|Add2~62"
+Info: Implemented 5546 device resources after synthesis - the final resource count might be different
+    Info: Implemented 16 input pins
+    Info: Implemented 137 output pins
+    Info: Implemented 5329 logic cells
+    Info: Implemented 64 RAM segments
+Info: Quartus II Analysis & Synthesis was successful. 0 errors, 282 warnings
+    Info: Peak virtual memory: 260 megabytes
+    Info: Processing ended: Wed Dec 08 22:51:06 2010
+    Info: Elapsed time: 00:00:30
+    Info: Total CPU time (on all processors): 00:00:31
+
+

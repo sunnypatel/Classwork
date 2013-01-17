@@ -1,0 +1,79 @@
+Sunny Patel
+
+2.10.1)
+1010 1110 0000 1011 0000 0000 0000 0100
+
+the 31-26 digits of the binary code is 101011 this tells us its an I-type instruction format. Looking more closely we can distinguish that bits 31-26 tell us that its a sw.
+
+2.10.2) As explained above this is an I-type format
+
+2.10.3) 2919956484
+
+2.10.4) add $t0 $t0 $zero
+
+000000   01000   01000   00000   00000   100000
+opcode    rs      rt	  rd     sham     func
+
+Ans: 1080020hex
+
+2.10.5) R-type because opcode is 000000
+
+2.10.6) opcode: 000000
+	rs: 010000 = 8hex
+	rt: 010000 = 8hex
+	rd: 000000 = 0
+	funct: 100000 = 20hex
+
+2.11.1) Ans: 1010 1110 0000 1011 1111 1111 1111 1100
+
+2.11.2) Ans: 2920022012
+
+2.11.3)	101011 100000 01011 1111 1111 1111 1100
+	opcode   rs     rt   \___memory addr__/
+	Ans: sw $t3 65532($s0)
+
+2.11.4) Ans: R-type, because of opcode being 101011
+
+2.11.5) 000000 00001 00010 00011 00000 100000
+	Ans: add $v1 $at $v1
+
+2.11.6) Ans: 000000 00001 00010 00011 00000 100000
+
+2.16.1)
+	$t0 = 2903506946
+	$t1 = 10732175536
+	Ans: $t2=2
+
+2.16.2)
+	X must be any number less than 2903506946
+
+2.16.3) Not in one jump statement, you need more than one MIPS jump statement, For beq you would need many more branch on equal statements.  This is due to the number of bits available for memory address in the 32-bit instruction.
+
+2.16.4)
+	Ans: $t2=2
+
+2.16.5)
+	Ans: $t2=0
+
+2.16.6) Yes, only one jump statement required.  Not only one beq statement, many more ( roughly 610 more) beq statements required.
+
+2.17.1) Ans: Due to performance & simipcity abs is not included. Instead you can use any of the available functions to do the same task.
+
+2.17.2) I-type because opcode does not match for R-type nor for j-type
+
+2.17.3) Ans: slt $2, $1, $0
+	     beq $2,$0,exit
+	     sub $1,$0,$1
+
+2.17.4) Ans: $s2=20
+
+2.17.5)
+
+2.17.6) Ans: 51 instructions
+
+2.26.1) 1
+2.26.2) 1
+2.26.3) 32
+2.26.4) Changing to only 8 registers doesn't impact the range for beq because that only requires 2 registers and the rest is left for memory addresses.
+2.26.5) same as above ans
+2.26.6)

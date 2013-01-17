@@ -1,0 +1,47 @@
+0  addi $r1, $r0, 7  Place array size in $r1 
+001000 00000 00001 0000000000000111
+
+4  add $r2, $r0, $r0 Initialize $r2 to 0 (index i) 
+000000 00000 00000 00010 00000100000
+
+8 addi $r3, $r0, 0 Initialize $r3 to 0 (array base address) 
+001000 00000 00011 0000000000000000
+
+C addi $r4, $r0, 4 Initialize $r4 to 4 (the search element) 
+001000 00000 00100 0000000000000100 
+
+10 (Loop:)  sll $r5, $r2, 2 Multiply $r2 by 4 and place it in $r5 (i-th element offset) 
+000000 00010 00101 00010 000000 
+
+14 add $r5, $r5, $r3 Calculate address of i-th element 
+000000 00101 00011 00101 00000100000
+
+18 lw $r6, 0($r5)  Load i-th element into $r6 
+100011 00101 00110 0000 0000 0000 0000 
+
+1C beq $r4, $r6, Found  If i'th element == search element goto Found 
+000100 00100 00110 0000000000011110
+
+20 addi $r2, $r2, 1  Increment index i 
+001000 00010 00010 0000000000000001
+
+24 slt $r7, $r2, $r1 Place 1 in $r7 if index i < array size 
+000000 00001 00010 00111 00000 101010 
+
+28 beq $r0, $r7, Exit  If index i == array size, go to Exit.
+000100 00000 00111 0000000000111000
+
+2C j Loop  Else, jump to Loop 
+000010 0000000000000000000001010
+
+30 (Found:) sw $r5, 1C($r0) Store address in memory location 1C 
+101011 00000 00101 0000000000011100
+
+34 j Done Jump over 
+000010 000000000000000000111100
+
+38 (Exit:) sw $r0, 1C($r0) Store 0 to indicate the element was not found
+101011 00000 00000 0000000000011100
+
+3C (Done:) add $r0, $r0, $r0 nop 
+000000 00000 00000 00000 00000100000

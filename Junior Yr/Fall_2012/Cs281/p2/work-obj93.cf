@@ -1,0 +1,13 @@
+v 3
+file . "memory.vhd" "20121126041542.000" "20121125231544.480":
+  entity memory at 1( 0) + 0 on 23;
+  architecture behavioral of memory at 14( 259) + 0 on 24;
+file . "reg.vhd" "20121126015855.000" "20121125210108.919":
+  entity reg at 1( 0) + 0 on 13;
+  architecture behavioral of reg at 13( 311) + 0 on 14;
+file . "reg_tb.vhd" "20121126020107.000" "20121125210108.948":
+  entity reg_tb at 1( 0) + 0 on 15;
+  architecture tb of reg_tb at 9( 128) + 0 on 16;
+file . "memory_tb.vhd" "20121126041616.000" "20121125231627.228":
+  entity memory_tb at 1( 0) + 0 on 25;
+  architecture behavioral of memory_tb at 9( 155) + 0 on 26;

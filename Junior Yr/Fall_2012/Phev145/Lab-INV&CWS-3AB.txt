@@ -1,0 +1,49 @@
+INV 3A
+1. south
+2. southeast
+3. Sunrise
+4. white
+5. Higher
+6. south
+7. both the daylight and night portions
+8. low
+9. high
+
+CWS 3A
+1. Southwest
+2. the Sun had already set leaving darkness
+3. on an angle
+4. more
+5. bright white
+6. dark
+7. cold
+8. warmer
+9. were
+10. infrared
+11. does
+12. longer in the southern hemi
+13. 15 52
+14. continuous
+
+CWS 3B
+1. Fully
+2. Southern
+3. Are
+4. 12
+5. 0
+6. Southern
+
+INV 3B
+1. equatorial
+2. path of sunlight
+3. much less
+4. polar
+5. length
+6. increases
+7. increases
+8. equnioxes
+9. equatoral
+10. spring&summer
+11. winters & fall 
+12. zero
+13. fall & winter

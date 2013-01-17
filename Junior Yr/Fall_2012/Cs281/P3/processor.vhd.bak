@@ -1,0 +1,232 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+------------------------------------------
+entity processor is
+end entity;
+------------------------------------------
+
+architecture struct of processor is
+
+	-- PC
+	component pc is
+	port(
+        Clock: in std_logic;
+        PCInc : in std_logic;
+        PCClr : in std_logic;
+        PCIn : in unsigned(15 downto 0);
+        PCOut : out unsigned(15 downto 0)
+
+	);
+	end component;
+
+	-- Instruction memory
+	component instruction_memory is
+	generic(    width:  integer:=32;
+	    depth:  integer:=16;
+   		addr:   integer:=16);
+	port(
+	Clock:      in std_logic;
+    Enable:     in std_logic;
+    Read:       in std_logic;
+    Write:      in std_logic;
+    Read_Addr:  in unsigned(addr-1 downto 0);
+	Write_Addr:     in unsigned(addr-1 downto 0);
+    Data_in:    in unsigned(width-1 downto 0);
+    Data_out:   out unsigned(width-1 downto 0)
+	);
+
+	end component;
+
+	-- Control
+	component control is
+    port( Instr : in unsigned (31 downto 0);
+                RegDst : out std_logic;
+                Branch : out std_logic;
+                MemRead : out std_logic;
+                MemtoReg : out std_logic;
+                ALUOp    : out unsigned (1 downto 0);
+                MemWrite : out std_logic;
+                ALUSrc   : out std_logic;
+                RegWrite : out std_logic;
+                Operation : out unsigned(2 downto 0)
+    );
+
+	end component;
+
+	-- PC_adder
+	component pc_adder is
+    -- define the number of bits the adder will be adding
+    generic( n: natural := 16);
+    port(
+            A: in unsigned(n-1 downto 0);
+            sum: out unsigned(n-1 downto 0)
+    );
+
+	end component;
+
+	-- Shiftl2
+	component shiftl2 is
+	port(
+            Input : in unsigned(31 downto 0);
+            Output : out unsigned(31 downto 0)
+
+	);
+	end component;
+
+	-- shift left 2 for jump
+	component shiftl2_jump is
+	port(
+            Instruction : in unsigned(31 downto 0);
+            PC_plus4    : in unsigned(31 downto 0);
+            Output : out unsigned(31 downto 0)
+    );
+	end component;
+
+	-- adder
+	component adder is
+	generic(n: natural := 32);
+	port(
+            A: in unsigned(n-1 downto 0);
+            B: in unsigned(n-1 downto 0);
+            carry : out std_logic;
+            sum: out unsigned(n-1 downto 0)
+
+		);
+	end component;
+	
+	-- Register file
+	component reg is
+	port(
+        Clock,RegWrite,RegDst : in std_logic;
+        Instruction : in unsigned (31 downto 0);
+        Write_data : in unsigned (31 downto 0);
+        Read_reg1   : in unsigned (4 downto 0);
+        Read_reg2 : in unsigned (4 downto 0);
+        Write_reg : in unsigned (4 downto 0);
+        Jal : in std_logic;
+        Read_data_1 : out unsigned (31 downto 0);
+        Read_data_2 : out unsigned (31 downto 0)
+	);
+	end component;
+
+	-- Sign-extend
+	component sign_extend is
+	port(
+		Input : in unsigned(15 downto 0);
+		Output : out unsigned(31 downto 0)
+		);
+	end component;
+
+	-- data memory
+	component memory is
+    port (
+        address, write_data: in unsigned (31 downto 0);
+        MemWrite, MemRead: in STD_LOGIC;
+        CLK : in std_logic;
+        read_data: out unsigned (31 downto 0)
+    );
+	end component;
+
+	-- and gate
+	component and2 is
+	port(
+		 x: in std_logic;
+        y : in std_logic;
+        f : out std_logic
+	);	
+	end component;
+
+	component mux21
+		port(a,b : in unsigned(31 downto 0);
+			sel : in std_logic;
+			z : out unsigned(31 downto 0)
+		);
+	end component;
+
+---------------------------------------------------------
+
+signal clock : std_ulogic;
+-- signals for pc
+signal pc_current,pc_out : unsigned(15 downto 0);
+signal pcInc,pcClr : std_logic;
+-- signals for instruction memory
+signal instruction_ir : unsigned(31 downto 0);
+-- signals for pc_adder
+signal pc_plus4 : unsigned(15 downto 0);
+-- control
+signal regdst,branch,memread,memtoreg,memwrite,alusrc,regwrite : std_logic;
+signal aluop : unsigned (1 downto 0);
+signal operation : unsigned(2 downto 0);
+-- signals for reg
+signal write_data : unsigned(31 downto 0);
+signal write_reg : unsigned(4 downto 0);
+signal read_data_1 : unsigned(31 downto 0);
+signal read_data_2 : unsigned(31 downto 0);
+-- signals for ALU32
+signal alu32_inputB : unsigned(31 downto 0);
+signal alu_result : unsigned(31 downto 0);
+signal alu_zero : std_logic;
+signal alu_carry_out : unsigned(31 downto 0);
+-- singals for sign_extended
+signal sign_extended_data : unsigned(31 downto 0);
+-- signals for data memory
+signal memory_data_out : unsigned(31 downto 0);
+-- memry write back mux
+signal memtoreg_data : unsigned(31 downto 0);
+-- signal shift left 2 1
+signal shift_left_2_1_out : unsigned(31 downto 0);
+-- adder 
+signal adder_out : unsigned(31 downto 0);
+-- shift left 2
+signal jump_addr : unsigned(31 downto 0); 
+-- brahcn mux && jump mux
+signal branch_mux_out : unsigned(31 downto 0);
+signal jump_mux_out : unsigned(31 downto 0);
+begin
+	-- init pc to 0
+	pc_current <= "0000000000000000";
+	
+	-- init clock
+	clk_1 : clock port map(CLK => clock);
+	pc_1 : pc port map (Clock => clock,PCIn => pc_current,PCOut => pc_out,PCInc => pcInc, PCClr => pcClr);
+	IR : instruction_memory port map(Clock => clock, Read_Addr => pc_out, Data_out => instruction_ir); 
+	PC_ADDER_1 : pc_adder port map(A => pc_out, sum => pc_plus4);
+	
+	CONTROL_1 : controlb port map(Instr => instruction_ir, RegDst => regdst, Branch => branch, MemRead => memread, MemtoReg => memtoreg, MemWrite => memwrite, ALUSrc => alusrc, RegWrite => regwrite, ALUOp => aluop, Operation => operation);
+
+	REGISTER_FILE : reg port map(Clock => clock,RegWrite => regwrite,RegDst => regdst, Instruction => instruction_ir,Write_data => write_data, Read_data_1 => read_data_1, Read_data_2 => read_data_2);
+
+	ALU32 : alu32b port map(A => read_data_1, B=> alu32_inputB, Op => operation, Result => alu_result,CarryOut => alu_carry_out, Zero => alu_zero);
+
+	ALU_MUX : mux21 port map(a => read_data_2, b=>sign_extended_data, sel => alusrc, z => alu32_inputB);
+
+	SIGN_EXTEND_1 : sign_extend port map(Input => instruction_ir, Output => sign_extended_data);
+
+	DATA_MEMORY : memory port map(CLK => clock,address => alu_result, write_data => read_data_2,MemWrite => memwrite, MemRead => memread, read_data => memory_data_out);
+
+	-- Write back
+	MEM_MUX : mux21 port map(a=>alu_result,b=>memory_data_out,sel=>memtoreg,z=>write_data);
+
+	SHIFT_LEFT_2_1 : shiftl2 port map(Input =>sign_extended_data, Output => shift_left_2_1_out); 
+
+	ADDER_1 : adder port map( A => pc_plus4, B => shift_left_2_1_out, sum => adder_out);
+
+	SHIFT_LEFT_2_2 : shiftl2_jump port map(Instruction => instruction_ir, PC_plus4 => pc_plus4, Output => jump_addr);
+
+	BRANCH_MUX : mux21 port map(a=> pc_plus4, b=>adder_out,sel=>(branch AND alu_zero),z=>branch_mux_out);
+
+	JUMP_MUX : mux21 port map(a=>branch_mux_out, b=>jump_addr, sel=>jump, z=> jump_mux_out);
+
+
+	process(clock)
+	begin
+		if jump_mux_out /= "00000000000000000000000000000000" then
+			pc_current <= pc_plus4;	
+		else
+			pcClr <= '1';
+		end if;	
+	end process;
+
+end struct;

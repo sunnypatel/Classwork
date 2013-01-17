@@ -1,0 +1,28 @@
+-- 32-bit Register
+
+LIBRARY IEEE; 			
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_ARITH.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+ENTITY register32bit IS
+	  PORT(	reg_in			: IN 	STD_LOGIC_VECTOR(31 DOWNTO 0);
+			latch			: IN 	STD_LOGIC;
+			output			: OUT	STD_LOGIC_VECTOR(31 DOWNTO 0);
+			clock			: IN	STD_LOGIC );
+END register32bit;
+
+ARCHITECTURE behavior OF register32bit IS
+	SIGNAL reg	: STD_LOGIC_VECTOR(31 DOWNTO 0);
+	
+BEGIN
+	output <= reg;
+
+PROCESS
+	BEGIN
+		WAIT UNTIL latch = '1' AND RISING_EDGE(clock);
+			reg <= reg_in;
+	END PROCESS;
+END behavior;
+
+

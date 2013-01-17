@@ -1,0 +1,96 @@
+
+array: .space 32
+
+
+
+	.text         
+	.globl  main 
+main:               l
+
+	sub  $sp,$sp,32   # Push stack to create room 
+	li $t0, 1
+	sw $t0,0($sp)  # save $s0 on stack
+                  
+    
+	li $t0, 2
+	sw	$t0,4($sp)  # save $t0 on stack
+                       
+        li $t0, 3
+	sw	$t0,8($sp)  # save $t0 on stack
+                       
+	li $t0, 4
+	sw	$t0,12($sp)  # save $t0 on stack
+         
+        li $t0, 5
+	sw	$t0,16($sp)  # save $t0 on stack
+             
+        li $t0, 6
+	sw	$t0,24($sp)  # save $t0 on stack
+                       
+        li $t0, 7
+	sw	$t0,28($sp)  # save $t0 on stack
+
+                       
+ addi $s0, $0, 7  #Place array size in $r1 
+ 
+ add $v0, $zero, $zero #Initialize $r2 to 0 (index i) 
+
+ addi $v1, $sp, 0 #Initialize $r3 to 0 (array base address) 
+
+ addi $a0, $zero, 4 #Initialize $r4 to 4 (the search element) 
+
+ Loop:  sll $a1, $v0, 2 #Multiply $r2 by 4 and place it in $r5 (i-th element offset) 
+
+ add $a1, $a1, $v1 #Calculate address of i-th element 
+
+ lw $a2, 0($a1)  #Load i-th element into $r6 
+
+ 
+
+beq $a0, $a2, Found  #If i'th element == search element goto Found 
+
+ addi $v0, $v0, 1  #Increment index i 
+
+ slt $a3, $v0, $s0  #Place 1 in $r7 if index i < array size 
+
+ beq $zero, $a3, Exit  #If index i == array size, go to Exit. 
+
+ j Loop  # Else,  jump to Loop 
+
+ Found: sw $a2, 32($sp)  #Store address in memory location 1C 
+
+ j Done  #Jump over 
+
+ Exit: sw $zero, 32($sp)  #Store 0 to indicate the element was not found 
+
+ Done: add $zero, $zero, $zero  #nop 
+
+
+
+
+
+
+
+
+
+
+
+# print the number
+	
+	
+	
+
+	li	$v0,1       # The value 1 tells syscall to print an integer
+	lw $a0 32($sp) 
+
+	syscall           # System call to print the integer in register $a0
+	
+	
+	add	$sp,$sp,32	# pop stack to prepare for the return to the system
+	jr	$ra         # [jump register] return to the system 
+
+
+	.data             # Assembly directive indicating what follows is data
+str:                    # label of address containing a string
+	.asciiz "sum = "  # Assembly directive used to create a null terminated ASCII string
+	

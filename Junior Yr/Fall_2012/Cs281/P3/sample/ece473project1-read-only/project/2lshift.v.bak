@@ -1,0 +1,12 @@
+module lshift (DI, SO); 
+input  [31:0] DI; 
+
+output [31:0] SO; 
+reg    [31:0] SO; 
+
+
+  always @(DI or sel) 
+  begin 
+	SO <= DI << 2;
+  end 
+endmodule
