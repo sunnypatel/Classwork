@@ -29,6 +29,7 @@ int hash(char word[]){
 	int size = sizeof(word);	
 	int i, result = 0;
 
+	printf("Word size: %d\n", size);	
 	// start counting letter values
 	for(i=0; i<size; i++){
 		// test if capital
