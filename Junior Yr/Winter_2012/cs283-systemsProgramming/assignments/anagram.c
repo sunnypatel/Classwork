@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
-#define HASHSIZE 1000 
+#define HASHSIZE 100000 
 
 typedef struct node{
 
@@ -13,7 +14,7 @@ typedef struct node{
 
 int hash(char *word);
 void htable_init(node *hashtable);
-void htable_insert(node *hashtable, char *word);
+int htable_insert(node *hashtable, char *word);
 void htable_resolve(node *hashtable, int loc, char *word);
 void htable_display(node *hashtable);
 int htable_delete(node *hashtable, char *word);
@@ -36,15 +37,19 @@ int main(void) {
 	hashtable = (node *)malloc(HASHSIZE * sizeof(node));
 	htable_init(hashtable);
 
-	int i =0;
+	int i,count,cols,test =0;
     while(fgets(word, sizeof(word), dict) != NULL) {
-		htable_insert(hashtable,word);
+		test = htable_insert(hashtable,word);
+		if(test == 1)
+			cols++;		
+		count++;
     }
-
+	printf("Read %d words\n",count);
+	printf("Collisions: %d \n",cols);
 	printf("Start\n");
-	lookup(hashtable,"act");
+	htable_display(hashtable);	
+	//lookup(hashtable,"act");
 	printf("Done\n");	
-//	htable_display(hashtable);	
 }
 
 /* fire up hashtable */
@@ -57,18 +62,23 @@ void htable_init(node *hashtable) {
 
 
 /* insert data into the table */
-void htable_insert(node *hashtable, char *word) {
+int htable_insert(node *hashtable, char *word) {
 	int index=0;
-
+	int count,cols = 0;
 	// eval the hash index value
 	index = hash(word);
 	if(hashtable[index].data != NULL){
 		// there is a collision, fix 
 		htable_resolve(hashtable,index, word);
+		cols = 1;
+	//	count = count + 1;
 	} else { // no collision
 		hashtable[index].data = calloc(strlen(word)+1,sizeof(char));
 		strcpy(hashtable[index].data, word);
+	//	count++;
+	
 	}
+	return cols;	
 }
 
 /* conflict/collision resolver */
@@ -80,8 +90,9 @@ void htable_resolve(node *hashtable, int loc, char *word) {
 	while(tmp->next != NULL) {
 		tmp = tmp->next;
 		tmp->next = (node *)malloc(sizeof(node));
-		tmp->next->data = calloc(strlen(word) + 1, sizeof(char));
-		strcpy(tmp->next->data, word);
+//		tmp->next->data = calloc(strlen(word) + 1, sizeof(char));
+//		strcpy(tmp->next->data, word);
+		tmp->next->data = word;
 		tmp->next->next = NULL;
 	}
 }
@@ -91,17 +102,17 @@ int lookup(node *hashtable, char *word){
     // get hash index
     int index = hash(word);
 	
-	node *tmp;
-	tmp = hashtable + index;
-	printf("%s\n",tmp->data);
+	node tmp;
+	tmp = hashtable[index];
+	//printf("tmp=%s\n",tmp->next.data);
 	// print anagrams
-	while(tmp->next != NULL){
+/*	while(tmp.next != NULL){
 		//if(checkAnagram(word, tmp->data)){
 			printf("Anagram found: %s \n", tmp->data);
 		//}
-		tmp = tmp->next;
+		tmp = tmp.next;
 	}
-	
+*/	
 
 }
 // check if sample is actually an anagram of the word
@@ -148,16 +159,22 @@ int checkAnagram(char *word, char *sample){
 void htable_display(node *hashtable) {
 	int i = 0;
 	node *target;
-
+	int forc, whilec = 0;
 	for(i = 0; i < HASHSIZE; i++) {
+		forc++;
 		if(hashtable[i].data != NULL) {
+	//		printf("data=%s",hashtable[i].data);
 			target = hashtable + i;
 			while(target) {
-				printf("location: %d, data: %s \n", i, target->data);
+				whilec++;
+				printf("location: %d, data: %s , whilec: %d \n", i, target->data, whilec);
 				target = target->next;
+			
 			}
 		} /* if */
 	} /* for */
+	printf("for = %d \n",forc);
+	printf("while = %d \n",whilec);
 }
 
 // return the hash number for each word based on letters 
@@ -171,10 +188,10 @@ int hash(char *word){
 		// test if capital
 		if(word[i] > 64 && word[i] < 91){
 			// letter is capital
-		result = result + (word[i] - 64);
+		result = result + pow(2,((word[i] - 64) - 1));
 		} else if(word[i] > 95 && word[i] < 123){
 			// letter is lowercase
-			result = result + (word[i] - 95);
+			result = result + pow(2,((word[i] - 95) - 1));
 		} else {}
 	}
 
