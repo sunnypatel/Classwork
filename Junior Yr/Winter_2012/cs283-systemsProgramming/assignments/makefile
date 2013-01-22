@@ -1,6 +1,4 @@
-all: start
-
-start: clean anagram
+all: anagram
 
 anagram: clean
 	gcc -o anagram.o anagram.c
