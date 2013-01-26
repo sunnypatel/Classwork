@@ -1,0 +1,5 @@
+(define (rlist start step end)
+	(if (< start end)
+		(cons (+ start 1)(rlist (+ start step) step end))
+		'(()))
+)
