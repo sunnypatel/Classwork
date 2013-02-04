@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <fcntl.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 void error(char *s) {
 	fprintf(stderr, "Error: ");
@@ -8,16 +10,25 @@ void error(char *s) {
 	exit(-1);
 }
 
-int main (int argc, char *argv[])
-{    char buf[1024]; 
-     int fd1, fd2, n;
-     if (argc != 3)    
-         error("Usage: copy from to");
-     if ((fd1 = open(argv[1], O_RDONLY, 0)) == -1)
-         error("unable to opening source file");
-     if ((fd2 = creat(argv[2], 0666)) == -1)
-         error("unable to creating new file");
-     while ((n = read(fd1, buf, 1024) )> 0)
-         write ( fd2, buf, n);
-     return 0;
+int main (int argc, char *argv[]) {
+
+	DIR *directory;
+	struct dirent *de;
+
+	//check if proper input
+	if (argc != 3)
+			error("Not enough input parameters, please enter 2 directories");
+
+	if (!(directory=opendir(argv[1])))
+		error("Failed to open directory");
+
+	while(0 != (de = readdir(directory))) {
+		printf("Found file: %s%s\n",de, de->d_name);
+
+		
+	}
+
+	// close open directory
+	closedir(directory);
+
 }
