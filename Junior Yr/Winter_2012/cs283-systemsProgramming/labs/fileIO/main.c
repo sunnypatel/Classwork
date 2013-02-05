@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <dirent.h>
+void printDir(char *dir);
 
 void error(char *s) {
 	fprintf(stderr, "Error: ");
@@ -10,8 +12,32 @@ void error(char *s) {
 	exit(-1);
 }
 
-int main (int argc, char *argv[]) {
+void printDir(char *dir) {
+	DIR *directory;
+	struct dirent *de;
 
+	if (!(directory=opendir(dir)))
+		error("Failed to open directory");
+
+	while(0 != (de = readdir(directory))) {
+		struct stat stat;
+		
+		Stat(de->d_name, &stat);
+		if(S_ISDIR(stat.st_mode)) {
+			char newDir[100]; // sub directory
+			strcpy(newDir,&dir);
+			strcat(newDir,"/");
+			strcat(newDir,de->d_name);
+			printDir(newDir);
+		}
+		else {
+			printf("Found file: %s%s",&dir,de->d_name);
+		}
+	}
+	closedir(directory);
+}
+int main (int argc, char *argv[]) {
+/*
 	DIR *directory;
 	struct dirent *de;
 
@@ -23,12 +49,13 @@ int main (int argc, char *argv[]) {
 		error("Failed to open directory");
 
 	while(0 != (de = readdir(directory))) {
-		printf("Found file: %s%s\n",de, de->d_name);
+		printf("Found file: %s\n", de->d_name);
 
 		
 	}
 
 	// close open directory
 	closedir(directory);
-
+*/
+	printDir(argv[1]);
 }
