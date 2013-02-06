@@ -1,17 +1,17 @@
 #include <stdio.h>
-#include <fcntl.h>
 #include <sys/types.h>
-#include <sys/stat.h>
 #include <dirent.h>
-void printDir(char *dir);
+#include "csapp.h" 
 
+void printDir(char *dir);
+/*
 void error(char *s) {
 	fprintf(stderr, "Error: ");
 	fprintf(stderr,s);
 	fprintf(stderr,"\n");
 	exit(-1);
 }
-
+*/
 void printDir(char *dir) {
 	DIR *directory;
 	struct dirent *de;
@@ -20,18 +20,18 @@ void printDir(char *dir) {
 		error("Failed to open directory");
 
 	while(0 != (de = readdir(directory))) {
-		struct stat stat;
+		struct stat stat_buf;
 		
-		Stat(de->d_name, &stat);
-		if(S_ISDIR(stat.st_mode)) {
+		Stat(de->d_name, &stat_buf);
+		if(S_ISDIR(stat_buf.st_mode)) {
 			char newDir[100]; // sub directory
-			strcpy(newDir,&dir);
+			strcpy(newDir,dir);
 			strcat(newDir,"/");
 			strcat(newDir,de->d_name);
 			printDir(newDir);
 		}
 		else {
-			printf("Found file: %s%s",&dir,de->d_name);
+			printf("Found file: %s%s \n",dir,de->d_name);
 		}
 	}
 	closedir(directory);

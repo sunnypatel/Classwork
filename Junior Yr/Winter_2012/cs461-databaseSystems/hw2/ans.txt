@@ -1,0 +1,71 @@
+Sunny Patel
+CS461 Hw #2
+
+1)
+
+CREATE TABLE Planogram (
+	PlanogramName TEXT (20),
+	PlangogramDescription TEXT (25),
+	PlangogramID INT,
+	Category INT,
+	PRIMARY KEY(PlanogramID)
+);
+
+CREATE TABLE PlanogramProducts (
+	SKU INT,
+	PlanogramID INT,
+	PRIMARY KEY (SKU, PlanogramID),
+	FOREIGN KEY (SKU) REFERENCES Products(SKU)
+	FOREIGN KEY (PlanogramID) REFERENCES Planogram(PlanogramID)
+);
+
+CREATE TABLE Products (
+	SKU INT,
+	ManufacturerNbr TEXT (20),
+	ProductDescription TEXT (25),
+	Cost DOUBLE,
+	Price DOUBLE,
+	ProductCategory INT,
+	PRIMARY KEY(SKU)
+);
+
+CREATE TABLE Positions (
+	PlanogramID INT,
+	Position INT,
+	MinDeep INT,
+	SKU INT,
+	NbrFacings Int,
+	PRIMARY KEY (Position),
+	FOREIGN KEY (PlanogramID) REFERENCES Planogram(PlanogramID)
+);
+
+CREATE TABLE StorePogs (
+	StoreNbr INT,
+	PlanogramID INT,
+	StoreTable TEXT (5),
+	Side TEXT (1),
+	Section INT,
+	FOREIGN KEY (PlanogramID) REFERENCES Planogram(PlanogramID)
+	FOREIGN KEY (StoreNbr) REFERENCES Stores(StoreNbr)
+);
+
+CREATE TABLE Stores (
+	StoreName TEXT (20),
+	StoreNbr INT,
+	City TEXT (20),
+	PRIMARY KEY (StoreNbr),
+);
+
+2)
+
+INSERT INTO Planogram (PlanogramName, PlanogramDescription, PlanogramID, Category) VALUES ("SPARKPLUGS001", "DOUBLE PLATINUM", 1, 1);
+INSERT INTO Planogram (PlanogramName, PlanogramDescription, PlanogramID, Category) VALUES ("AIRFRESHENERS001", "SPORTS THEMED FRESHENERS", 2, 1);
+INSERT INTO Planogram (PlanogramName, PlanogramDescription, PlanogramID, Category) VALUES ("CARBURETORS005", "CARBURETORS – 4 BARREL", 3, 2);
+INSERT INTO Planogram (PlanogramName, PlanogramDescription, PlanogramID, Category) VALUES ("CARBURETORS001", "CARBURETORS – 2 BARREL", 4, 2);
+INSERT INTO Planogram (PlanogramName, PlanogramDescription, PlanogramID, Category) VALUES ("CARBURETORS002", "CARBURETORS – RECON", 5, 2);
+INSERT INTO Planogram (PlanogramName, PlanogramDescription, PlanogramID, Category) VALUES ("CARBURETORS003", "CARBURETORS – NEW", 6, 3);
+
+INSERT INTO Stores (StoreName, StoreNbr, City) VALUES ("OCEANSIDE", 100, "OCEANSIDE");
+INSERT INTO Stores (StoreName, StoreNbr, City) VALUES ("DOWN TOWN", 101, "PHILADELPHIA");
+INSERT INTO Stores (StoreName, StoreNbr, City) VALUES ("NORTH EAST", 102, "PHILADELPHIA");
+INSERT INTO Stores (StoreName, StoreNbr, City) VALUES ("SOUTHER CAL", 103, "CHULA VISTA");
