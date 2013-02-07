@@ -12,7 +12,7 @@ INSERT INTO Stores (StoreName, StoreNbr, City) VALUES ('SOUTHER CAL', 103, 'CHUL
 
 INSERT INTO Products (SKU, ManufacturerNbr, ProductDescription, Cost, Price, ProductCategory) VALUES (1, 'SPK-001', 'AC-DELCO SINGLE PLATINUM', 1.25, 1.99, 1);
 INSERT INTO Products (SKU, ManufacturerNbr, ProductDescription, Cost, Price, ProductCategory) VALUES (2, 'SPK-002', 'AC-DELCO DOUBLE PLATINUM', 1.35, 2.05, 1);
-INSERT INTO Products (SKU, ManufacturerNbr, ProductDescription, Cost, Price, ProductCategory) VALUES (3, 'SPK-003', 'BOSCH SINGLE PLATINUM', 1.99. 2.50, 1);
+INSERT INTO Products (SKU, ManufacturerNbr, ProductDescription, Cost, Price, ProductCategory) VALUES (3, 'SPK-003', 'BOSCH SINGLE PLATINUM', 1.99, 2.50, 1);
 INSERT INTO Products (SKU, ManufacturerNbr, ProductDescription, Cost, Price, ProductCategory) VALUES (4, 'SPK-005', 'BOSH DOUBLE PLATINUM', 2.99, 3.99, 2);
 INSERT INTO Products (SKU, ManufacturerNbr, ProductDescription, Cost, Price, ProductCategory) VALUES (5, 'SPK-099', 'SPLIT FIRE', 3.00, 4.00, 2);
 INSERT INTO Products (SKU, ManufacturerNbr, ProductDescription, Cost, Price, ProductCategory) VALUES (6, 'FRS-001', 'CHOKE SOX STINK!', 1.99, 2.49, 2);

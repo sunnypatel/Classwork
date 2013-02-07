@@ -26,7 +26,6 @@ CREATE TABLE Stores (
 CREATE TABLE PlanogramProducts (
 	SKU INT,
 	PlanogramID INT,
-	PRIMARY KEY (SKU),
 	FOREIGN KEY (SKU) REFERENCES Products(SKU),
 	FOREIGN KEY (PlanogramID) REFERENCES Planogram(PlanogramID)
 );
@@ -37,7 +36,6 @@ CREATE TABLE Positions (
 	MinDeep INT,
 	SKU INT,
 	NbrFacings Int,
-	PRIMARY KEY (Position),
 	FOREIGN KEY (PlanogramID) REFERENCES Planogram(PlanogramID)
 );
 
