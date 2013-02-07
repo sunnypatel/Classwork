@@ -164,15 +164,3 @@ that are in planogram, but not assigned to a shelf
 
 6) Query to select the store number, store name, and city with the least
 planograms. 
-
-SELECT StoreNbr, StoreName, City, total_planograms FROM (select
-Stores.StoreName, Stores.storenbr, Stores.City, count(PlanogramID) as
-total_planograms FROM (StorePogs INNER JOIN Stores ON StorePogs.StoreNbr =
-Stores.StoreNbr) GROUP BY Stores.StoreNbr, Stores.StoreName, Stores.City) as
-A WHERE total_planograms = (SELECT MIN(total_planograms) FROM (select
-Stores.StoreName, Stores.storenbr, Stores.City, count(PlanogramID) as
-total_planograms FROM (StorePogs INNER JOIN Stores ON StorePogs.StoreNbr =
-Stores.StoreNbr) GROUP BY Stores.StoreNbr, Stores.StoreName, Stores.City) AS
-B);
-
-	
