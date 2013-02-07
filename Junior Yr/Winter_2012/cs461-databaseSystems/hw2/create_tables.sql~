@@ -6,6 +6,14 @@ CREATE TABLE Planogram (
 	PRIMARY KEY(PlanogramID)
 );
 
+CREATE TABLE PlanogramProducts (
+	SKU INT,
+	PlanogramID INT,
+	PRIMARY KEY (SKU),
+	FOREIGN KEY (SKU) REFERENCES Products(SKU),
+	FOREIGN KEY (PlanogramID) REFERENCES Planogram(PlanogramID)
+);
+
 CREATE TABLE Products (
 	SKU INT,
 	ManufacturerNbr VARCHAR (20),
@@ -14,21 +22,6 @@ CREATE TABLE Products (
 	Price DOUBLE PRECISION,
 	ProductCategory INT,
 	PRIMARY KEY(SKU)
-);
-
-CREATE TABLE Stores (
-	StoreName VARCHAR (20),
-	StoreNbr INT,
-	City VARCHAR (20),
-	PRIMARY KEY (StoreNbr)
-);
-
-CREATE TABLE PlanogramProducts (
-	SKU INT,
-	PlanogramID INT,
-	PRIMARY KEY (SKU),
-	FOREIGN KEY (SKU) REFERENCES Products(SKU),
-	FOREIGN KEY (PlanogramID) REFERENCES Planogram(PlanogramID)
 );
 
 CREATE TABLE Positions (
@@ -49,5 +42,12 @@ CREATE TABLE StorePogs (
 	Section INT,
 	FOREIGN KEY (PlanogramID) REFERENCES Planogram(PlanogramID),
 	FOREIGN KEY (StoreNbr) REFERENCES Stores(StoreNbr)
+);
+
+CREATE TABLE Stores (
+	StoreName VARCHAR (20),
+	StoreNbr INT,
+	City VARCHAR (20),
+	PRIMARY KEY (StoreNbr)
 );
 
