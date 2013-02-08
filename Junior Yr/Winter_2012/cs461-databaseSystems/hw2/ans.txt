@@ -175,4 +175,17 @@ total_planograms FROM (StorePogs INNER JOIN Stores ON StorePogs.StoreNbr =
 Stores.StoreNbr) GROUP BY Stores.StoreNbr, Stores.StoreName, Stores.City) AS
 B);
 
+7) Query to select the total cost of inventory of the planograms w/ category
+of 3 for the stores in "Rockville Center" 
+
+SELECT SUM(Cost) FROM (((Stores INNER JOIN StorePogs ON Stores.StoreNbr =
+StorePogs.StoreNbr) AS A INNER JOIN PlanogramProducts ON A.PlanogramID =
+PlanogramProducts.PlanogramID) AS B INNER JOIN Products ON B.SKU =
+Products.SKU) WHERE City = 'Rockville Center' AND ProductCategory = 3;
+
+
+8) Query to select the total number of products placed on tabel 'F', Side
+'C', Section 5 in the StoreNbr = 99
+
+
 	
