@@ -187,5 +187,17 @@ Products.SKU) WHERE City = 'Rockville Center' AND ProductCategory = 3;
 8) Query to select the total number of products placed on tabel 'F', Side
 'C', Section 5 in the StoreNbr = 99
 
+SELECT count(B.SKU) FROM ((PlanogramProducts INNER JOIN (SELECT PlanogramID
+FROM StorePogs WHERE StoreNbr=99 AND Side='C' AND StoreTable='F' AND
+SECTION=5) AS A ON PlanogramProducts.PlanogramID=A.PlanogramID) AS B INNER
+JOIN Products ON Products.SKU = B.SKU);
 
-	
+9) Query to select the store and total cost of inventory for each and every
+store.  
+
+SELECT StoreNbr, CASE WHEN SUM(Cost)>0 THEN SUM(Cost) ELSE 0 END AS
+total_cost FROM (( StorePogs LEFT JOIN 
+PlanogramProducts ON StorePogs.PlanogramID = PlanogramProducts.PlanogramID)
+AS A LEFT JOIN Products ON Products.SKU = A.SKU) GROUP BY  StoreNbr;
+
+10) 
