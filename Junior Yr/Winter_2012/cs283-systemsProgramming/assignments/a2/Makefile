@@ -1,11 +1,22 @@
+CC = gcc
+CFLAGS = -02 -Wall -I .
+
+# This flag includes the Pthreads library on a Linux box.
+# Others systems will probably require something different
+LIB = -lpthread
+
 all: renamer
 
-renamer: clean csapp.o
-	gcc -o rename.o renamer.h renamer.c csapp.o
-	./rename.o $(TEST1) $(TEST2)
+renamer: renamer.c csapp.o
+	$(CC) $(CFLAGS) -o renamer renamer.c csapp.o $(LIB)
+	./renamer $(TEST1) $(TEST2)
 
 csapp.o:
-	gcc -c csapp.c
+	$(CC) $(CFLAGS) -o csapp.c
+
+cgi:
+	(cd cgi-bin; make)
 
 clean:
-	rm -rf rename.o 
+	rm -f *.o renamer *~
+	(cd cgi-bin; make clean)
