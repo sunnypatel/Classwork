@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -02 -Wall -I .
+CFLAGS = -O2 -Wall -I .
 
 # This flag includes the Pthreads library on a Linux box.
 # Others systems will probably require something different
@@ -7,9 +7,12 @@ LIB = -lpthread
 
 all: renamer
 
+run: all
+#	./renamer $(TEST1) $(TEST2)
+	./renamer "cs283" "engr232" "html"	
+
 renamer: renamer.c csapp.o
 	$(CC) $(CFLAGS) -o renamer renamer.c csapp.o $(LIB)
-	./renamer $(TEST1) $(TEST2)
 
 csapp.o:
 	$(CC) $(CFLAGS) -o csapp.c
