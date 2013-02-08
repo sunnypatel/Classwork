@@ -161,6 +161,10 @@ StorePogs ON Stores.StoreNbr = StorePogs.StoreNbr) WHERE PlanogramID NOT IN
 5) Query select the product descriptions and planogram names of products
 that are in planogram, but not assigned to a shelf
 
+SELECT ProductDescription FROM ((Products INNER JOIN  PlanogramProducts ON
+Products.SKU = PlanogramProducts.SKU) AS A INNER JOIN StorePogs ON
+A.PlanogramID = StorePogs.PlanogramID) AS B WHERE B.StoreTable IS NULL;
+
 
 6) Query to select the store number, store name, and city with the least
 planograms. 
@@ -205,5 +209,6 @@ shelf in the store
 
 SELECT ProductDescription FROM ((Products INNER JOIN  PlanogramProducts ON
 Products.SKU = PlanogramProducts.SKU) AS A INNER JOIN StorePogs ON
-A.PlanogramID = StorePogs.PlanogramID) AS B WHERE B.StoreTable IS NULL;
+A.PlanogramID = StorePogs.PlanogramID) AS B WHERE B.StoreTable IS NULL AND
+B.StoreNbr = 10;
  
