@@ -200,4 +200,10 @@ total_cost FROM (( StorePogs LEFT JOIN
 PlanogramProducts ON StorePogs.PlanogramID = PlanogramProducts.PlanogramID)
 AS A LEFT JOIN Products ON Products.SKU = A.SKU) GROUP BY  StoreNbr;
 
-10) 
+10) Query to return the product descriptions in store 10 that are not on a
+shelf in the store
+
+SELECT ProductDescription FROM ((Products INNER JOIN  PlanogramProducts ON
+Products.SKU = PlanogramProducts.SKU) AS A INNER JOIN StorePogs ON
+A.PlanogramID = StorePogs.PlanogramID) AS B WHERE B.StoreTable IS NULL;
+ 
