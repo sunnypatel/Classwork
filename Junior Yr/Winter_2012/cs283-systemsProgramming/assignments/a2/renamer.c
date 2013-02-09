@@ -30,8 +30,18 @@ int main(int argc, char **argv){
 
 	// get the length of pattern
 	size_t pattern_len = strlen(pattern);
+	
 	while (0 != (de = readdir(directory))) {
+		if( (strcmp(de->d_name, "..") != 0) &&
+			(strcmp(de->d_name, "." ) != 0) ) {
 		
-		printf("Found file: %s\n", de->d_name);
+			printf("Found file: %s\n", de->d_name);
+
+			char *tmp;
+			tmp = (char*) malloc (sizeof(de->d_name));
+			strncpy(tmp, de->d_name, 2);
+			printf("First 3 chars: %s\n",tmp);	
+
+		}			
 	}
 }
