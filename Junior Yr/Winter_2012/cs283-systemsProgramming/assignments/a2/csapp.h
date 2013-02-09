@@ -25,6 +25,13 @@
 #include <arpa/inet.h>
 #include <dirent.h>
 
+
+/**
+	Replace a substring within a string
+*/
+char *Replace_str(char *str, char *needle, char *rep);
+
+
 /* Default file permissions are DEF_MODE & ~DEF_UMASK */
 /* $begin createmasks */
 #define DEF_MODE   S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH

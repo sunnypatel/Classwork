@@ -30,18 +30,41 @@ int main(int argc, char **argv){
 
 	// get the length of pattern
 	size_t pattern_len = strlen(pattern);
-	
+	// print the pattern length just for fun
+	printf("\nPattern Length: %u\n\n",pattern_len);	
+
+	// begin looping through dir finding files
 	while (0 != (de = readdir(directory))) {
+		// Ignore the .. & .
 		if( (strcmp(de->d_name, "..") != 0) &&
 			(strcmp(de->d_name, "." ) != 0) ) {
-		
+			
 			printf("Found file: %s\n", de->d_name);
 
+			// create a tmp substring containing the 
 			char *tmp;
-			tmp = (char*) malloc (sizeof(de->d_name));
-			strncpy(tmp, de->d_name, 2);
-			printf("First 3 chars: %s\n",tmp);	
+			// allocate the same amt of mem as PATTERN
+			tmp = (char*) Malloc (sizeof(de->d_name));
+			// copy first x number of characters of filename 
+			strncpy(tmp, de->d_name, pattern_len);
+			printf("First %u chars: %s\n\n", pattern_len, tmp);	
 
+			if( strcmp(tmp, pattern) == 0 ) { // string matchs
+				// begin replacment
+				printf("*** STRING MATCHES ***\n");
+				// calculate new filename size in bytes
+				unsigned int filename_size = strlen(de->d_name) - (pattern_len) + (strlen(replace));
+				printf("Size of new filename: %u \n",filename_size);
+				//  first x number of characters of filename 
+           		char *newName;
+				newName = (char*) Malloc (filename_size);
+				// begin making the word	
+				newName = Replace_str(de->d_name, pattern, replace);
+		
+				printf("New filename: %s \n",newName);
+			 
+//				rename("files/cs283","files/matched");
+			}
 		}			
 	}
 }

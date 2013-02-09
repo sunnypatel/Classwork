@@ -21,5 +21,4 @@ cgi:
 	(cd cgi-bin; make)
 
 clean:
-	rm -f *.o renamer *~
-	(cd cgi-bin; make clean)
+	rm -f *.o renamer

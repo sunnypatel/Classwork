@@ -1,6 +1,31 @@
 /* $begin csapp.c */
 #include "csapp.h"
 
+
+/**
+    Replace a substring within a string
+*/
+char *Replace_str(char *str, char *needle, char *rep) {
+	int f_size = strlen(str) + strlen(rep) + 1;
+	static char buffer[f_size];
+	char *p;
+
+	// check if needle exists in str,
+	// if it does then pointer p to the first occurance of needle in str
+	if(!(p = strstr(str, needle)))
+		return str;
+
+	// copy everything up until where needle into buffer, 
+	strncpy(buffer, str, p-str);
+	buffer[p-str] = '\0';
+
+	// insert replacment into buffer after beginning part
+	// and then add the rest of the str after needle
+	sprintf(buffer+(p-str), "%s%s", rep, p+strlen(needle));
+
+	return buffer;
+}
+
 /************************** 
  * Error-handling functions
  **************************/
