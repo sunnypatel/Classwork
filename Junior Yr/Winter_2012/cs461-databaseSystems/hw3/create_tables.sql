@@ -74,9 +74,9 @@ CREATE TABLE RefEquipmentUsed (
 );
 
 CREATE TABLE PhotoEquipment (
-	id_photo int,
-	id_equipment int,
+	id_photo INT,
+	id_equipment INT,
 	primary key (id_photo,id_equipment),
 	foreign key (id_photo) REFERENCES Photographs(id_photo),
-	foreign key (id_equipment) references RefEquipmentUsed(id_equipment)
+	foreign key (id_equipment) REFERENCES RefEquipmentUsed(id_equipment)
 );
