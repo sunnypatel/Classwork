@@ -1,0 +1,88 @@
+Sunny Patel
+
+2)
+	SELECT id_photo FROM (( PhotoEquipment INNER JOIN RefEquipmentUsed ON PhotoEquipment.ID_Equipment = RefEquipmentUsed.ID_Equipment) as A INNER JOIN Photographs ON A.Id_Photo = Photographs.ID_Photo) As B Where B. EquipmentDesc LIKE '%Tripod%';
+
+3) UPDATE Photographs SET Title=UpdatedPhotographs.Title WHERE Photographs.filename = UpdatedPhotographs.filename;
+
+4)
+ 
+SELECT Title FROM (Photographs INNER JOIN (	SELECT Id_photo FROM (SELECT ID_Photo, COUNT(id_equipment) as
+total_equipment_used from PhotoEquipment GROUP BY Id_photo) WHERE
+total_equipment_used != (SELECT min(total_equipment_used) FROM (SELECT
+id_photo, count(id_equipment) as total_equipment_used FROM PhotoEquipment
+GROUP BY ID_Photo) AS A)) AS B ON Photographs.id_photo = B.Id_photo);
+
+5)
+
+	DELETE FROM Photographers WHERE Id_photographer IN ( Photographs INNER
+JOIN ( SELECT id_photo FROM (PhotoAttributes INNER JOIN  RefPhotoAttributes
+ON PhotoAttributes.Id_Attribute = RefPhotoAttributes.Id_attribute) WHERE
+Attribute_desc LIKE '%Baltimore Ravens%') AS A ON Photographs.id_photo =
+A.id_photo) CASCADE;
+
+6) 
+	/* There is probably a better way to accomplish this since I used like 5
+ * subqueries.  Since there are many subqueries to make your life easier I split
+ * it up into description of task a query is trying to do followed by the
+ * actual query and then at the end I put all the queries together
+ * hopefully this helps you in the grading process
+ * I also label the queries. For example Let A = SELECT * FROM Photos;
+ * 							Let B = SELECT Id_photographer FROM Photographer WHERE
+ * 		   				id_photo IN (A)
+ * ***NOTE These queries will not run with keyword LET in psql, it's a
+ * simple notation I just made up.
+ */
+    
+  /* GET ALL PHOTOS TAKEN W/O TRIPOD OR CABLE RELEASE */
+LET A = SELECT Id_photo FROM (PhotoEquipment INNER JOIN RefEquipmentUsed ON
+ID_Equipment) WHERE Equipment_desc NOT LIKE '%Tripod%' AND  Equipment_desc
+NOT LIKE '%Cable Release%' AS A
+
+	/* WHO SOLD THE MOST PHOTOS FROM THE LIST ACQUIRED ABOVE */
+LET B = SELECT id_photographers, COUNT(id_sale) as most_sold FROM
+(Photographs INNER JOIN PhotoSales on Photographs.id_photo =
+PhotoSales.id_photo) WHERE ID_photo IN (A) AS B
+
+LET C = SELECT max(most_sold) FROM (B) AS C
+
+LET D = SELECT id_photo FROM (B) WHERE most_sold = (C) AS D
+
+finally,
+	SELECT Sales_category FROM ((SalesCategories INNER JOIN (B) on B.ID_photo
+= SalesCategories.ID_photo) AS E INNER JOIN RefSalesCategory ON
+E.id_sales_category = RefSalesCategory.Id_sales_category) AS F WHERE F.id_photo IN
+(D) ORDER BY Sales_category;
+
+
+SELECT Sales_category FROM ((SalesCategories INNER JOIN (SELECT
+id_photographers, COUNT(id_sale) as most_sold FROM
+(Photographs INNER JOIN PhotoSales on Photographs.id_photo =
+PhotoSales.id_photo) WHERE ID_photo IN (SELECT Id_photo FROM (PhotoEquipment
+INNER JOIN RefEquipmentUsed ON
+ID_Equipment) WHERE Equipment_desc NOT LIKE '%Tripod%' AND  Equipment_desc
+NOT LIKE '%Cable Release%' AS A
+) AS B) on B.ID_photo
+= SalesCategories.ID_photo) AS E INNER JOIN RefSalesCategory ON
+E.id_sales_category = RefSalesCategory.Id_sales_category) AS F WHERE
+F.id_photo IN
+(SELECT id_photo FROM (SELECT id_photographers, COUNT(id_sale) as most_sold
+FROM
+(Photographs INNER JOIN PhotoSales on Photographs.id_photo =
+PhotoSales.id_photo) WHERE ID_photo IN (SELECT Id_photo FROM (PhotoEquipment
+INNER JOIN RefEquipmentUsed ON
+ID_Equipment) WHERE Equipment_desc NOT LIKE '%Tripod%' AND  Equipment_desc
+NOT LIKE '%Cable Release%' AS A
+) AS B) WHERE most_sold = (SELECT max(most_sold) FROM (SELECT
+id_photographers, COUNT(id_sale) as
+most_sold FROM
+(Photographs INNER JOIN PhotoSales on Photographs.id_photo =
+PhotoSales.id_photo) WHERE ID_photo IN (SELECT Id_photo FROM (PhotoEquipment
+INNER JOIN RefEquipmentUsed ON
+ID_Equipment) WHERE Equipment_desc NOT LIKE '%Tripod%' AND  Equipment_desc
+NOT LIKE '%Cable Release%' AS A
+) AS B
+) AS C
+) AS D
+) ORDER BY Sales_category;
+
