@@ -80,3 +80,21 @@ CREATE TABLE PhotoEquipment (
 	foreign key (id_photo) REFERENCES Photographs(id_photo),
 	foreign key (id_equipment) REFERENCES RefEquipmentUsed(id_equipment)
 );
+
+/** FOLLOWING IS FOR #9 OF THE HW notice: sample data included */
+
+CREATE TABLE Students (
+	id_student int,
+	id_class int,
+	grade int
+);
+
+INSERT INTO Students (id_student,id_class,grade) values (1,1,90);
+INSERT INTO Students (id_student,id_class,grade) values (1,2,80);
+INSERT INTO Students (id_student,id_class,grade) values (2,1,99);
+INSERT INTO Students (id_student,id_class,grade) values (3,1,80);
+INSERT INTO Students (id_student,id_class,grade) values (4,1,70);
+INSERT INTO Students (id_student,id_class,grade) values (5,2,78);
+INSERT INTO Students (id_student,id_class,grade) values (6,2,90);
+INSERT INTO Students (id_student,id_class,grade) values (6,3,50);
+INSERT INTO Students (id_student,id_class,grade) values (7,3,90);
