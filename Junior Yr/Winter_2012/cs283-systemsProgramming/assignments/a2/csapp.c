@@ -7,7 +7,7 @@
 */
 char *Replace_str(char *str, char *needle, char *rep) {
 	int f_size = strlen(str) + strlen(rep) + 1;
-	static char buffer[f_size];
+	static char buffer[4096];
 	char *p;
 
 	// check if needle exists in str,
