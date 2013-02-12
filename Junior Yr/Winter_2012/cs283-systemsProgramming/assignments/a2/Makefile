@@ -9,7 +9,7 @@ all: renamer
 
 run: all
 #	./renamer $(TEST1) $(TEST2)
-	./renamer "cs283*" "engr232" "html"	
+	./renamer "*cs283" "engr232" "html"	
 
 renamer: csapp.o renamer.c
 	$(CC) $(CFLAGS) -o renamer renamer.c csapp.o $(LIB)

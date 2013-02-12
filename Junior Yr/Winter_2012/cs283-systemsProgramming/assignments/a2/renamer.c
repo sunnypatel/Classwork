@@ -86,7 +86,7 @@ int main(int argc, char **argv){
 	//	pattern = Replace_str(pattern, "*", "%");
 	printf("newPattern=%s\n",pattern);
 	int task = pattern_parser(pattern);
-
+	printf("task= %d\n",task);
 	// parse pattern to determine what matching we want to do
 	// match beginning of filename? end? 
 	// begin looping through dir finding files
@@ -118,11 +118,15 @@ int main(int argc, char **argv){
 			} else if(task == 3) {
 				// match something like *.txt
 				char *fn = de->d_name;	
-				char *pattern_word = Replace_str(pattern, "*", "");
+				char *pattern_word;
+			 	*pattern_word	= Replace_str(pattern, "*", "");
+				printf("print word=%s\n",pattern_word);
 				// get the length of pattern
-				int pattern_word_len = strlen(pattern_word);
+				size_t pattern_word_len;
+			 	pattern_word_len	= strlen(pattern_word);
 				// move pointer to end of filename right before 
-				// where the pattern could be  
+				// where the pattern could be 
+			 	printf("pattern_word_len=%d",pattern_word_len);	
 				fn = fn + (strlen(de->d_name) - pattern_word_len);
 				if(strcmp(fn,pattern_word) == 0){
 					char *newFileName = Replace_str(de->d_name, pattern_word, replace);

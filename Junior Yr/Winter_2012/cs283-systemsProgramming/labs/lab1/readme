@@ -1,0 +1,10 @@
+Author : Sunny Patel
+
+Instructions to run:
+
+Simply run 'make' command.  Makefile included should compile all homework assignments.  
+
+Parts 1-3 are completed, however I ran out of time for parts 4&5.
+Can not seem to find where/why p4.c is seg faulting.  
+
+
