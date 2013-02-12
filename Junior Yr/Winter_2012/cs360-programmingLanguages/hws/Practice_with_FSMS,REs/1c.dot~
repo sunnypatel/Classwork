@@ -1,0 +1,37 @@
+//
+// fsm.dot - sample dot file
+//
+// Kurt Schmidt
+// 2006
+//
+// Usage:
+//   To compile, e.g.:  $ dot -Tpng -o fsm.png fsm.dot
+//			or
+//		$ dot -Tpng fsm.dot > fsm.png
+//
+// Output formats:  use $ dot -Tcrap to see all output formats
+//		They are:
+//			canon cmap cmapx cmapx_np dot eps fig gd gd2 gif gv imap imap_np ismap
+//			jpe jpeg jpg pdf plain plain-ext png ps ps2 svg svgz tk vml vmlz vrml
+//			wbmp x11 xdot xlib
+//
+
+digraph fsm {
+rankdir="LR"
+start [shape="plaintext",label="start"]
+1 [shape="circle",label=""]
+2 [shape="circle",label=""]
+3 [shape="doublecircle",label=""]
+4 [shape="doublecircle",label=""]
+5 [shape="doublecircle",label=""]
+6 [shape="doublecircle",label=""]
+
+start->1
+1->2 [label="eps"] 
+1->6 [label="eps"]
+2->3 [label="x"] 
+2->4 [label="yza"] 	
+2->5 [label="b"]
+5->6 [label="eps"]
+6->2 [label="eps"]
+}
