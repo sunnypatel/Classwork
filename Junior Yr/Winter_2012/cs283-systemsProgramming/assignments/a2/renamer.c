@@ -104,12 +104,12 @@ int main(int argc, char **argv){
 				char *pattern_word = Replace_str(pattern, "*", "");
 				if(strcmp(tmp,pattern_word) == 0){
 					// word matches! Replace the filename
-					char *newFileName = Replace_str(de->d_name, pattern_word, replace);
+					char *newFileName = Replace_str(de->d_name, pattern_word,replace);
 					Rename(newFileName, de->d_name, dir_name);	
 				}
 			} else if(task == 2) {
 				// match something like *_cs283*
-				char *pattern_word = Replace(pattern, "*", "");
+				char *pattern_word = Replace_str(pattern, "*", "");
 				char *tmp;
 				if(!(tmp = strstr(de->d_name, pattern_word))) { //filename contains match
 					char *newFileName = Replace_str(de->d_name, pattern_word, replace);
@@ -118,7 +118,7 @@ int main(int argc, char **argv){
 			} else if(task == 3) {
 				// match something like *.txt
 				char *fn = de->d_name;	
-				char *pattern_word = Replace(pattern, "*", "");
+				char *pattern_word = Replace_str(pattern, "*", "");
 				// get the length of pattern
 				int pattern_word_len = strlen(pattern_word);
 				// move pointer to end of filename right before 
