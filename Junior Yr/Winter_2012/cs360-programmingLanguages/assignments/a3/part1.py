@@ -1,12 +1,17 @@
+import os
 import sys
+from subprocess import call
 
 input_file = str(sys.argv[1])
 
 f = open(input_file ,'r')
 
 numOfStates = f.readline()
+# create a .dot file
+file_name = input_file.split(".")[0]
+dot_file = file_name + ".dot"
 
-f_dot = open(input_file + ".dot","w");
+f_dot = open(dot_file,"w");
 # write defaults
 f_dot.write("digraph fsm {\nrankdir=\"LR\"\nstart [shape=\"plaintext\" ,label=\"start\"]\n")
 
@@ -51,6 +56,10 @@ for state in inputs:
 			
 
 f_dot.write("}")	
+
+args = "-Tpng "+ dot_file + " > " + file_name + ".png"
+cmd =  "dot " + args
+os.system(cmd)
 
 f_dot.close()
 f.close()

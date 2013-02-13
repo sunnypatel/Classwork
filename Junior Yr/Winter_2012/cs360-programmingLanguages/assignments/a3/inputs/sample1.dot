@@ -4,13 +4,11 @@ start [shape="plaintext" ,label="start"]
 0 [shape="circle",label="S0"]
 1 [shape="circle",label="S1"]
 2 [shape="circle",label="S2"]
-3 [shape="circle",label="S3"]
-4 [shape="doublecircle",label="S4"]
-start->1
+3 [shape="doublecircle",label="S3"]
+start->0
 0->0 [label="a"]
+0->1 [label="a"]
 0->0 [label="b"]
-0->1 [label="EPSILON"]
-1->2 [label="a"]
+1->2 [label="b"]
 2->3 [label="b"]
-3->4 [label="b"]
 }
