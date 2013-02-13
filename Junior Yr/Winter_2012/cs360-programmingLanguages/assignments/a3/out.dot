@@ -1,0 +1,7 @@
+digraph fsm {
+rankdir="LR"
+start [shape="plaintext" ,label="start"]
+0 [shape="circle",label="S0"]
+1 [shape="circle",label="S1"]
+2 [shape="circle",label="S2"]
+3 [shape="doublecircle",label="S3"]
