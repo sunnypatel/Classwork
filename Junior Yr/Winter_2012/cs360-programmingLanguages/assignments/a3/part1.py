@@ -1,10 +1,12 @@
-input_dir = "inputs/"
-f = open(input_dir + "sample1.input",'r')
+import sys
+
+input_file = str(sys.argv[1])
+
+f = open(input_file ,'r')
 
 numOfStates = f.readline()
-print "Number of states = " + numOfStates
 
-f_dot = open("out.dot","w");
+f_dot = open(input_file + ".dot","w");
 # write defaults
 f_dot.write("digraph fsm {\nrankdir=\"LR\"\nstart [shape=\"plaintext\" ,label=\"start\"]\n")
 
@@ -17,20 +19,38 @@ f_dot.write(lastState + " [shape=\"doublecircle\",label=\"S" + lastState + "\"]\
 
 
 # *** BEGIN WRITTING TRANSITIONS ***
-# move f line pointer nxt line, ignoring 2nd line
+# get the number of edges
 numOfTransitions = f.readline()
 
 # write which is the start state
-f_dot.write("start->1\n")
+f_dot.write("start->0\n")
 
 
 inputs = []
 for i in range(int(numOfTransitions)):
 	inputs.append(f.readline())
-print "Number of elements as inputs[]=" + str(len(inputs))
 
 # split each element of input by token ','
 for state in inputs:
-	state_data = state.split(',')
+	# separate the state data 
+	state_sep = state.split('(')
+	# remove empty string created by first (
+	state_sep.remove("")
 	
+	# get start state of this edge as well as label for this edge
+	startEdge_data = state_sep.pop(0).split(",")
+	startEdge_state = startEdge_data.pop(0)
+	startEdge_label = startEdge_data.pop(0)
+	
+	# get the end starts this edge will be connecting to, 
+	# remove extra crap, and split by ,
+	endStates = state_sep.pop(0).replace(')','').split(',')
+	# write the dot code
+	for endState in endStates:
+		f_dot.write(startEdge_state + "->" + endState.rstrip() + " [label=\"" + startEdge_label + "\"]\n")	
+			
+
+f_dot.write("}")	
+
+f_dot.close()
 f.close()
