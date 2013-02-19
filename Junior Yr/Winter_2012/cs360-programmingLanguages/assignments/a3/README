@@ -1,0 +1,6 @@
+I separated the python scripts into part1.py and part2.py.
+For part1.py I have the script compiling the dot code via the python os
+class however for some reason the .png output from executing the command
+this way gives a corrupt file.
+If you compile the outputed dot file manually you can see it does output the
+correct fsm diagram. 
