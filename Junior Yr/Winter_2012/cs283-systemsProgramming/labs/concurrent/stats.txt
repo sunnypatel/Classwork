@@ -1,0 +1,144 @@
+﻿Sunny Patel
+
+Timing of program with 5000 threads and each thread adding 1 to count 1000 times.  The count of each run is off because of Race conditions.  This is a problem because each thread that will be created will be pointing to or using the same spot in memory.  This (*a)++ line of c increments the variable a by 1 but it is actually 3 lines of assembly code.  For example on a MIPs architecture this would translate to lw, incr I, and sw.  Now since the threads could context switch on any 1 of these 3 lines it will produce semi-random results, in this case result could be anything from 1000  to 5000000 with 5000000 being the correct result.  This is called a race condition.  We will have to use mutex locks to get the correct answer.
+
+-  No locks -
+
+Threads created: 5000
+count= 4892641
+Time = 0.300000
+
+Threads created: 5000
+count= 4916707
+Time = 0.260000
+
+Threads created: 5000
+count= 4928328
+Time = 0.310000
+
+Threads created: 5000
+count= 4851094
+Time = 0.330000
+
+count= 4928196
+Time = 0.290000
+
+Threads created: 5000
+count= 4855512
+Time = 0.320000
+
+Threads created: 5000
+count= 4834986
+Time = 0.310000
+
+Threads created: 5000
+count= 4908654
+Time = 0.310000
+
+Threads created: 5000
+count= 4914073
+Time = 0.270000
+
+Threads created: 5000
+count= 4792018
+Time = 0.340000
+
+----------------------------------
+Avg			 	  = 0.274 sec
+
+_________________________________________________________________________
+
+Program was modified to have locks inside the for loop of each thread.
+Notice the count is correct for this time.
+Results:
+
+Threads created: 5000
+count= 5000000
+Time = 2.520000
+
+Threads created: 5000
+count= 5000000
+Time = 2.590000
+
+Threads created: 5000
+count= 5000000
+Time = 2.380000
+
+Threads created: 5000
+count= 5000000
+Time = 2.460000
+
+Threads created: 5000
+count= 5000000
+Time = 2.780000
+
+Threads created: 5000
+count= 5000000
+Time = 2.540000
+
+Threads created: 5000
+count= 5000000
+Time = 2.760000
+
+Threads created: 5000
+count= 5000000
+Time = 1.590000
+
+Threads created: 5000
+count= 5000000
+Time = 2.520000
+
+Threads created: 5000
+count= 5000000
+Time = 2.070000
+-----------------------------------
+Avg 		= 2.421 sec
+
+_________________________________________________________________________
+Program was modifed to have mutex locks outside of for loop in each thread
+We see that there is a huge improvement on performance locking only once per thread instead of lock and unlocking 1000 times per each thread.
+
+Threads created: 5000
+count= 5000000
+Time = 0.260000
+
+Threads created: 5000
+count= 5000000
+Time = 0.360000
+
+Threads created: 5000
+count= 5000000
+Time = 0.240000
+
+Threads created: 5000
+count= 5000000
+Time = 0.270000
+
+Threads created: 5000
+count= 5000000
+Time = 0.260000
+
+Threads created: 5000
+count= 5000000
+Time = 0.300000
+
+Threads created: 5000
+count= 5000000
+Time = 0.350000
+
+Threads created: 5000
+count= 5000000
+Time = 0.370000
+
+Threads created: 5000
+count= 5000000
+Time = 0.300000
+
+Threads created: 5000
+count= 5000000
+Time = 0.330000
+-----------------------------------
+Avg 			= 0.304 sec
+____________________________________________________________
+
+
