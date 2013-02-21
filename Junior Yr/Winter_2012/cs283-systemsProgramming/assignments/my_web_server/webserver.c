@@ -23,10 +23,10 @@ void main(int argc, char *argv[]){
 		connfd = Accept(listenfd, (struct sockaddr *)&clientaddr, &clientlen);
 
 		process(connfd);
-		char *test = "asdlfaksdjf\n";
+	/*	char *test = "asdlfaksdjf\n";
 		int i;
 		for(i=0;i<1;i++)	
-			Rio_writen(connfd,test,strlen(test));
+			Rio_writen(connfd,test,strlen(test)); */
 		Close(connfd);
 	}
 }
@@ -34,19 +34,18 @@ void main(int argc, char *argv[]){
 void process(int fd){
 	struct stat sbuf;
 	char buf[MAXLINE], method[MAXLINE], uri[MAXLINE], version[MAXLINE];
-
+	char *uri_args;
 	rio_t rio;
+
 	// Read request line and headers
 	Rio_readinitb(&rio, fd);
 	Rio_readlineb(&rio, buf, MAXLINE); 
 	sscanf(buf, "%s %s %s",method, uri, version);
-	char *space = "\n \n \n";
-	Rio_writen(fd,method,MAXLINE);
-	Rio_writen(fd,space,sizeof(space));
-	Rio_writen(fd,uri,MAXLINE);
-	//Rio_writen(fd,space,sizeof(space));
-	Rio_writen(fd,version,MAXLINE);
-
+	
+	// parse uri
+	uri_args = strtok(uri,"/");	
+	Rio_writen(fd, uri_args,sizeof(uri_args));
+	printf("123456");
 }
 
 void func1(int fd){}
