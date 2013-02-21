@@ -10,13 +10,13 @@ void *thread(void *arg){
 		pthread_mutex_t *mutex = ((args*)arg)->mutex;
 		int i;
 		// mutex lock here
-//		pthread_mutex_lock(mutex);
+		pthread_mutex_lock(mutex);
 		// being looping
 		for(i=0; i < 1000; i++) {
 				(*a)++;
 		}
 		// remove lock
-//		pthread_mutex_unlock(mutex);
+		pthread_mutex_unlock(mutex);
 		pthread_exit(0);
 }
 
@@ -27,7 +27,7 @@ int main(){
 
 		// shared var to be summed
 		int count = 0;	
-		int numOfThreads = 5000;
+		int numOfThreads = 1000;
 
 		pthread_t tid[numOfThreads];
 		// prepare thread args

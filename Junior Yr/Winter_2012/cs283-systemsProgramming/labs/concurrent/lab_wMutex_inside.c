@@ -1,37 +1,38 @@
 #include "csapp.h"
 
-// struct to pass args to thread 
 typedef struct{
 		int *a;
 		pthread_mutex_t *mutex;
 } args;
 
-/* Thread function to add 1 to &count 1000 times each */
 void *thread(void *arg){
 		int *a = ((args*)arg)->a;
+		pthread_mutex_t *mutex = ((args*)arg)->mutex;
 		int i;
 		// being looping
 		for(i=0; i < 1000; i++) {
+				// mutex lock here
+				pthread_mutex_lock(mutex);
 				(*a)++;
+				// remove lock
+				pthread_mutex_unlock(mutex);
 		}
 		pthread_exit(0);
 }
 
 int main(){
-        // init clock vars
 		clock_t begin, end;
-        double time_spent;
-		// saved time program started
-        begin = clock();
+		double time_spent;
+		begin = clock();
 
 		// shared var to be summed
 		int count = 0;	
 		int numOfThreads = 1000;
-		// create a list of thread ids 
+
 		pthread_t tid[numOfThreads];
-		// create mutex lock
-		pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;	
 		// prepare thread args
+		pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;	
+
 		args args1;	
 		args1.a = &count;
 		args1.mutex = &mutex;
@@ -52,11 +53,10 @@ int main(){
 
 		printf("count= %d\n",count);
 
-		// work finished, get clock time
-        end = clock();
-		// calculate how much time was spent
-        time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-        printf("Time = %f\n",time_spent);
-		// exit main thread
+
+		end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("Time = %f\n",time_spent);
+
 		pthread_exit(0);
 }

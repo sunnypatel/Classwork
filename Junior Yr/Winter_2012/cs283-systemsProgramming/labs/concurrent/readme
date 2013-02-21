@@ -1,0 +1,6 @@
+I have a stats.txt file which lists the timing results of 3 different versions of the program.
+I had to change from 1000 threads to 5000 threads to see some kind of difference in timing.  I changed the thread number back to 1000 before submiting. 
+First version is a simple multi-threaded program w/o locks, second has locks inside the for loop of each thread this means locking and unlocking would be happening 1000 times for each thread that's created, the third version has locking and unlocking done only once (outside of for loop).
+
+The 1st and 3rd version have the best timing however the 1st version results in invalid results.
+ 
