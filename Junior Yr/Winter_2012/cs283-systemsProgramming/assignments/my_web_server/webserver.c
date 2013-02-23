@@ -4,9 +4,7 @@ void Send(int fd, char* msg);
 void process(int fd);
 void parse_uri(int fd, char uri[MAXLINE], int param);
 int parse_json_params(char buf[MAXLINE]);
-void clienterror(int fd, char *cause, char *errnum,
-		char *shortmsg, char *longmsg);
-
+void fib(int fd, int n);
 
 
 void main(int argc, char *argv[]){
@@ -49,11 +47,11 @@ void process(int fd){
 	return;
 }
 
-/*
 
+
+/*
 	Parse uri to figure out what function needs to be run,
 	and run that function with parameters 
-
 */
 void parse_uri(int fd, char uri[MAXLINE], int param){
 	char *uri_args;
@@ -71,14 +69,14 @@ void parse_uri(int fd, char uri[MAXLINE], int param){
 
 		// figure out what function needs to be run
 		if(strcmp(uri_args,"fibonacci") == 0) {
-			fib(param);
+			fib(fd, param);
 		}
 		else if(strcmp(uri_args,"fib") == 0) {
-			fib(param);
+			fib(fd, param);
 		}
 		else {
 			Send(fd,uri_args);
-			Send(fd," function does not exist yet.\n");
+			Send(fd,"function does not exist yet.\n");
 		}
 	}
 
@@ -107,4 +105,30 @@ int parse_json_params(char buf[MAXLINE]){
  */
 void Send(int fd, char* msg){
 	Rio_writen(fd, msg, strlen(msg));
+}
+
+/* 
+	Print the fib sequence
+*/
+void fib(int fd,int n){
+  int first = 0, second = 1, next, c;
+	
+	 Send(fd, "\nPrinting the Fibonacci sequence:\n"); 
+	 
+   for ( c = 0 ; c < n ; c++ )
+   {
+      if ( c <= 1 )
+         next = c;
+      else
+      {
+         next = first + second;
+         first = second;
+         second = next;
+      }
+			// convert int to str
+			char *fib_num = malloc(sizeof(int)*n);
+			sprintf(fib_num, "%d\n", next);
+      Send(fd,fib_num);
+   }
+ 
 }
