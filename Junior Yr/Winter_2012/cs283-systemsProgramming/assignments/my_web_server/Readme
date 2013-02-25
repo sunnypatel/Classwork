@@ -1,0 +1,30 @@
+Author: Sunny Patel
+
+Description:
+A simple webserver (running on port 6549) that can compute trig math functions of
+sin,cos, and tan.  This server can also print out the fibannoci sequence up
+to n.  Parameters of these functions can be passed in via message body of a
+post http request in the following 
+
+json format:
+{
+	"param" : 20
+}
+
+Instructions:
+1) Start server by running 'make run'
+
+2) Point your client program to one of the following functions
+
+		Possible http requests
+		http:[ip-addr-toServer]:6549/fib
+		http:[ip-addr-toServer]:6549/sin
+		http:[ip-addr-toServer]:6549/cos
+		http:[ip-addr-toServer]:6549/tan
+
+3) Pass in parameter json via POST message body
+		json format:
+		{
+			"param" : 20
+		}
+
