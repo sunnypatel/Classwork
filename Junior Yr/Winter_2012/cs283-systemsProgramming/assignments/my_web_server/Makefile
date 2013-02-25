@@ -1,7 +1,7 @@
 start: clean compile
 
 compile:
-	gcc -g -o webserver webserver.c csapp.c -lpthread
+	gcc -g -o webserver webserver.c csapp.c -lpthread -lm
 	chmod +x webserver
 
 run: compile
