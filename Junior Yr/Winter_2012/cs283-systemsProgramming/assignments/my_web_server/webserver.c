@@ -54,13 +54,25 @@ void process(int fd){
 	and run that function with parameters 
 */
 void parse_uri(int fd, char uri[MAXLINE], int param){
-	char *uri_args;
+	// check if uri is empty, no function was supplied
+	if((strcmp(uri,"/") == 0) || (strcmp(uri,"") == 0)){
+//		html = malloc(sizeof(*html)*10);
+//		html = Malloc(sizeof(char)*1024);
+//		FILE *err_html = fopen("noFunc.html","R");
+//		int read_c = fread(html,1,1,err_html);
+//		Send(fd,"No function name found.\n");
+//		Send(fd,"Please add function name at the end of / in url\n");
+		Send(fd,"asdfasdf");
+		
+		return;
+	}
 
+	char *uri_args;
 	// parse uri
 	uri_args = strtok(uri,"/");
 	// double check to make sure something was found
 	if(strcmp(uri_args,"") == 0){
-		Send(fd,"No function name found");
+		Send(fd,"No function name found.");
 	}
 	else{
 		// a function was found, now get the params sent to the 
@@ -91,6 +103,8 @@ int parse_json_params(char buf[MAXLINE]){
 	char *buf2 = malloc(sizeof(char)*1024);
 	buf2 = strstr(buf, "param");
 	int *param_val = malloc(sizeof(int));
+
+	if(strlen(buf2)){
 	// parse json 
 	// looking for param value  
 	sscanf(buf2+(7), "%d",param_val);
@@ -98,21 +112,24 @@ int parse_json_params(char buf[MAXLINE]){
 	//char* param_str = malloc(sizeof(char)*1024);
 	//sprintf(param_str,"%d" ,*param_val);
 	return *param_val;
+	}
 }
 
 /*
 	 Function to wrap a wrapper, no need to specify strlen
  */
 void Send(int fd, char* msg){
-	Rio_writen(fd, msg, strlen(msg));
+	if(strcmp(msg, "") != 0)
+		Rio_writen(fd, msg, strlen(msg));
 }
 
 /* 
 	Print the fib sequence
 */
 void fib(int fd,int n){
-  int first = 0, second = 1, next, c;
-	
+  int first = 0, second = 1, c;
+	long int next;
+
 	 Send(fd, "\nPrinting the Fibonacci sequence:\n"); 
 	 
    for ( c = 0 ; c < n ; c++ )
@@ -126,7 +143,7 @@ void fib(int fd,int n){
          second = next;
       }
 			// convert int to str
-			char *fib_num = malloc(sizeof(int)*n);
+			char *fib_num = malloc(sizeof(long int)*n*n);
 			sprintf(fib_num, "%d\n", next);
       Send(fd,fib_num);
    }

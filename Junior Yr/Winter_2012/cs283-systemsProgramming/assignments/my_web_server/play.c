@@ -9,7 +9,7 @@ void print2(){
 void main(int argc, char *argv[]){
 	printf("%s",argv[1]);
 	void (*a)();
-	a = &argv[1];
+	a = print1;
 	
 	a();
 }
