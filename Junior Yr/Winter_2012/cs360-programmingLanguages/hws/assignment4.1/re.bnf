@@ -1,0 +1,5 @@
+<regex>  -> <term> '|' <regex> | <term>
+<term>   -> <term> <factor> | <factor>
+<factor> -> <factor> '*' | <base>
+<base>   -> '(' <regex> ')' | <char>
+<char>   -> a | b | ... | z
