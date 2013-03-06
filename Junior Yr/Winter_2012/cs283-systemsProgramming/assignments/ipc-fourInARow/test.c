@@ -6,7 +6,7 @@ int main(){
 	int fd[m][2];
 	int i=0;	
 
-	for(i=0; i<=m; i++){
+	for(i=0; i<=2*m; i+2){
 		pipe(fd[i]);
 		int pid;
 		// create fork or give error
@@ -16,17 +16,33 @@ int main(){
 		}
 		if(pid==0){
 			// child do work
-			char *string;
-			sprintf(string, "%d", i);
-			write(fd[i][1], string, (strlen(string)+1));
-			exit(0);
+      
+			//write
+      write(fd[i+1][1], &i, (sizeof(i)));
+			
+			//	read
+			int nbytes;
+			int readi;
+			nbytes = read( fd[i][0], &readi, sizeof(readi));
+			char *childString = Malloc(sizeof(readi));
+			sprintf(childString, "%d", readi);
+      printf("Child ;  %s\n", childString);
 		}
 		else {
 			// parent
+
+									
+			// read
 			int nbytes;
-			char readbuffer[10];
-			nbytes = read(fd[i][0], readbuffer, sizeof(readbuffer));
-	    printf("i= %d ;   Received string: %s\n", i, readbuffer);
+			int readi;
+			nbytes = read(fd[i+1][0], &readi, sizeof(readi));
+			int new = readi + 10;
+			char *string = Malloc(sizeof(new));	
+			sprintf(string, "%d", new);
+			printf("i = %d   ; %s\n",i,string);	
+
+			// write 
+			write( fd[i][1], &new, (sizeof(new)));
 
 		}
 	}

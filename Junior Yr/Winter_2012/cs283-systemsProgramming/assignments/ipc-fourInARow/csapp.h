@@ -23,7 +23,9 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 
 /* Default file permissions are DEF_MODE & ~DEF_UMASK */
 /* $begin createmasks */
