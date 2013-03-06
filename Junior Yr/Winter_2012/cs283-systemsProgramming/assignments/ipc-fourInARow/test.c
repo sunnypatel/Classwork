@@ -30,7 +30,8 @@ int main(){
 		}
 		else {
 			// parent
-
+// parent loops through all the children looking if anyone has made a move,
+// if they have it will respond otherwize move on.
 									
 			// read
 			int nbytes;
