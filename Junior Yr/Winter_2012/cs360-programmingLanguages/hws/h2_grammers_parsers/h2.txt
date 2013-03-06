@@ -1,0 +1,6 @@
+Sunny Patel
+CS360 - Grammers, Parsing
+
+1. It is ambiguous, because you can great two different parse trees on the same string. 
+	Rule1 : <SL> -> <SL> <S>  can be broken down to <SL> <S> <S> OR <S> <S>
+	
