@@ -42,7 +42,7 @@ void process(int fd){
 
 	int bytesRead = recv(fd, buf, 4096, 0);
 	sscanf(buf, "%s %s %s",method, uri, version);
-
+	printf("%s\n",buf);
 	int k = 0;
 	// get parameter for our function
 	int *param;
@@ -50,9 +50,9 @@ void process(int fd){
 	if(parse_json_params(param, buf) != -1)
 		// look for function	
 		parse_uri(fd, uri, k);
-	else
+	else{
 		Send(fd, "No function parameters found. \nYou can pass parameters via POST message body formatted in json with identifer \"params\"\n");
-
+	}
 	return;
 }
 
