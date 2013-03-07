@@ -4,3 +4,6 @@ I have created 2 pipes per the number of children, and the parent process
 should loop through the children and if a game is waiting for parent to make
 a move then parent will calc the best possible move or choose a random spot
 to take.  
+
+Children will just make random moves and basically wait for the parent to
+finish the game.

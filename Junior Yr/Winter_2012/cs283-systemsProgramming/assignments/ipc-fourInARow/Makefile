@@ -7,13 +7,9 @@ compile:
 run: compile
 	./conncFour
 
-testrun: compile-test
-	./test
-
-compile-test:
-	gcc -g -o test test.c csapp.c -lpthread -lm
-	chmod +x test
+submit: clean
+	tar -zcvf submit.tar.gz *
 
 clean:
-	rm -f conncFour *.out *.o
+	rm -f conncFour *.out *.o submit.tar.gz
 
