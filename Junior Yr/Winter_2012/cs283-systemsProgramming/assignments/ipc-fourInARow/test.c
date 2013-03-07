@@ -17,7 +17,7 @@ typedef struct{
 int checkAround(int *board[10][10], position pos, int *currentDirection, int *lineCount);
 
 // checks if there is line
-int checkPosLine(int *board[10][10], position pos, int *currentDirection,	position *newPos);
+int checkPosLine(int *board[10][10], position *pos, int *currentDirection,	position *newPos);
 
 // game logic
 int gameLogic(game *g1);
@@ -37,12 +37,12 @@ int main(){
 		int pid;
 		// create fork or give error
 		if((pid = fork()) == -1){
-				perror("Error creating fork");
-				exit(1);
+			perror("Error creating fork");
+			exit(1);
 		}
 		if(pid==0){
 			// child
-     	game g1 = createGame();			
+			game g1 = createGame();			
 			position availableMoves[8];
 
 			int i,j;
@@ -77,19 +77,19 @@ int main(){
 			g1.playerTurn = 1; // parents turn to make a move
 
 			//write
-      write(fd[i+1][1], &g1, (sizeof(g1)));
-			
+			write(fd[i+1][1], &g1, (sizeof(g1)));
+
 			//	read
 			int nbytes;
 			int readi;
 			nbytes = read( fd[i][0], &g1, sizeof(g1));
 			sprintf(childString, "%d", readi);
-      printf("Child ;  %s\n", childString);
+			printf("Child ;  %s\n", childString);
 		}
 		else {
 			// parent
-			
-									
+
+
 			// read
 			int nbytes;
 			int readi;
@@ -117,12 +117,19 @@ gameLogic(game g1){
 		for(j=0; (j<=8 && skip == 0); j++){
 			if(g1.board[i][j] == 0){
 				highest =0;
-				int *lineCount =0;
-				if( checkAround() ) { // ********* SUNNY LOOK HERE REWRTE THIS 
+				int *lineCount;
+				lineCount = 0;
+				// create a new position struct for this spot
+				position *p1 = Malloc(sizeof(position));
+				p1.i = i;
+				p1.j = j;
+				int *currentDirection;
+				currentDirection = -1;
+				if( checkAround(g1.board, p1, *currentDirection, *lineCount) ) { // ********* SUNNY LOOK HERE REWRTE THIS 
 					if(lineCount == 3){ // this is deff one of the best moves available
 						g1.board[i][j] = 1;
 						g1.winner = getPid() // ***** SEMI CODE
-						skip = 1;
+							skip = 1;
 					} // lineCount if
 					else if(lineCount > highest){
 						bestNextMove.i = i;
@@ -170,14 +177,66 @@ int checkPosLine(int *board[10][10], position *pos, int *currentDirection, posit
 	switch(currentDirection){
 		// chk top
 		case 0:
-				// another match was found in the direction we're looking
-				if(board[i][j-1] == 1){
-					newPos.i = i;
-					newPos.j = j-1;
-					return 0;
-				}
-				break;
-		
+			// another match was found in the direction we're looking
+			if(board[i][j-1] == 1){
+				newPos.i = i;
+				newPos.j = j-1;
+				return 0;
+			}
+			break;
+		case 1:
+			if(board[i+1][j-1] == 1){
+				newPos.i = i+1;
+				newPos.j = j-1;
+				return 1;
+			}		
+			break;
+		case 2:
+			if(board[i+1][j] == 1){
+				newPos.i = i+1;
+				newPos.j = j;
+				return 2;
+			}
+			break;
+		case 3:
+			if(board[i+1][j+1] == 1){
+				newPos.i = i+1;
+				newPos.j = j+1;
+				return 3;
+			}
+			break;
+
+		case 4:
+			if(board[i][j+1] == 1){
+				newPos.i = i;
+				newPos.j = j+1;
+				return 4;
+			}
+			break 4;
+		case 5:
+			if(board[i-1][j+1] == 1){
+				newPos.i = i-1;
+				newPos.j = j+1;
+				return 5;
+			}
+			break;
+
+		case 6:
+			if(board[i-1][j] == 1){
+				newPos.i = i-1;
+				newPos.j = j;
+				return 6;
+			}
+			break;
+
+		case 7:
+			if(board[i-1][j-1] == 1){
+				newPos.i = i-1;
+				newPos.j = j-1;
+			}
+			break;
+
+		default: return -1; // no match was found
 	}
 }
 
