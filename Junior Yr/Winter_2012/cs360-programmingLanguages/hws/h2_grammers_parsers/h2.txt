@@ -2,5 +2,32 @@ Sunny Patel
 CS360 - Grammers, Parsing
 
 1. It is ambiguous, because you can great two different parse trees on the same string. 
-	Rule1 : <SL> -> <SL> <S>  can be broken down to <SL> <S> <S> OR <S> <S>
-	
+	For example parsing i 5 x y. You can get two completely parse trees.
+	<sl> -> <sl> <s> 
+			-> <s> <s>
+			-> i <b> <s> <s>
+			-> i 5 x y
+
+	OR
+	<sl> -> <s>
+			 -> i <B> <S> e <S>
+			 -> i 5 x y	
+
+
+2. 
+
+
+3.
+  a.  An LL parser would run into an infinate loop trying to expand the <A> in
+<A> -> <A> a <B>.
+
+  b.  <A> -> <B><A'> | <B>
+			<A'>-> a <B> <A'> | e
+			<B> -> <C> <B'>	| <C>
+			<B'>-> <C> <B'>	| e
+			<C> -> d | e
+
+	c.  <A> -> <B> { a <B> }
+			<B> -> <C> { <C> }
+			<C> -> d | e
+			
