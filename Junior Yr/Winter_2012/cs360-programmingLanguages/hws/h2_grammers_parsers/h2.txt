@@ -15,6 +15,19 @@ CS360 - Grammers, Parsing
 
 
 2. 
+For an LL(1) parser when the lookahead is set to {a} the parser will try to
+predict which will be the correct production.  It can screw up by picking
+the wrong production at 
+ <A> -> a <B>
+ <A> -> a b <C>
+here if lookahead is {a} then it'll think that the first rule is correct and
+then look at <B> -> but we see that rule 2 could also be a possibility
+because that also starts with a. With how it is setup now string abdxy will
+never match.
+
+Changing <A> rules to
+ <A> -> a ( <B> | b <C> )
+should solve this problem
 
 
 3.
