@@ -1,4 +1,5 @@
-start: clean run-all
+start: clean run-part1
+#start: clean run-all
 
 compile-all: compile-part1 compile-part2 compile-part3
 
