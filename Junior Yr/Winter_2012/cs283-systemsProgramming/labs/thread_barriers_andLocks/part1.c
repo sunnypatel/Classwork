@@ -8,8 +8,10 @@ struct node{
 
 };
 
-void *thread(void *arg){
 
+void *insert_thread(void *arg){
+}
+void *delete_thread(void *arg){
 }
 
 // insert a node after the node given
@@ -20,7 +22,9 @@ void delete(struct node *node);
 void printList(struct node *start);
 
 int main(){
-	int d = 1;
+
+	int numOfThreads = 100;
+
 	struct node *root;
 	root = Malloc(sizeof(struct node));
 	// creates a new first node
@@ -28,17 +32,26 @@ int main(){
 	// allocates room for first node
 	listp = root;
 
+	printf("\nCreating a linked list (single thread)\n");
 	// create linked list
 	int i;
-	for(i=0; i<10; i++){
+	for(i=1; i<10; i++){
 		listp = insert(listp,i);
-	}	
+	}
 
 	printList(root);
 
 	
-	printf("*** Deletion ***\n");
+	printf("\nDeleting second to last node (single thread)\n");
+	
+	delete(listp->prev->prev);
+
 	printList(root);
+
+
+	/** STARTING MULTI-THREADED INSERTION AND DELETETION **/
+	pthread_t tid[numOfThreads];
+
 }
 
 // creates a  new node and inserts it after the
@@ -69,9 +82,12 @@ void printList(struct node *start){
 	struct node *tmp;
 	tmp = start;
 	int i =0;
+	printf("\n+-----------------------------------+\n");
+	printf("            Printing list           \n");
+	printf("+-----------------------------------+\n");
 	while(tmp->next != NULL){
-		printf("{node %d}.data = %d\n", i++, tmp->data);
+		printf("   {node %d}.data = %d\n", i++, tmp->data);
 		tmp = tmp->next;
-		
 	}
+	printf("+-----------------------------------+\n");
 }
