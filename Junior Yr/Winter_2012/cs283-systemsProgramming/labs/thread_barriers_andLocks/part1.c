@@ -5,14 +5,7 @@ struct node{
 	int data;
 	struct node *prev;
 	struct node *next;
-
 };
-
-
-void *insert_thread(void *arg){
-}
-void *delete_thread(void *arg){
-}
 
 // insert a node after the node given
 struct node *insert(struct node *prevNode, int data);
@@ -21,9 +14,29 @@ void delete(struct node *node);
 // print list from starting node
 void printList(struct node *start);
 
+
+/** Thread definitions **/
+
+void *insert_thread(void *arg){
+	int newData = ((struct node*)arg)->data + 1;
+	// insert a new node at the end of list
+	arg =	insert(((struct node*)arg), newData);
+
+	printf("new node created %d\n", newData);
+	printf("new node data %d\n", ((struct node*)arg)->data);
+	pthread_exit(0);
+}
+
+void *delete_thread(void *arg){
+}
+
+
+
+
+
 int main(){
 
-	int numOfThreads = 100;
+	int numOfThreads = 10000;
 
 	struct node *root;
 	root = Malloc(sizeof(struct node));
@@ -43,16 +56,28 @@ int main(){
 
 	
 	printf("\nDeleting second to last node (single thread)\n");
-	
-	delete(listp->prev->prev);
+	// delete 2nd to last node	
+	delete(listp->prev);
 
 	printList(root);
 
 
 	/** STARTING MULTI-THREADED INSERTION AND DELETETION **/
-	pthread_t tid[numOfThreads];
 
+	// init. thread ids
+	pthread_t tid[numOfThreads];
+	int threadCount = 0;
+	// create x number of threads
+	for(threadCount = 0; threadCount < numOfThreads; threadCount++){
+		Pthread_create(&tid[threadCount], NULL, insert_thread, listp);
+	}
+
+	printList(root);
 }
+
+
+
+
 
 // creates a  new node and inserts it after the
 // prevNode
@@ -85,7 +110,7 @@ void printList(struct node *start){
 	printf("\n+-----------------------------------+\n");
 	printf("            Printing list           \n");
 	printf("+-----------------------------------+\n");
-	while(tmp->next != NULL){
+	while(tmp != NULL){
 		printf("   {node %d}.data = %d\n", i++, tmp->data);
 		tmp = tmp->next;
 	}

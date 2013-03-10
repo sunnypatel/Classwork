@@ -33,4 +33,4 @@ submit-tar:
 	tar -zcvf submit.tar.gz *.h *.c readme ans.txt Makefile
 
 clean:
-	rm -f *.o *.out lock_inside lock_outside nolock submit.tar.gz
+	rm -f *.o *.out part[123] submit.tar.gz
