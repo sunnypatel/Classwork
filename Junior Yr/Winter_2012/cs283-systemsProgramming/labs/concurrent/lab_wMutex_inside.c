@@ -7,7 +7,6 @@ typedef struct{
 
 void *thread(void *arg){
 	int *a = ((args*)arg)->a;
-	pthread_mutex_t *mutex = ((args*)arg)->mutex;
 	int i;
 	// being looping
 	for(i=0; i < 1000; i++) {
