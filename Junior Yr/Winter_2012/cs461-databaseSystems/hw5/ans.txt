@@ -1,0 +1,35 @@
+Sunny Patel
+
+1)	
+	select sum(revenue) as total_rev from ( select order_id, final_price -
+estimated_manu_cost as revenue from ( (SELECT date_id from dates WHERE
+order_placed_year = "%2013%") as A INNER JOIN orders ON order.date_id =
+A.date_id) GROUP BY orders.order_id);
+
+2)
+	SELECT sum(estimated_manu_cost) as total_costs from ( (SELECT date_id FROM
+dates WHERE order_placed_year = "%2013%") AS A INNER JOIN orders ON
+order.date_id = A.date_id);
+
+3)
+	SELECT sum(final_price) AS net_profit FROM ( (SELECT date_id FROM dates
+WHERE order_placed_year = "%2013%") AS A INNER JOIN orders ON order.date_id
+= A.date_id);
+
+4) 
+	SELECT estimated_delivery FROM( orders INNER JOIN (SELECT customer_id FROM
+customers WHERE first_name = "%jeff%" AND last_name="%Salvage%") ON
+orders.customer_id = A.customer.id);
+
+5)
+	SELECT estimated_manu_cost FROM ( orders INNER JOIN (SELECT make_id FROM
+make where model_id IN
+							(SELECT model_id FROM models WHERE model_name = "%model s%")
+	AND battery_id IN 
+							(SELECT battery_id FROM battery WHERE battery_name = "%85kw%")
+	AND roof_id IN 
+							(SELECT roof_id FROM roof WHERE roof_name = "%Pano Roof%")
+	AND sound_studio_id IN
+							(SELECT sound_studio_id FROM sound_studio WHERE
+sound_studio_name = "%upgraded studio%")) AS A orders.make_id = A.make_id);
+
