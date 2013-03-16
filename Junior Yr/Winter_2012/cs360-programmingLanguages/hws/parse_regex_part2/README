@@ -1,0 +1,10 @@
+<union> -> <concat> { '|' <concat> }
+<concat> -> <closure> { <closure> }
+<closure> -> <paren> '*' | <paren>
+<paren> -> '(' <union> ')' | <char>
+<char> -> 0 | 1 | ... | 9
+
+
+I was not able to get bison working in time.
+
+
