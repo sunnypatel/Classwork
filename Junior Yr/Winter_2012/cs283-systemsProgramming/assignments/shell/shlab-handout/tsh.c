@@ -230,10 +230,21 @@ void eval(char *cmdline)
 			if(execv(argv[0], argv) == -1){
 				// cmmand not found!
 				printf("%s: Command not found\n", argv[0]);
+				exit(0);
 			}
 		}
+		
+		addjob(jobs, pid, FG, cmdline);
+		Sigprocmask( SIG_UNBLOCK, &maskchild, NULL);
+		waitfg(pid);
+		
+		return;
 	}
-}
+		
+	
+	
+	return;
+}  // end of eval
 
 /* 
  * parseline - Parse the command line and build the argv array.
@@ -302,14 +313,25 @@ int parseline(const char *cmdline, char **argv, int *argc_param)
  */
 int builtin_cmd(char **argv, int argc) 
 {
+	// check if user entered one of the builtin cmds
+	// quit, fg, bg, jobs
+	if(strcmp(argv[0], "quit") == 0){
+		exit(0);
+	}	else if( (strcmp(argv[0], "fg") == 0) || (strcmp(argv[0], "bg") == 0) ){
+		do_bgfg(argv, argc);
+		return 1;
+	} else if ( strcmp(argv[0], "jobs") == 0){
+		listjobs(jobs);
+	}
 	return 0;     /* not a builtin command */
 }
 
 /* 
  * do_bgfg - Execute the builtin bg and fg commands
  */
-void do_bgfg(char **argv) 
+void do_bgfg(char **argv, int argc) 
 {
+	struct job_t *job = NULL;
 	return;
 }
 
