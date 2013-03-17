@@ -171,29 +171,68 @@ int main(int argc, char **argv)
  */
 void eval(char *cmdline) 
 {
-	if(strcmp(cmdline, "quit\n") == 0) {
-		exit(0);
-	}
-	else if( strcmp(cmdline, "jobs\n") == 0){
-		printf("\nJobs");
-	}
-	else if(strcmp(cmdline,"bg\n") == 0){
-		printf("\nbg");
-	}
-	else if(strcmp(cmdline, "fg\n") == 0){
-		printf("\nfg");
-	}
-	else {
-		// make job
-		int childPid;
-		childPid = fork();
+	// init cmdline arguments arry
+	char *argv[MAXARGS];
+		
+	// parse line and get the number of args
+	int argc = 0;
+	int isBG = parseline(cmdline, argv, &argc);
 
-		if (chlidPid == 0){
-		} else {
+	// init. pid for fork
+	int pid;
+
+	if (buildin_cmd(argv, argc))
+		return;
+	Sigprocmask(SIG_BLOCK, &maskchild, NULL);
+	
+	// start background process?
+	if(isBG){
+		pid = Fork();
+
+		// children enter here!
+		if(pid = 0){ 
+			// put the child process in a new process group ID, workaround the ctrl-c
+			// killing all processes in the foreground process group.
+			Setpgid(0,0);
+
+			Sigprocmask(SIG_UNBLOCK, &maskchild, NULL);
+			Signal(SIGINT, SIG_DFL);
+			Signal(SIGTSTP, SIG_DFL);
+			if( execv(argv[0], argv) == -1){ // error prob couldnt find command
+				printf("%s: Command not found\n", argv[0]);
+				exit(0);
+			}
+			return;
+		} // end of child
+		
+		addjob( jobs, pid, BG, cmdline);
+		struct job_t *job = getjobpid(jobs, pid);
+		printf("[%d] (%d) ", job->jid, job->pid);
+		printf("%s", job->cmdline);
+		
+		// unblock child sigs
+		Sigprocmask(SIG_UNBLOCK, &maskchild, NULL);
+
+	} // end of BG
+	else { // Fg process
+		pid = Fork();
+		// children here only!
+		if(pid==0){
+			// set own process group, same reason as bg process
+			Setpgid(0,0);
+			// unblock all children sigs
+			Sigprocmask(SIG_UNBLOCK, &maskchild, NULL);
+
+			// default signal handlers
+			Signal(SIGINT, SIG_DFL);
+			Signal(SIGTSTP, SIG_DFL);
+
+			if(execv(argv[0], argv) == -1){
+				// cmmand not found!
+				printf("%s: Command not found\n", argv[0]);
+			}
 		}
 	}
-	printf("\n");
-	return;
 }
 
 /* 
@@ -203,7 +242,7 @@ void eval(char *cmdline)
  * argument.  Return true if the user has requested a BG job, false if
  * the user has requested a FG job.  
  */
-int parseline(const char *cmdline, char **argv) 
+int parseline(const char *cmdline, char **argv, int *argc_param) 
 {
 	static char array[MAXLINE]; /* holds local copy of command line */
 	char *buf = array;          /* ptr that traverses command line */
@@ -246,10 +285,14 @@ int parseline(const char *cmdline, char **argv)
 	if (argc == 0)  /* ignore blank line */
 		return 1;
 
+	// set ref. var. argc_param to the number of args in cmdline
+	*argc_param = argc;
+
 	/* should the job run in the background? */
 	if ((bg = (*argv[argc-1] == '&')) != 0) {
 		argv[--argc] = NULL;
 	}
+
 	return bg;
 }
 
@@ -257,7 +300,7 @@ int parseline(const char *cmdline, char **argv)
  * builtin_cmd - If the user has typed a built-in command then execute
  *    it immediately.  
  */
-int builtin_cmd(char **argv) 
+int builtin_cmd(char **argv, int argc) 
 {
 	return 0;     /* not a builtin command */
 }
