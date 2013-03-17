@@ -66,7 +66,7 @@ void sigtstp_handler(int sig);
 void sigint_handler(int sig);
 
 /* Here are helper routines that we've provided for you */
-int parseline(const char *cmdline, char **argv); 
+int parseline(const char *cmdline, char **argv, int argc); 
 void sigquit_handler(int sig);
 
 void clearjob(struct job_t *job);
@@ -460,7 +460,7 @@ void sigchld_handler(int sig)
 				else if(WIFSTOPPED(status)){
           getjobpid(jobs, pid)->state=ST;
           printf("Job (%d) stopped by signal %d\n", pid, WSTOPSIG(status));
-				}
+				} // elseif signal
 			} // else
 		} // if (pid > 0)
 	} // while (pid > 0)
@@ -474,7 +474,21 @@ void sigchld_handler(int sig)
  */
 void sigint_handler(int sig) 
 {
-	return;
+  //search the job list for the fg process
+  int i=0;
+  struct job_t* victim=NULL;
+  for(i=0;i<MAXJOBS;i++){
+    if(getjobjid(jobs,i)!=NULL&&getjobjid(jobs,i)->state==FG)
+      victim=getjobjid(jobs,i);
+  }
+
+  //send the FG process a stop signal    
+  if(victim!=NULL){
+    Kill(-victim->pid,SIGTSTP);     //send a signal to each process in the process group
+    //victim->state=ST;                       
+  }
+  return;
+
 }
 
 /*
@@ -484,7 +498,20 @@ void sigint_handler(int sig)
  */
 void sigtstp_handler(int sig) 
 {
-	return;
+  //search the job list for the fg process
+  int i=0;
+  struct job_t* victim=NULL;
+  for(i=0;i<MAXJOBS;i++){
+    if(getjobjid(jobs,i)!=NULL&&getjobjid(jobs,i)->state==FG)
+      victim=getjobjid(jobs,i);
+  }
+
+  //send the FG process a stop signal    
+  if(victim!=NULL){
+    Kill(-victim->pid,SIGTSTP);     //send a signal to each process in the process group
+    //victim->state=ST;                       
+  }
+  return;
 }
 
 /*********************
