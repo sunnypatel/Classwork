@@ -332,15 +332,102 @@ int builtin_cmd(char **argv, int argc)
 void do_bgfg(char **argv, int argc) 
 {
 	struct job_t *job = NULL;
+	
+	if(strcmp(argv[0], "fg") == 0) {
+		// chk if user enterd a jid or pid
+		if ( argv[1][0] == '%'){
+			// change the first char to a 0 for atoi func
+			argv[1][0] = '0';
+			int jid = atoi(argv[1]);
+			// grab job with that jid
+			job = getjobjid(jobs, jid);
+			
+			if( jid == NULL || jid < 1){
+				printf("No job found with jid : %d\n", jid);
+				return;
+			}
+			
+			if(job->state == BG){
+				Kill(-(job->pid), SIGCONT);
+				job->state=FG;
+				waitfg(job->pid);
+			} else if(job->state == ST) { // job has stopped
+				Kill(-(job->pid), SIGCONT);
+				job->state = FG;
+				waitfg(job->pid);
+			}
+			return;
+		} else { // arg 1 was a pid
+			int pid = atoi(argv[1]);
+			// grab job w/ pid
+			job = getjobpid(jobs, pid);
+			if( pid == NULL || pid < 1)	{
+				printf("No job found with pid : %d", pid);
+				return;
+			}
+			if( job->state == ST){
+				Kill(-job->pid, SIGCONT);
+				job->state = FG;
+				waitfg(job->pid);
+			} else if(job->state == BG){
+				Kill(-job->pid, SIGCONT);
+				job->state = FG;
+				waitfg(job->pid);
+			}	
+			return;
+		}
+		 
+		
+	} // end foreground process if
+	else if(strcmp(argv[0],"bg") == 0){ // background process
+		// jid or pid chk
+		if(argv[1][0] == '%'){ // jid
+			argv[1][0] = '0';
+			int jid = atoi(argv[1]);
+			// grab job with jid
+			job = getjobjid(jobs, jid);
+
+			if(jid == NULL || jid < 1){
+				printf("No job found with jid: %d", jid);
+				return 0;
+			}
+			if(job->state == ST){
+				Kill(-(job->pid), SIGCONT);
+				job->state=BG;
+				printf("[%d] (%d) ", job->jid, job->pid);
+				printf("%s" , job->cmdline);
+			}
+			return;
+		} else {	// pid
+			int pid = atoi(argv[1]); // convert pid input to int
+			
+			job = getjobpid(jobs, pid);	
+			if(pid == NULL || pid <1){
+				printf("No job found with pid: %d", pid);
+				return;
+			}
+			if(job->state == ST){
+				Kill(-job->pid, SIGCONT);
+				job->state=BG;
+				printf("[%d] (%d) ", job->jid, job->pid);
+				printf("%s", job->cmdline);
+			}
+			return;
+		} // else pid
+		return;
+	}	// end background process if
 	return;
-}
+} 
 
 /* 
  * waitfg - Block until process pid is no longer the foreground process
  */
 void waitfg(pid_t pid)
 {
-	return;
+	struct job_t *job;
+	while( ((job = getjobpid(jobs, pid)) != NULL) && (job->state==FG)){
+		sleep(0);
+	}
 }
 
 /*****************
@@ -356,6 +443,27 @@ void waitfg(pid_t pid)
  */
 void sigchld_handler(int sig) 
 {
+	int pid =0;
+	int status = -1;
+	while(pid > 0){
+		pid = waitpid(-1, &status, WNOHANG|WUNTRACED);
+		if(pid>0){
+			if(WIFEXITED(status)){
+				deletejob(jobs, pid);
+			} else {
+				if( WIFSIGNALED(status)){
+					if(WTERMSIG(status) == 2){
+						printf("Job (%d) terminated by signal %d\n", pid, WTERMSIG(status));
+					}
+					deletejob(jobs, pid);
+				} // if WIFSIGNALED(status)
+				else if(WIFSTOPPED(status)){
+          getjobpid(jobs, pid)->state=ST;
+          printf("Job (%d) stopped by signal %d\n", pid, WSTOPSIG(status));
+				}
+			} // else
+		} // if (pid > 0)
+	} // while (pid > 0)
 	return;
 }
 
@@ -388,6 +496,7 @@ void sigtstp_handler(int sig)
  **********************************************/
 
 /* clearjob - Clear the entries in a job struct */
+	ieturn;
 void clearjob(struct job_t *job) {
 	job->pid = 0;
 	job->jid = 0;
