@@ -3,7 +3,7 @@
 TEAM = NOBODY
 VERSION = 1
 DRIVER = ./sdriver.pl
-TSH = ./tsh
+TSH = ./tsh_jeff
 TSHREF = ./tshref
 TSHARGS = "-p"
 CC = gcc
