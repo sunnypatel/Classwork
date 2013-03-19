@@ -89,91 +89,75 @@ handler_t *Signal(int signum, handler_t *handler);
 
 /* copied from csapp */
 
-void Sigprocmask(int how, const sigset_t *set, sigset_t *oldset)
-{
-	if (sigprocmask(how, set, oldset) < 0)
-		unix_error("Sigprocmask error");
-	return;
-}
-
-void Sigemptyset(sigset_t *set)
-{
-	if (sigemptyset(set) < 0)
-		unix_error("Sigemptyset error");
-	return;
-}
-
-void Sigfillset(sigset_t *set)
-{ 
-	if (sigfillset(set) < 0)
-		unix_error("Sigfillset error");
-	return;
-}
-
-void Sigaddset(sigset_t *set, int signum)
-{
-	if (sigaddset(set, signum) < 0)
-		unix_error("Sigaddset error");
-	return;
-}
-
-void Sigdelset(sigset_t *set, int signum)
-{
-	if (sigdelset(set, signum) < 0)
-		unix_error("Sigdelset error");
-	return;
-}
-void Setpgid(pid_t pid, pid_t pgid) {
-	int rc;
-
-	if ((rc = setpgid(pid, pgid)) < 0)
-		unix_error("Setpgid error");
-	return;
-}
-/* $begin forkwrapper */
-pid_t Fork(void) 
-{
-	pid_t pid;
-
-	if ((pid = fork()) < 0)
-		unix_error("Fork error");
+pid_t Fork(void)
+{   
+	int pid=-1;
+	if ((pid = fork())<0)
+	{
+		unix_error("fork error");
+		exit(0);
+	}
 	return pid;
 }
-/* $end forkwrapper */
 
-void Execve(const char *filename, char *const argv[], char *const envp[]) 
+int Kill(pid_t pid, int sig)
 {
-	if (execve(filename, argv, envp) < 0)
-		unix_error("Execve error");
+	int ret_val=-1;
+	if ((ret_val = kill(pid, sig))<0)
+	{        
+		unix_error("kill error");
+		exit(0);
+	}
+	return ret_val;
 }
 
-/* $begin wait */
-pid_t Wait(int *status) 
+pid_t Setpgid(pid_t pid, pid_t pgid)
 {
-	pid_t pid;
-
-	if ((pid  = wait(status)) < 0)
-		unix_error("Wait error");
-	return pid;
+	pid_t ret_val=-1;
+	if ((ret_val = setpgid(pid, pgid))<0)
+	{
+		unix_error("setpgid error");
+		exit(0);
+	}
+	return ret_val;
 }
-/* $end wait */
-
-pid_t Waitpid(pid_t pid, int *iptr, int options) 
+int Sigaddset(sigset_t *set, int signum)
 {
-	pid_t retpid;
+	int is_ok;
+	if((is_ok=sigaddset(set,signum))<0)
+		unix_error("sigaddset error");
+	return is_ok;
 
-	if ((retpid  = waitpid(pid, iptr, options)) < 0) 
-		unix_error("Waitpid error");
-	return(retpid);
 }
 
-/* $begin kill */
-void Kill(pid_t pid, int signum) 
+int Sigprocmask(int how, const sigset_t *set, sigset_t *oldset)
 {
-	int rc;
+	int isok=1;
+	if((isok=sigprocmask(how,set,oldset))<0)
+	{unix_error("sigprocmask error");}
+	return isok;
 
-	if ((rc = kill(pid, signum)) < 0)
-		unix_error("Kill error");
+}
+
+int Sigemptyset(sigset_t *set)
+{
+	int member;
+	if((member=sigemptyset(set))<0)
+		unix_error("sigemptyset error");
+	return member;
+
+}
+
+pid_t Waitpid(pid_t pid, int *status, int options)
+{
+	pid_t pid_ret = waitpid(pid,status,options);
+
+	if (pid_ret==-1)
+	{
+		unix_error("waitpid error");
+		exit(0);
+	}
+	return pid_ret;
 }
 
 /*
@@ -406,7 +390,7 @@ int builtin_cmd(char **argv, int argc)
 	// check if user entered one of the builtin cmds
 	// quit, fg, bg, jobs
 	if(strcmp(argv[0], "quit") == 0){
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}	else if( (strcmp(argv[0], "fg") == 0) || (strcmp(argv[0], "bg") == 0) ){
 		do_bgfg(argv, argc);
 		return 1;
@@ -439,7 +423,7 @@ void do_bgfg(char **argv, int argc)
 			}
 
 			if(job->state == BG){
-				Kill(-(job->pid), SIGCONT);
+				Kill(-job->pid, SIGCONT);
 				job->state=FG;
 				waitfg(job->pid);
 			} else if(job->state == ST) { // job has stopped
@@ -536,7 +520,8 @@ void sigchld_handler(int sig)
 {
 	int pid =0;
 	int status = -1;
-	while(pid > 0){
+//	while(pid > 0){
+	do {
 		pid = waitpid(-1, &status, WNOHANG|WUNTRACED);
 		if(pid>0){
 			if(WIFEXITED(status)){
@@ -555,7 +540,7 @@ void sigchld_handler(int sig)
 			} // else
 		} // if (pid > 0)
 	} // while (pid > 0)
-	return;
+	while (pid > 0);
 }
 
 /* 
@@ -575,7 +560,7 @@ void sigint_handler(int sig)
 
 		//send the FG process a stop signal    
 		if(victim!=NULL){
-			Kill(-victim->pid,SIGTSTP);     //send a signal to each process in the process group
+			Kill(-(victim->pid),SIGINT);     //send a signal to each process in the process group
 			//victim->state=ST;                       
 		}
 		return;
