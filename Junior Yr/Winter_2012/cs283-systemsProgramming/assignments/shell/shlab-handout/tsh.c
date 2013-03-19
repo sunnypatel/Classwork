@@ -390,7 +390,7 @@ int builtin_cmd(char **argv, int argc)
 	// check if user entered one of the builtin cmds
 	// quit, fg, bg, jobs
 	if(strcmp(argv[0], "quit") == 0){
-		exit(EXIT_SUCCESS);
+		exit(0);
 	}	else if( (strcmp(argv[0], "fg") == 0) || (strcmp(argv[0], "bg") == 0) ){
 		do_bgfg(argv, argc);
 		return 1;
@@ -401,14 +401,49 @@ int builtin_cmd(char **argv, int argc)
 	return 0;     /* not a builtin command */
 }
 
+/*
+ * Check if argc is > 2
+ */
+int check_argc(int argc, char *fgbg){
+	if(argc<2){
+		printf("%s command requires PID or %%jobid argument\n", fgbg);
+		return 0;
+	}
+	return 1; // all good
+}
+/*
+	 Checks to make sure pid and jid are numbers
+ */
+int checkID(char **argv, char *fgbg){
+	int i=0;            
+	if (argv[1][0]=='%')/*ignore the % sign.  */
+		i++;
+	// check every single character
+	for(i=i; i < strlen(argv[1]); i++){
+		if( !isdigit(argv[1][i]) ){
+			printf("%s: argument must be a PID or %%jobid\n", fgbg);
+			return 0;
+		}        
+	}   
+	return 1;
+
+}
+
 /* 
  * do_bgfg - Execute the builtin bg and fg commands
  */
 void do_bgfg(char **argv, int argc) 
 {
+
 	struct job_t *job = NULL;
 
 	if(strcmp(argv[0], "fg") == 0) {
+		// check number of args
+		if(!check_argc(argc, "fg"))
+			return;
+		// check if pid & jid are valid digits
+		if(!checkID(argv,"fg"))
+			return;
 		// chk if user enterd a jid or pid
 		if ( argv[1][0] == '%'){
 			// change the first char to a 0 for atoi func
@@ -417,8 +452,8 @@ void do_bgfg(char **argv, int argc)
 			// grab job with that jid
 			job = getjobjid(jobs, jid);
 
-			if( jid < 1){
-				printf("No job found with jid : %d\n", jid);
+			if( jid < 1 || job == NULL){
+				printf("%%%d: No such job\n", jid);
 				return;
 			}
 
@@ -436,8 +471,8 @@ void do_bgfg(char **argv, int argc)
 			int pid = atoi(argv[1]);
 			// grab job w/ pid
 			job = getjobpid(jobs, pid);
-			if( pid < 1)	{
-				printf("No job found with pid : %d", pid);
+			if( pid < 1 || job == NULL)	{
+				printf("(%d): No such process\n",pid);
 				return;
 			}
 			if( job->state == ST){
@@ -455,15 +490,22 @@ void do_bgfg(char **argv, int argc)
 
 	} // end foreground process if
 	else if(strcmp(argv[0],"bg") == 0){ // background process
-		// jid or pid chk
+		// check argc
+		if(!check_argc(argc, "bg"))
+			return;
+		// check if jid & pid are valid
+		if(!checkID(argv, "bg"))
+			return;
+
+		// what we got jid or pid?
 		if(argv[1][0] == '%'){ // jid
 			argv[1][0] = '0';
 			int jid = atoi(argv[1]);
 			// grab job with jid
 			job = getjobjid(jobs, jid);
 
-			if(jid < 1){
-				printf("No job found with jid: %d", jid);
+			if(jid < 1 || job == NULL){
+				printf("%%%d: No such job\n", jid);
 				return;
 			}
 			if(job->state == ST){
@@ -477,8 +519,8 @@ void do_bgfg(char **argv, int argc)
 			int pid = atoi(argv[1]); // convert pid input to int
 
 			job = getjobpid(jobs, pid);	
-			if(pid <1){
-				printf("No job found with pid: %d", pid);
+			if(pid <1 || job == NULL){
+				printf("(%d): No such process\n", pid);
 				return;
 			}
 			if(job->state == ST){
@@ -520,7 +562,7 @@ void sigchld_handler(int sig)
 {
 	int pid =0;
 	int status = -1;
-//	while(pid > 0){
+	//	while(pid > 0){
 	do {
 		pid = waitpid(-1, &status, WNOHANG|WUNTRACED);
 		if(pid>0){
