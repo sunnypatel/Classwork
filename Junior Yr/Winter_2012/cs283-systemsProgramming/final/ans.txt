@@ -1,0 +1,201 @@
+﻿Sunny Patel
+
+1.a)
+	The result is : val = 15
+	This is because the child process will run inside the if((pid = fork()) ==
+0) block and then will exit since there is a exit(0) in that block.  However
+the parent will run the handler function because the SIGCHLD signal is
+received whenever a child is termiinated and the signal handler is run (via signal(SIGCHLD, handler)) and
+the handler function takes the global val and addes 5 to it.  Parent then
+leaves handler and prints out "val = 15"
+
+1.b)
+Result 1: 
+Hello
+0
+1
+Bye
+2
+Bye
+
+Result 2:				Result 3:
+Hello						Hello
+1								1
+0								Bye
+Bye							0
+2								2
+Bye							Bye
+
+In result1 the parent is executed first but because of the wait(&status) sys call it is blocked until the child process finishes.  This is why we see the "Hello" printed followed by a 0 indicating parent is running ( important to note the NOT fork() in the printf) and then the parent is blocked at the wait and the child is run.  So after the 0 we see a 1, a "bye" from child and then goes back to parent since child is done, and now the if statement with the wait is true so it executes the printf in the if.  WEXITSTATUS(status) gets the exit status of the process with pid = status.
+In result2 the child executes prints 1 for !fork() and then switches back to parent prints 0 and then parent waits for child.
+In result3 the child executes completely and finishes and then parent starts, wait would have no effect here
+
+
+1.c) What does the wait() function do?
+The wait system call forces the parent process to wait until the child process is completed.  If a int is passed by ref. into the wait call then wait will return the child process's PID
+
+1.d) What would happen if we forked a child, forgot to call wait(), and then main() exited normally, while the child entered an infinite loop?
+	parent process would kill the child process when exitting
+
+1.e) What would happen if we forked a child, forgot to call wait(), and then main() entered an infinite loop, while the child exited?
+	Main would continue in the infinite loop even after child exited
+
+2)
+	buf[2] - global strong
+	int main() 			 - Global strong
+	swap() inside main - external
+	extern int buf[] - external weak
+	static int *bufp0 - local
+	status int *bufp1 - local
+	swap() 						- Global strong
+
+2.b)
+Consider the following code fragment.
+the output and why?
+
+	p1.c - 5, because the global x is set to 5 outside p1
+	p2.c - 10, because the global x gets set to 10 inside p2()
+
+Suppose this is not the output you wanted. How
+could you correct the program (hint, you need only change one
+line of code; and you must not change any variable names).
+In p2 you could make x a local variable. Just change x = 10; to int x = 10;	
+Depending on what output you want.  Not sure what output you wanted.
+
+3) 
+	64 Kilobyte four-way
+set associative L1 data cache
+Line#
+Valid
+Tag
+Data
+Valid
+Tag
+Data
+Valid
+Tag
+Data
+Valid
+Tag
+data
+0
+
+
+[0] ...[31]
+
+
+[0] ...[31]
+
+
+[0]...[31]
+
+
+[0]...[31]
+.
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+511
+
+
+[0] ...[31]
+
+
+[0] ...[31]
+
+
+[0] ...[31]
+
+
+[0] ...[31]
+
+
+4)
+	a) This causes parent process to wait for the foreground process to complete before continuing on.  Hence giving priority to the foreground process and running it completely.
+	
+	b)Both foreground and background processes are reaped by
+	a loop that is invoked on SIGCHLD. However, each child that
+	terminates throws a SIGCHLD signal, so why is it necessary to call
+	waitpid() in a loop in the SIGCHLD handler?
+	So the parent can finish reaping all children before it terminates, basically waits for the children to finish.
+			
+
+	c) How did you prevent this waitpid() loop from blocking
+	indefinitely in the event that there were no children to reap?
+	Used a do while loop instead of a while loop with the condition being pid > 0; I passed along WNOHANG as the 3rd parameter in the waidpid.  This tells waitpid to return 0 instead of blocking in which case the if(pid>0) block would be ignore as well as the while loop
+
+	d) Yes, waitpid will return if the child process's state changes.  That could be if it received any of the non-terminating signals as well as terminating ones.  We don't want to remove if on any of the signals just terminating ones.
+
+5)
+What does it mean for a function to be “reentrant?”
+   Given a function that is non-reentrant, discuss some strategies
+  for making it so.
+
+It means that the function can be called start executing, stop executing and then later pick up where it left off.  A function will be reentrant as long as it is also thread-safe.
+
+ Consider the library function char* strtok(char* str,
+const char* delimiters)
+	What does this function do?
+	Accepts a sting and splits it by the delimiters and returns a pointer to the first piece of the split.
+
+	How does it do it?
+	It does the string logic for split up a string by delimiters and then sets up 	a char* structure with all the peices and then return a pointer to the first element on the second call it'll move the pointer forward and give second peice, etc, etc.
+
+	Why is this code non-reentrant?
+	Because it uses a pointer to string of chars which it then creates a another pointer to a list of tokens.  If many threads are pointing to the same location and each on moves the pointer around then the other threads will start from an incorrect location in the string.
+
+Modify the function prototype to one that would
+help make strtok() reentrant. Then describe (you do not
+have to code) its new, reentrant behavior.
+	char *strtok(char *s1, const char *s2, char **s3)
+	this keeps track of where it left off with the 3rd parameter char **s3
+
+
+Your friend tells you that the performance ob-
+served from this program degrades as more threads are added.
+Why is this happening and what can be done about it?
+
+This is because each thread is working with the same cache, give each thread it's own cache and performance will improve.
+
+Further, you notice that the memory access pat-
+terns of C, A, and B are not the most efficient for a typi-
+cal cache/memory architecture. Suggest a memory-based im-
+provement to our friend as well.
+
+Take the transpose of b first and then matrix multiply that with a.  Also change this line: “c[i][j] = c[i][j] + a[i][k] * b[k][j];” to “c[i][j] = c[i][j] + a[i][k] * b[j][k];”
+
