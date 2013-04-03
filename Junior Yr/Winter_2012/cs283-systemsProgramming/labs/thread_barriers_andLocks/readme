@@ -1,0 +1,18 @@
+Part1:
+
+A linked list can become destroyed during a multi-threaded insertion and
+deletion. For example assume there consists a linked list of nodes 1 through
+10.  One thread would access node 4 and try to insert a node 4.5, this means
+that node4 has to now point to nod4.5 instead of node5.  So if another
+thread jumped in and removed node5 or tried to insert another node before
+node 5 then the linked list chain would be corrupted in the sense that node4
+is now pointing to an incorrect node.
+
+Same concept for deletion, when node5 gets deleted node4 has to point to
+node6 but what if the process context switches before node4 gets assigned to
+node6 and another thread then deletes node6.  Bam! You just lost all the
+nodes from there on.
+
+Printing a linked list:
+Printing a linked list is a thread-safe operation.  As long as nothing is
+modifiying the threads it should be ok. 
