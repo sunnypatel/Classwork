@@ -7,22 +7,29 @@ public class Radio {
 	public Radio(){
 		station = 96.5;
 		volume = 50;
-		power = false;
+		power = true;
 	}
 	
 	public void play(){
-		System.out.println("Playing station:" + station);
+		if( (power) && (volume > 0) )
+			System.out.println("[Radio] Playing station:" + station);
+		else
+			System.out.println("[Radio] ... ... ...");
 	}
 	
-	public void setStation(double newStation){
-		station = newStation;
+	public double getStation(){
+		return this.station;
 	}
 	
-	public void setVolume(double newVolume){
-		volume = newVolume;
+	public void setStation(double station){
+		this.station = station;
 	}
 	
-	public void setPower(boolean setPower){
-		power = setPower;
+	public void setVolume(double volume){
+		this.volume = volume;
+	}
+	
+	public void setPower(boolean power){
+		this.power = power;
 	}
 }
