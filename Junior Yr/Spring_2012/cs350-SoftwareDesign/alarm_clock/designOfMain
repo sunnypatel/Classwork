@@ -1,0 +1,24 @@
+main(){
+
+	a_Clock = new clock()
+	
+	wakeUp_Alarm = new Alarm();
+	wakeUp_Alarm.setHour(5);
+	wakeUp_Alarm.setMinute(0);
+
+	a_Clock.addAlarm(wakeUp_Alarm);
+
+	int i=0;
+	// "2 hours later"
+	while(i<120){
+	
+		// tick 1 minute
+		a_Clock.tick();
+
+		
+		i++;
+	}
+
+	a.addAlarm(
+
+}
