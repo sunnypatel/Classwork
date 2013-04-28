@@ -1,0 +1,20 @@
+
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//ArrayList<Question> questions = new ArrayList<Question>();
+		//questions.add(new Matching());
+		//questions.add(new Ranking());
+		
+		
+		Survey survey1 = new Survey();
+		
+		survey1.createSurvey();
+	}
+
+}
