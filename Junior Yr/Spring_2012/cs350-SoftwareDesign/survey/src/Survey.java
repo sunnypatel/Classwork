@@ -1,5 +1,16 @@
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import thirdparty.Serializer;
 
 
 public class Survey {
@@ -41,26 +52,31 @@ public class Survey {
 			
 
 				switch(Integer.parseInt(option)){
-				case 1:
+				case 1:									// Multiple Choice
 					questions.add(new MultipleChoice(1));
 					break;
-				case 2:
+				case 2:									// True / False
 					questions.add(new TrueFalse());
 					break;
-				case 3:
-					questions.add(new Matching());
+				case 3:									// Matching
+					Matching matching = new Matching();
+					matching.create();				//    <----- DONT LIKE THIS CHANGE IF TIME
+					questions.add(matching);
 					break;
-				case 4:
-					questions.add(new Ranking());
+				case 4:									// Ranking
+					Ranking ranking = new Ranking();
+					questions.add(ranking);
 					break;
-				case 5:
+				case 5:									// Essay
 					questions.add(new Essay());
 					break;
-				case 6:
+				case 6:									// Short Answer
 					questions.add(new ShortAns());
 					break;
 				case 7:
 					addAnother = false;
+					this.save();
+					break;
 				default:
 					System.out.println("Sorry, input not recognized. Please try again.");
 					System.out.println("No question added");
@@ -93,5 +109,40 @@ public class Survey {
 	
 	public int getNumberOfQuestions(){
 		return questions.size();
+	}
+	
+	public void save(){
+		Serializer serializer = new Serializer();
+		byte[] data = Serializer.serialize(this.questions);
+	
+
+		File inputFile = new File("test");
+		byte[] data = new byte[(int) inputFile.length()];
+		FileInputStream fis = new FileInputStream(inputFile);
+		fis.read(data, 0, data.length);
+		fis.close();
+		
+		
+		
+	/*	writer a = new writer();
+		a.printvariableToFile("test", this.questions);
+		  OutputStream bufferedOutputStream;
+		try {
+			bufferedOutputStream = new BufferedOutputStream(new FileOutputStream("test"));
+			  InputStream inputStream = new ByteArrayInputStream(questions);
+			  int token = -1;
+
+			  while((token = inputStream.read()) != -1)
+			  {
+			    bufferedOutputStream.write(token);
+			  }
+			  bufferedOutputStream.flush();
+			  bufferedOutputStream.close();
+			  inputStream.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+*/
 	}
 }

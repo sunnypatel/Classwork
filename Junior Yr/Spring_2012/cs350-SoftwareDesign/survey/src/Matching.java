@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import thirdparty.RomanConversion;
+
 
 public class Matching extends Question {
 	
@@ -10,10 +12,9 @@ public class Matching extends Question {
 	public Matching(){
 		this.leftSide = new ArrayList<String>();
 		this.rightSide = new ArrayList<String>();
-		
-		create();
+
 	}
-	
+
 	public void create(){
 		create_leftSide();
 		create_rightSide();
@@ -55,10 +56,12 @@ public class Matching extends Question {
 	
 	public void addToLeft(String item){
 		leftSide.add(item);
+		calibrate();
 	}
 	
 	public void addToRight(String item){
 		rightSide.add(item);
+		calibrate();
 	}
 	
 	public ArrayList<String> getLeftSide() {
@@ -87,6 +90,10 @@ public class Matching extends Question {
 			if(leftSide.get(i).length() > maxSpaces)
 				maxSpaces = leftSide.get(i).length();
 		}
+		
+		// if spacing is too little add some!
+		if (maxSpaces <= 1)
+			maxSpaces = 4;
 		
 		// do actual printing
 		int i = 0;
@@ -120,6 +127,28 @@ public class Matching extends Question {
 
 	public String getQuestionType() {
 		return questionType;
+	}
+	
+	/**
+	 * In case null values get into ArrayList
+	 * compensate for them by adding "".  Hence allows for matching questions 
+	 * to have some options not matching anything!
+	 */
+	private void calibrate(){
+		int leftSize = this.leftSide.size();
+		int rightSize = this.rightSide.size();
+
+		if(leftSize != rightSize){
+			if(leftSize > rightSize ){
+			
+				for(int i=0; i<=(leftSize-rightSize);i++)
+					this.rightSide.add(" ");
+			} else {
+			;
+				for(int i=0; i<=(rightSize-leftSize);i++)
+					this.leftSide.add(" ");
+			}
+		}
 	}
 
 }

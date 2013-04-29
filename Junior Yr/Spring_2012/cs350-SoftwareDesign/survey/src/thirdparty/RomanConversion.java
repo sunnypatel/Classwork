@@ -2,6 +2,7 @@
 //          This is the model without any user interface.
 // Author : Fred Swartz
 // Date   : 23 Jan 2006
+package thirdparty;
 
 public class RomanConversion {
     
