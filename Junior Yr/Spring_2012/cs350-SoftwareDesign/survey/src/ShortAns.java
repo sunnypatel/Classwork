@@ -1,6 +1,8 @@
 
 public class ShortAns extends Essay{
 	
+	private String questionType = "Short Answer";
+	
 	/**
 	 * Maximum number of characters in answer
 	 * is by default set to 10
@@ -18,4 +20,9 @@ public class ShortAns extends Essay{
 	public ShortAns(int maxChar){
 		this.setMaxChar(maxChar);
 	}
+
+	public String getQuestionType() {
+		return questionType;
+	}
+
 }

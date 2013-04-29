@@ -3,6 +3,8 @@ import java.util.Iterator;
 
 
 public class MultipleChoice extends Question{
+	
+	private String questionType = "Multiple Choice";
 	private ArrayList<String> options;
 	
 	public MultipleChoice(){
@@ -39,7 +41,7 @@ public class MultipleChoice extends Question{
 			if(ans.equals("\\done")){ // yes
 				addAnother = false;
 			} else{ // no
-				this.addOption(rd.readLine());
+				this.addOption(ans);
 			}
 		} // while (addAnother)
 	} // createOptions
@@ -84,5 +86,9 @@ public class MultipleChoice extends Question{
 			System.out.println(" ("+ optionNum + ") " + it.next());
 			optionNum = optionNum + 1;
 		}
+	}
+	
+	public String getQuestionType() {
+		return questionType;
 	}
 }

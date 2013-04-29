@@ -1,6 +1,8 @@
 
 public class Essay extends Question{
 	
+	private String questionType = "Essay";
+	
 	// maximum number of characters allowed for essay;
 	// -1 for infinite
 	private int maxChar = -1;  
@@ -38,6 +40,9 @@ public class Essay extends Question{
 		displayMaxChar();
 		System.out.println("");
 	}
-	
+
+	public String getQuestionType() {
+		return questionType;
+	}	
 	
 }
