@@ -76,7 +76,7 @@ public class Survey {
 	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
-	public void load(String filename) throws FileNotFoundException {
+	public boolean load(String filename) throws FileNotFoundException {
 		try {
 			FileInputStream fileIn = new FileInputStream(filename);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -84,17 +84,23 @@ public class Survey {
 			try {
 				this.setQuestions((ArrayList<Question>) in.readObject());
 				this.setName(filename);
+				in.close();
+				return true;
 			} catch (ClassNotFoundException e) {
 				// bad input
 				//e.printStackTrace();
+				in.close();
 				System.out.println("Bad input");
+				return false;
 			}
-			in.close();
+			
 		} catch (IOException e) {
 			// I/O error
 			// e.printStackTrace();
-			System.out.println("Couldn't find the survey your looking for. Try \\list");
+			// TODO error logging
+			return false;
 		}
+	
 	}
 
 }

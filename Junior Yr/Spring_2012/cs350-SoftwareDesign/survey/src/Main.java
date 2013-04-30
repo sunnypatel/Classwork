@@ -210,8 +210,8 @@ public class Main {
 					Survey survey = new Survey();
 					// option is the survey name
 					try {
-						survey.load(survey_location + option);
-						editSurveyMenu(survey);
+						if(survey.load(survey_location + option))
+							editSurveyMenu(survey);
 						
 					} catch (FileNotFoundException e) {
 						
@@ -223,8 +223,10 @@ public class Main {
 						if(index <= surveys.size()){
 							// index found
 							try {
-								survey.load("saves/survey/" + surveys.get(index));
-								editSurveyMenu(survey);
+								System.out.println("Searching at index:" + index);
+								String filename = surveys.get(index);
+								if(survey.load("saves/survey/" + filename))
+									editSurveyMenu(survey);
 							} catch (FileNotFoundException e1){
 								// ok i've tried the file really isnt found.
 								done = false;
