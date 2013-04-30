@@ -1,6 +1,11 @@
 
 public class Essay extends Question{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1877377563437219685L;
+
 	private String questionType = "Essay";
 	
 	// maximum number of characters allowed for essay;
@@ -31,14 +36,13 @@ public class Essay extends Question{
 	public void displayMaxChar(){
 		if(this.getMaxChar() > 0){
 			System.out.print(" (Warning: Max characters allowed " + this.getMaxChar());
-			System.out.print(", remaining characters will be truncated.)");
+			System.out.println(", remaining characters will be truncated.)");
 		}
 	}
 	public void displayQuestion(){
-		System.out.println("");
-		System.out.println(this.getPrompt());
+		super.displayQuestion();
 		displayMaxChar();
-		System.out.println("");
+
 	}
 
 	public String getQuestionType() {

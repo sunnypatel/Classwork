@@ -1,9 +1,16 @@
+import java.io.Serializable;
 
 
-public class Question {
+
+public class Question implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5363456947254228772L;
 	private static final String questionType = null;
 	// to make my life easier for now i just included this here.
-	public Creader rd = new Creader();
+	
+	public transient Creader rd = new Creader();
 	private String prompt;
 	
 	public Question(){
@@ -22,7 +29,11 @@ public class Question {
 	}
 	
 	public void displayQuestion(){
-		
+		// Check if question mark is included in prompt
+		if(this.getPrompt().lastIndexOf("?") == -1){
+			this.setPrompt(this.getPrompt() + "?");
+		}
+		System.out.println(this.getPrompt());
 	}
 	
 	public String getQuestionType(){

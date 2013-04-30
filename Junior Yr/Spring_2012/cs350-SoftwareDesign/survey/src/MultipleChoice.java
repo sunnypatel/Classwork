@@ -4,6 +4,10 @@ import java.util.Iterator;
 
 public class MultipleChoice extends Question{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4290684159989804503L;
 	private String questionType = "Multiple Choice";
 	private ArrayList<String> options;
 	
@@ -68,10 +72,8 @@ public class MultipleChoice extends Question{
 	 * with the multiple choices
 	 */
 	public void displayQuestion(){
-		System.out.println("");
-		System.out.println(this.getPrompt());
+		super.displayQuestion();
 		displayOptions();
-		System.out.println("");
 	}
 	
 	/**

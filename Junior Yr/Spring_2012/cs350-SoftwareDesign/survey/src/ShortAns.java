@@ -1,6 +1,10 @@
 
 public class ShortAns extends Essay{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2635843978527364333L;
 	private String questionType = "Short Answer";
 	
 	/**
@@ -25,4 +29,7 @@ public class ShortAns extends Essay{
 		return questionType;
 	}
 
+	public void displayQuestion(){
+		super.displayQuestion();
+	}
 }

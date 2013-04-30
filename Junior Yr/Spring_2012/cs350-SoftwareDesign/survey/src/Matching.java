@@ -5,6 +5,10 @@ import thirdparty.RomanConversion;
 
 public class Matching extends Question {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8464030509229435577L;
 	private String questionType = "Matching";
 	private ArrayList<String> leftSide;
 	private ArrayList<String> rightSide;
@@ -81,7 +85,7 @@ public class Matching extends Question {
 	}
 	
 	public void displayQuestion(){
-		System.out.println(this.getPrompt());		
+		super.displayQuestion();	
 		
 		// get the string length of the biggest string in leftside items
 		// this will be used to format neatly

@@ -15,6 +15,7 @@ public class Main {
 		Survey survey1 = new Survey();
 		
 		survey1.createSurvey();
+		survey1.addQuestion();
 		/*
 		//String roman = RomanConversion.binaryToRoman(3);
 		//System.out.println(roman);

@@ -1,25 +1,35 @@
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import thirdparty.Serializer;
 
 
-public class Survey {
+public class Survey implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1516345659842813782L;
+	private String name;
 	private ArrayList<Question> questions;
+	
+	
 	public Survey(){
+		
 		questions = new ArrayList<Question>();
 	}
 	
+	
 	public void createSurvey(){
+		Creader rd = new Creader();
+		
+		System.out.println("-- Create new survey --");
+		System.out.print("Survey name:");
+		this.setName(rd.readLine());
+	}
+	
+	
+	public void addQuestion(){
 		Creader rd = new Creader();
 		boolean addAnother = true;
 		int questionCount = 0;
@@ -75,7 +85,16 @@ public class Survey {
 					break;
 				case 7:
 					addAnother = false;
-					this.save();
+					System.out.print("Saving...");
+					
+					try {
+						this.save();
+						System.out.println("Done.");
+					} catch (IOException e) {
+						System.out.println("Error.");
+						e.printStackTrace();
+					}
+					
 					break;
 				default:
 					System.out.println("Sorry, input not recognized. Please try again.");
@@ -91,7 +110,7 @@ public class Survey {
 				System.out.println("");
 			}
 			
-			if (!errors){
+			if (!errors && (addAnother != false)){
 				questionCount = questionCount + 1;
 				System.out.println("Question #" + questionCount + " was created successfully.");
 				
@@ -111,38 +130,34 @@ public class Survey {
 		return questions.size();
 	}
 	
-	public void save(){
-		Serializer serializer = new Serializer();
-		byte[] data = Serializer.serialize(this.questions);
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
-
-		File inputFile = new File("test");
-		byte[] data = new byte[(int) inputFile.length()];
-		FileInputStream fis = new FileInputStream(inputFile);
-		fis.read(data, 0, data.length);
-		fis.close();
-		
-		
-		
-	/*	writer a = new writer();
-		a.printvariableToFile("test", this.questions);
-		  OutputStream bufferedOutputStream;
+	/**
+	 * Saves the survey questions in a filenamed [survey_name].q
+	 * @throws IOException
+	 */
+	public void save() throws IOException{
+	
 		try {
-			bufferedOutputStream = new BufferedOutputStream(new FileOutputStream("test"));
-			  InputStream inputStream = new ByteArrayInputStream(questions);
-			  int token = -1;
-
-			  while((token = inputStream.read()) != -1)
-			  {
-			    bufferedOutputStream.write(token);
-			  }
-			  bufferedOutputStream.flush();
-			  bufferedOutputStream.close();
-			  inputStream.close();
-		} catch (FileNotFoundException e) {
+			FileOutputStream fileOut = new FileOutputStream("saves/survey/" + this.getName() + ".q");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(this.questions);
+			out.close();
+			fileOut.close();
+			
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-*/
+	
+
 	}
+
 }

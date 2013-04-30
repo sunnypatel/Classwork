@@ -1,11 +1,10 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 
 public class Creader {
 	
 	private BufferedReader br;
+	
 	/**
 	 * @param args
 	 */
@@ -17,7 +16,7 @@ public class Creader {
 		try {
 			return br.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return "";
