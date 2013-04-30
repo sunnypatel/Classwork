@@ -13,7 +13,7 @@ public class ShortAns extends Essay{
 	 */
 	public ShortAns(){
 		this.setMaxChar(10);
-		
+		this.setQuestionType(questionType);
 	}
 	
 	/**

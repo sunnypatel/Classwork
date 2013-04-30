@@ -13,10 +13,12 @@ public class MultipleChoice extends Question{
 	
 	public MultipleChoice(){
 		options = new ArrayList<String>();
+		this.setQuestionType(questionType);
 	}
 	
 	public MultipleChoice(int numOfOptions){
 		options = new ArrayList<String>();
+		this.setQuestionType(questionType);
 		
 		if(numOfOptions > 0){
 			createOptions();

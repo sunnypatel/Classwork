@@ -8,6 +8,7 @@ public class Ranking extends Matching {
 
 	public Ranking(){
 		this.create_leftSide();
+		this.setQuestionType(questionType);
 	}
 	
 	public String getQuestionType() {

@@ -16,7 +16,7 @@ public class Matching extends Question {
 	public Matching(){
 		this.leftSide = new ArrayList<String>();
 		this.rightSide = new ArrayList<String>();
-
+		this.setQuestionType(questionType);
 	}
 
 	public void create(){

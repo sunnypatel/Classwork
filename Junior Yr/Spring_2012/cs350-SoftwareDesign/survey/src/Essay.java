@@ -14,12 +14,12 @@ public class Essay extends Question{
 	
 	public Essay(){
 		this.setMaxChar(-1);
-		
+		this.setQuestionType(questionType);
 	}
 	
 	public Essay(int maxChar){
 		this.setMaxChar(maxChar);
-		
+		this.setQuestionType(questionType);		
 	}
 
 	public int getMaxChar() {

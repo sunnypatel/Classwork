@@ -43,6 +43,7 @@ public class Survey {
 	public void displayQuestions() {
 		for (Question q : this.questions) {
 			q.displayQuestion();
+			System.out.println("");
 		}
 	}
 
@@ -77,7 +78,7 @@ public class Survey {
 	@SuppressWarnings("unchecked")
 	public void load(String filename) throws FileNotFoundException {
 		try {
-			FileInputStream fileIn = new FileInputStream("saves/survey/"+ filename);
+			FileInputStream fileIn = new FileInputStream(filename);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			// try reading object from file
 			try {

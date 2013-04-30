@@ -1,10 +1,14 @@
 import java.io.*;
 import java.util.ArrayList;
-
+import java.lang.Math;
 
 
 public class Main {
 
+	private String survey_location = "saves/survey/";
+	private String test_location = "saves/test/";
+	
+	
 	/**
 	 * @param args
 	 */
@@ -60,11 +64,14 @@ public class Main {
 	
 	public void editSurveyMenu(Survey survey) {
 		Creader rd = new Creader();
-		boolean addAnother = true;
+		boolean done = false;
+		boolean errors = false;
+		boolean print = true;
+		
 		int questionCount = 0;
 
-		while (addAnother) {
-			boolean errors = false;
+		do {
+			print = true;
 
 			// What type of question are we creating?
 			System.out.println("");
@@ -114,9 +121,12 @@ public class Main {
 					break;
 				case 7: // List all questions
 					survey.displayQuestions();
+					print = false;
+					done = false;
 					break;
 				case 8:
-					addAnother = false;
+					done = true;
+					print = false;
 					System.out.print("Saving...");
 
 					try {
@@ -143,16 +153,12 @@ public class Main {
 				System.out.println("");
 			}
 
-			if (!errors && (addAnother != false)) {
+			if (!errors && print) {
 				questionCount = questionCount + 1;
 				System.out.println("Question #" + questionCount
 						+ " was created successfully.");
 
 				System.out.println("Question as reader would see it: ");
-				System.out.println("");
-				System.out.println("-- "
-						+ survey.getQuestions().get(survey.getQuestions().size() - 1).getQuestionType()
-						+ " --");
 				System.out.println("");
 				// ****(MULTI-THREADING WARNING) LINE WILL NOT BE CORRECT IN
 				// CASE OF A RACE CONDITION****
@@ -160,7 +166,7 @@ public class Main {
 
 			}
 
-		} // while(addAnother)
+		} while(errors || (done == false));
 		surveyMainMenu();
 	} // createSurvey()
 	
@@ -187,7 +193,7 @@ public class Main {
 		System.out.println("type \\back    to return to previous menu)");
 		do {
 			System.out.println("");
-			System.out.println("Enter survey name to load:");
+			System.out.println("Enter survey name or ID# to load:");
 
 			// get user input
 			String option = rd.readLine();
@@ -204,11 +210,28 @@ public class Main {
 					Survey survey = new Survey();
 					// option is the survey name
 					try {
-						survey.load(option);
+						survey.load(survey_location + option);
+						editSurveyMenu(survey);
+						
 					} catch (FileNotFoundException e) {
-						done = false;
-						System.out.println("File not found. Please try again.");
-						//e.printStackTrace();
+						
+						// File name was not found try to use index number to look up filename
+						// convert user input to integer index
+						int index = Integer.parseInt(option);
+						ArrayList<String> surveys = getFiles(survey_location);
+						
+						if(index <= surveys.size()){
+							// index found
+							try {
+								survey.load("saves/survey/" + surveys.get(index));
+								editSurveyMenu(survey);
+							} catch (FileNotFoundException e1){
+								// ok i've tried the file really isnt found.
+								done = false;
+								System.out.println("File not found. Please try again.");
+								//e1.printStackTrace();								
+							}
+						}
 					}
 				}
 			} else {
@@ -218,16 +241,93 @@ public class Main {
 		} while (!done);
 	}
 	
+	
 	public void listSurveys(){
-		ArrayList<String> surveys = listFiles("saves/survey/");
-		int count =0;
-		for (String filename : surveys){
-			count++;
-			System.out.println(" "+count+". "+ filename );
-		}
+		ArrayList<String> surveys = getFiles(survey_location);
+		printList(surveys, "ID","FILENAME");
 	}
 	
-	public ArrayList<String> listFiles(String path){
+	/**
+	 * Neatly prints a formated list with index numbers
+	 * TODO clean up if you have time
+	 * @param list ArrayList<String> to be printed out
+	 */
+	public void printList(ArrayList<String> list, String title, String title2){
+		
+		int count =0;
+		// maxSpaces for id shouldn't be less than 2 because "id".length = 2
+		int maxSpaces_id =  ((int) Math.log10(list.size()) > 2) ? (int) Math.log10(list.size()) : 2;	// should give the max number of digits for index# of last file
+		// set 8 because the title 'filename' has 8 characters 
+		int maxSpaces_name = 8;
+		int total_spaces = 0;
+		
+		for (String filename : list){
+			if(filename.length() > maxSpaces_name)
+				maxSpaces_name = filename.length() + 1;
+		}
+		// plus to account for space added in front of titles and other things
+		total_spaces = maxSpaces_id + maxSpaces_name + 5;
+		
+		// print top border
+		System.out.print("+");
+		for(int i=0;i<=total_spaces;i++)
+			System.out.print("-");
+		System.out.println("+");
+		
+		// print title
+		System.out.print("|");
+		System.out.print(" "+title);
+		// put appropriate number of spaces for id column
+		for(int i=0;i<=maxSpaces_id-(title.length());i++)
+			System.out.print(" ");
+		System.out.print(" |");
+				
+		// start printing name column
+		System.out.print(" "+title2);
+		// put appropriate number of spaces for name column
+		for(int i=0; i <= (maxSpaces_name - title2.length()); i++)
+			System.out.print(" ");
+					
+		System.out.println("|");
+
+		
+
+		// print border
+		System.out.print("+");
+		for(int i=0;i<=total_spaces;i++)
+			System.out.print("-");
+		System.out.println("+");		
+		
+		
+		// start printing filenames
+		for (String filename : list){
+			System.out.print("|");
+			count++;
+			// start printing id column
+			int idStr_length = (int) Math.log10(count);
+			System.out.print(" "+ count);
+			// put appropriate number of spaces for id column
+			for(int i=0;i<=maxSpaces_id-(idStr_length);i++)
+				System.out.print(" ");
+			System.out.print("|");
+			
+			// start printing name column
+			System.out.print(" "+ filename);
+			// put appropriate number of spaces for name column
+			for(int i=0; i<=maxSpaces_name - (filename.length()); i++)
+				System.out.print(" ");
+			
+			System.out.println("|");
+		}
+		
+		// ending bottom border
+		System.out.print("+");
+		for(int i=0;i<=total_spaces;i++)
+			System.out.print("-");
+		System.out.println("+");		
+	}
+	
+	public ArrayList<String> getFiles(String path){
 		ArrayList<String> fileList = new ArrayList<String>();
 		  String files;
 		  File folder = new File(path);
