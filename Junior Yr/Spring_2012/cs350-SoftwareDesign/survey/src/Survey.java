@@ -23,7 +23,7 @@ public class Survey {
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -41,7 +41,10 @@ public class Survey {
 	}
 	
 	public void displayQuestions() {
+		int count = 0;
 		for (Question q : this.questions) {
+			count++;
+			System.out.print("#" + count + " ");
 			q.displayQuestion();
 			System.out.println("");
 		}
@@ -55,8 +58,7 @@ public class Survey {
 	public void save() throws FileNotFoundException {
 
 		try {
-			FileOutputStream fileOut = new FileOutputStream("saves/survey/"
-					+ this.getName() + ".q");
+			FileOutputStream fileOut = new FileOutputStream("saves/survey/"+ this.getName());
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(this.getQuestions());
 			out.close();

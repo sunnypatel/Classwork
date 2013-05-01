@@ -30,11 +30,11 @@ public class Question implements Serializable{
 	
 	public void displayQuestion(){
 		// Check if question mark is included in prompt
-		if(this.getPrompt().lastIndexOf("?") == -1){
+		/*if(this.getPrompt().lastIndexOf("?") == -1){
 			this.setPrompt(this.getPrompt() + "?");
-		}
-		System.out.println(" | " + this.getQuestionType() + " | ");
-		System.out.println("");
+		} */
+		System.out.println("| " + this.getQuestionType() + " | ");
+		//System.out.println("");
 		System.out.println(this.getPrompt());
 	}
 	

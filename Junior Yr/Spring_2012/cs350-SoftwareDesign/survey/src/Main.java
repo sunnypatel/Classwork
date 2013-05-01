@@ -96,7 +96,8 @@ public class Main {
 			if (option.length() > 0) {
 
 				System.out.println("You selected option " + option);
-
+				System.out.println("");
+				
 				switch (Integer.parseInt(option)) {
 				case 1: // Multiple Choice
 					survey.addQuestion(new MultipleChoice(1));
@@ -154,7 +155,7 @@ public class Main {
 			}
 
 			if (!errors && print) {
-				questionCount = questionCount + 1;
+				questionCount = survey.getNumberOfQuestions();
 				System.out.println("Question #" + questionCount
 						+ " was created successfully.");
 
@@ -188,8 +189,9 @@ public class Main {
 		boolean done = false;
 		System.out.println("");
 		System.out.println("-- Menu: Load survey --");
-		System.out.println("Options:");
-		System.out.println("type \\list    to view all available surveys)");
+		listSurveys();
+		//System.out.println("Options:");
+		//System.out.println("type \\list    to view all available surveys)");
 		System.out.println("type \\back    to return to previous menu)");
 		do {
 			System.out.println("");
@@ -214,26 +216,8 @@ public class Main {
 							editSurveyMenu(survey);
 						
 					} catch (FileNotFoundException e) {
-						
-						// File name was not found try to use index number to look up filename
-						// convert user input to integer index
-						int index = Integer.parseInt(option);
-						ArrayList<String> surveys = getFiles(survey_location);
-						
-						if(index <= surveys.size()){
-							// index found
-							try {
-								System.out.println("Searching at index:" + index);
-								String filename = surveys.get(index);
-								if(survey.load("saves/survey/" + filename))
-									editSurveyMenu(survey);
-							} catch (FileNotFoundException e1){
-								// ok i've tried the file really isnt found.
-								done = false;
-								System.out.println("File not found. Please try again.");
-								//e1.printStackTrace();								
-							}
-						}
+						System.out.println("File not found. Please try again.");
+						//loadSurvey_byIndex(Integer.parseInt(option));
 					}
 				}
 			} else {
@@ -243,10 +227,32 @@ public class Main {
 		} while (!done);
 	}
 	
+	public void loadSurvey_byIndex(int index){
+		// File name was not found try to use index number to look up filename
+		// convert user input to integer index
+		Survey survey = new Survey();
+		ArrayList<String> surveys = getFiles(survey_location);
+		
+		if(index <= surveys.size()){
+			// index found
+			try {
+				System.out.println("Searching at index:" + index);
+				String filename = surveys.get(index);
+				if(survey.load(survey_location + filename))
+					editSurveyMenu(survey);
+			} catch (FileNotFoundException e){
+				// ok i've tried the file really isnt found.
+				
+				System.out.println("File not found. Please try again.");
+				//e1.printStackTrace();								
+			}
+		}
+
+	}
 	
 	public void listSurveys(){
 		ArrayList<String> surveys = getFiles(survey_location);
-		printList(surveys, "ID","FILENAME");
+		printList(surveys, "Id #","Surveys");
 	}
 	
 	/**
@@ -258,9 +264,9 @@ public class Main {
 		
 		int count =0;
 		// maxSpaces for id shouldn't be less than 2 because "id".length = 2
-		int maxSpaces_id =  ((int) Math.log10(list.size()) > 2) ? (int) Math.log10(list.size()) : 2;	// should give the max number of digits for index# of last file
+		int maxSpaces_id =  ((int) Math.log10(list.size()) > title.length()) ? (int) Math.log10(list.size()) : title.length();	// should give the max number of digits for index# of last file
 		// set 8 because the title 'filename' has 8 characters 
-		int maxSpaces_name = 8;
+		int maxSpaces_name = title2.length();
 		int total_spaces = 0;
 		
 		for (String filename : list){
@@ -341,10 +347,7 @@ public class Main {
 		   if (listOfFiles[i].isFile()) 
 		   {
 		   files = listOfFiles[i].getName();
-		       if (files.endsWith(".q") || files.endsWith(".a"))
-		       {
-		          fileList.add(files);
-		        }
+		   fileList.add(files);
 		     }
 		  }
 		  return fileList;
