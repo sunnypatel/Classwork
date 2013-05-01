@@ -10,7 +10,6 @@ public class Survey {
 
 	private String name;
 	private ArrayList<Question> questions;
-	private ArrayList<Response> responses;
 	
 	public Survey() {
 
@@ -59,7 +58,7 @@ public class Survey {
 			
 			// ask for answer
 			String ans = rd.readLine();
-			responses.add(new Response(ans));
+			q.setResponse(ans);
 		}
 		
 		
