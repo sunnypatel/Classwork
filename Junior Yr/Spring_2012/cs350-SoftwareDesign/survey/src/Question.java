@@ -12,6 +12,7 @@ public class Question implements Serializable{
 	
 	public transient Creader rd = new Creader();
 	private String prompt;
+	private Response response;
 	
 	public Question(){
 		
@@ -20,6 +21,18 @@ public class Question implements Serializable{
 		
 	}
 
+	public Response getReponse(){
+		return this.response;
+	}
+	
+	public void setResponse(String r){
+		this.response.setResponse(r);
+	}
+	
+	public void setResponse(Response r){
+		this.response = r;
+	}
+	
 	public String getPrompt() {
 		return prompt;
 	}

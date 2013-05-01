@@ -10,7 +10,8 @@ public class Survey {
 
 	private String name;
 	private ArrayList<Question> questions;
-
+	private ArrayList<Response> responses;
+	
 	public Survey() {
 
 		questions = new ArrayList<Question>();
@@ -38,6 +39,30 @@ public class Survey {
 	
 	public void addQuestion(Question question){
 		this.questions.add(question);
+	}
+	
+	public Question getQuestion_byId(int index){
+		if(index < questions.size()){
+			return questions.get(index);
+		} else {
+			return null;
+		}
+	}
+	
+	public void take(){
+		Creader rd = new Creader();
+		System.out.println("Your name:");
+		String userName = rd.readLine();
+		
+		for(Question q : this.questions){
+			q.displayQuestion();
+			
+			// ask for answer
+			String ans = rd.readLine();
+			responses.add(new Response(ans));
+		}
+		
+		
 	}
 	
 	public void displayQuestions() {
