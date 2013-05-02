@@ -1,8 +1,13 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class AnswerSheet {
+public class AnswerSheet implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -925743944459339742L;
 	ArrayList<Response> correctAns;
 	
 	public AnswerSheet(){
@@ -10,32 +15,33 @@ public class AnswerSheet {
 	}
 	
 	public AnswerSheet(ArrayList<Response> answers){
-		this.setCorrectAns(answers);
+		this.setAns(answers);
 	}
 	
 	public AnswerSheet(String ans){
 		this.correctAns = new ArrayList<Response>();
-		this.addCorrectAns(ans);
+		Response r = new Response(ans);
+		this.addAns(r);
 	}
 	
 	public AnswerSheet(Response r){
 		this.correctAns = new ArrayList<Response>();
-		this.addCorrectAns(r);
+		this.addAns(r);
 	}
 	
 	public ArrayList<Response> getCorrectAns(){
 		return this.correctAns;
 	}
 	
-	public void setCorrectAns(ArrayList<Response> ans){
+	public void setAns(ArrayList<Response> ans){
 		this.correctAns = ans;
 	}
 	
-	public void addCorrectAns(Response r){
+	public void addAns(Response r){
 		this.correctAns.add(r);
 	}
 	
-	public void addCorrectAns(String ans){
+	public void addAns(String ans){
 		Response r = new Response();
 		r.setResponse(ans);
 		

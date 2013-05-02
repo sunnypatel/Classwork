@@ -3,9 +3,11 @@ import java.util.ArrayList;
 public class Test extends Survey{
 
 	private ArrayList<Question> questions;
+	private AnswerSheet answerSheet_correct;
 	
 	public Test(){
 		//questions = new ArrayList<Question>;
+		answerSheet_correct = new AnswerSheet();
 	}
 
 	public ArrayList<Question> getQuestions() {
@@ -16,5 +18,7 @@ public class Test extends Survey{
 		this.questions = questions;
 	}
 	
-	
+	public void recordCorrectSheet(){
+		
+	}
 }

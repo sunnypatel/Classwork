@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class Response {
+
+public class Response implements Serializable {
 	String response;
 	
 	public Response(){

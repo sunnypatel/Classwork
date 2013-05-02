@@ -75,7 +75,7 @@ public class Main {
 
 			// What type of question are we creating?
 			System.out.println("");
-			System.out.println("-- Survey: " + survey.getName() + " --");
+			System.out.println("-- Survey: " + survey.getSurveyName() + " --");
 			System.out.println("To add a question, select a type of question ");
 			System.out.println("from the following options or select Done when finished.");
 
@@ -87,7 +87,8 @@ public class Main {
 			System.out.println(" (6) Short Answer");
 			System.out.println(" --------------------");
 			System.out.println(" (7) List all questions");
-			System.out.println(" (8) Save & Close");
+			System.out.println(" (8) Take this survey");
+			System.out.println(" (9) Save & Close");
 
 			// get user input
 			String option = rd.readLine();
@@ -125,7 +126,12 @@ public class Main {
 					print = false;
 					done = false;
 					break;
-				case 8:
+				case 8:	// Take this survey
+					survey.take();
+					print = false;
+					done = false;
+					break;
+				case 9:
 					done = true;
 					print = false;
 					System.out.print("Saving...");
@@ -179,7 +185,7 @@ public class Main {
 		System.out.println("");
 		System.out.println("-- Menu: Create new survey --");
 		System.out.print("Survey name:");
-		survey.setName(rd.readLine());
+		survey.setSurveyName(rd.readLine());
 		
 		editSurveyMenu(survey);
 	}

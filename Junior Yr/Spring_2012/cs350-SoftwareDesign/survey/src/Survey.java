@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,24 +9,30 @@ import java.util.ArrayList;
 
 public class Survey {
 
-	private String name;
+	private String surveyName;
+	private String surveyPath;
+	
 	private ArrayList<Question> questions;
+	private AnswerSheet answerSheet;
 	
 	public Survey() {
 
 		questions = new ArrayList<Question>();
+		answerSheet = new AnswerSheet();
+		surveyName = "";
+		surveyPath = "";
 	}
 
 	public int getNumberOfQuestions() {
 		return questions.size();
 	}
 
-	public String getName() {
-		return name;
+	public String getSurveyName() {
+		return surveyName;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setSurveyName(String name) {
+		this.surveyName = name;
 	}
 
 	public void setQuestions(ArrayList<Question> questions) {
@@ -40,6 +47,14 @@ public class Survey {
 		this.questions.add(question);
 	}
 	
+	public void setSurveyPath(String path){
+		this.surveyPath = path;
+	}
+	
+	public String getSurveyPath(){
+		return this.surveyPath;
+	}
+	
 	public Question getQuestion_byId(int index){
 		if(index < questions.size()){
 			return questions.get(index);
@@ -52,16 +67,28 @@ public class Survey {
 		Creader rd = new Creader();
 		System.out.println("Your name:");
 		String userName = rd.readLine();
+		int count = 0;
 		
 		for(Question q : this.questions){
+			
+			count++;
+			System.out.print("#" + count + " ");			
 			q.displayQuestion();
 			
 			// ask for answer
 			String ans = rd.readLine();
-			q.setResponse(ans);
+			System.out.println("You entered: " + ans);
+			Response r = new Response(ans);
+			this.answerSheet.addAns(r);
+			
 		}
 		
-		
+		try {
+			this.saveAnswerSheet(userName);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void displayQuestions() {
@@ -74,15 +101,47 @@ public class Survey {
 		}
 	}
 
+	
+	public void saveAnswerSheet(String name) throws FileNotFoundException {
+
+		try {
+			// TODO file name checking and better implementation
+			FileOutputStream fileOut = new FileOutputStream(this.getSurveyName() + name +"-answerSheet");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(this.answerSheet);
+			out.close();
+			fileOut.close();
+
+		} catch (IOException e) {
+			// I/O error
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Saves the survey questions in a filenamed [survey_name].q
 	 * 
 	 * @throws IOException
 	 */
 	public void save() throws FileNotFoundException {
+		String directoryName = this.surveyPath + this.surveyName;
+		// try creating the directory for this survey if it doesn't already exist
+		File theDir = new File(directoryName);
 
+		  // if the directory does not exist, create it
+		  if (!theDir.exists())
+		  {
+		    System.out.println("creating directory: " + directoryName);
+		    boolean result = theDir.mkdir();  
+		    if(result){    
+		       System.out.println("DIR created");  
+		     }
+
+		  }
+		
+		
 		try {
-			FileOutputStream fileOut = new FileOutputStream("saves/survey/"+ this.getName());
+			FileOutputStream fileOut = new FileOutputStream(this.getSurveyPath() + this.getSurveyName());
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(this.getQuestions());
 			out.close();
@@ -109,7 +168,7 @@ public class Survey {
 			// try reading object from file
 			try {
 				this.setQuestions((ArrayList<Question>) in.readObject());
-				this.setName(filename);
+				this.setSurveyName(filename);
 				in.close();
 				return true;
 			} catch (ClassNotFoundException e) {
