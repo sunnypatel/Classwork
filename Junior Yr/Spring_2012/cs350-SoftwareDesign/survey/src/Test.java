@@ -6,8 +6,8 @@ public class Test extends Survey{
 	private AnswerSheet answerSheet_correct;
 	
 	public Test(){
-		//questions = new ArrayList<Question>;
-		answerSheet_correct = new AnswerSheet();
+		questions = new ArrayList<Question>();
+		setAnswerSheet_correct(new AnswerSheet());
 	}
 
 	public ArrayList<Question> getQuestions() {
@@ -20,5 +20,13 @@ public class Test extends Survey{
 	
 	public void recordCorrectSheet(){
 		
+	}
+
+	public AnswerSheet getAnswerSheet_correct() {
+		return answerSheet_correct;
+	}
+
+	public void setAnswerSheet_correct(AnswerSheet answerSheet_correct) {
+		this.answerSheet_correct = answerSheet_correct;
 	}
 }

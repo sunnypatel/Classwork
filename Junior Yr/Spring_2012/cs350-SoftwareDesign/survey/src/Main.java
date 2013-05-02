@@ -21,7 +21,264 @@ public class Main {
 	}
 	
 	public void mainMenu(){
+		Creader rd = new Creader();
+		boolean done = false;
+		
+		System.out.println("");
+		System.out.println("-- Main Menu --");
+		do {
+			System.out.println("");
+			System.out.println(" (1) Survey menu");
+			System.out.println(" (2) Test survey");
+			System.out.println(" ---------------------");
+			System.out.println(" (3) Exit");
+			// get user input
+			String option = rd.readLine();
+			// make sure user has inputed something
+			if (option.length() > 0) {
+
+				System.out.println("You selected option " + option);
+
+				switch (Integer.parseInt(option)) {
+				case 1: // load survey menu
+					surveyMainMenu();
+					break;
+				case 2: // load test menu
+					testMainMenu();
+					break;
+				case 3: // Go back
+					done = true;
+					break;
+				default:
+					System.out.println("Sorry, input not recognized. Please try again.");
+					done = false;
+				}
+			} else {
+				done = false;
+				System.out.println("Sorry, input not recognized. Please try again.");
+			}
+		} while (!done);
+	}
+	
+	public void testMainMenu(){
+		Creader rd = new Creader();
+		boolean done = false;
+		
+		System.out.println("");
+		System.out.println("-- Main Menu: Test --");
+		do {
+			System.out.println("");
+			System.out.println(" (1) Create new test");
+			System.out.println(" (2) Load test");
+			System.out.println(" ---------------------");
+			System.out.println(" (3) Back");
+			// get user input
+			String option = rd.readLine();
+			// make sure user has inputed something
+			if (option.length() > 0) {
+
+				System.out.println("You selected option " + option);
+
+				switch (Integer.parseInt(option)) {
+				case 1: // Create new survey
+					createTest();
+					break;
+				case 2: // load survey
+					loadTest();
+					break;
+				case 3: // Go back
+					mainMenu();
+					break;
+				default:
+					System.out.println("Sorry, input not recognized. Please try again.");
+					done = false;
+				}
+			} else {
+				done = false;
+				System.out.println("Sorry, input not recognized. Please try again.");
+			}
+		} while (!done);		
+	}
+	
+	public void createTest() {
+		Creader rd = new Creader();
+		
+		System.out.println("");
+		System.out.println("-- Menu: Create new test --");
+		System.out.print("Test name: ");
+		Survey survey = new Survey(rd.readLine(), this.test_location);
+		
+		editSurveyMenu(survey);
+	}
+	
+	public void loadTest(){
+		Creader rd = new Creader();
+		boolean done = false;
+		System.out.println("");
+		System.out.println("-- Menu: Load test --");
+		listTests();
+
+		System.out.println("type \\back    to return to previous menu)");
+		do {
+			System.out.println("");
+			// TODO add the abiltity to load using ID# 
+			System.out.print("Enter test name to load: ");
+
+			// get user input
+			String option = rd.readLine();
+			// make sure user has inputed something
+			if (option.length() > 0) {
+				if(option.equals("\\list")){
+					// user wants all the tests listed
+					listSurveys();
+				} else if(option.equals("\\back")){
+					// user wants to go back to test main menu
+					testMainMenu();
+				}
+				else{ // load survey
+					Survey test = new Test();
+					// option is the survey name
+					try {
+						if(test.load(test_location + "/" + option))
+							editSurveyMenu(test);
+						
+					} catch (FileNotFoundException e) {
+						System.out.println("File not found. Please try again.");
+						//loadSurvey_byIndex(Integer.parseInt(option));
+					}
+				}
+			} else {
+				done = false;
+				System.out.println("Sorry, input not recognized. Please try again.");
+			}
+		} while (!done);
+	}
+	
+	public void editTestMenu(Survey test) {
+		Creader rd = new Creader();
+		boolean done = false;
+		boolean errors = false;
+		boolean print = true;
+		
+		int questionCount = 0;
+
+		do {
+			print = true;
+
+			// What type of question are we creating?
+			System.out.println("");
+			System.out.println("-- Test: " + test.getSurveyName() + " --");
+			System.out.println("To add a question, select a type of question ");
+			System.out.println("from the following options or select 'Save & Close' when finished.");
+
+			System.out.println(" (1) Multiple Choice");
+			System.out.println(" (2) True or False");
+			System.out.println(" (3) Matching");
+			System.out.println(" (4) Ranking");
+			System.out.println(" (5) Essay");
+			System.out.println(" (6) Short Answer");
+			System.out.println(" --------------------");
+			System.out.println(" (7) List all questions");
+			System.out.println(" (8) Take this test");
+			System.out.println(" (9) Record new answer sheet");
+			System.out.println(" (10) Save & Close");
+			
+			System.out.println("");
+			System.out.print("Select: ");
+			// get user input
+			String option = rd.readLine();
+
+			// make sure user has inputed something
+			if (option.length() > 0) {
+
+				System.out.println("You selected option " + option);
+				System.out.println("");
+				
+				switch (Integer.parseInt(option)) {
+				case 1: // Multiple Choice
+					test.addQuestion(new MultipleChoice(1));
+					break;
+				case 2: // True / False
+					test.addQuestion(new TrueFalse());
+					break;
+				case 3: // Matching
+					Matching matching = new Matching();
+					matching.create(); // <----- TODO DONT LIKE THIS CHANGE IF TIME
+					test.addQuestion(matching);
+					break;
+				case 4: // Ranking
+					Ranking ranking = new Ranking();
+					test.addQuestion(ranking);
+					break;
+				case 5: // Essay
+					test.addQuestion(new Essay());
+					break;
+				case 6: // Short Answer
+					test.addQuestion(new ShortAns());
+					break;
+				case 7: // List all questions
+					test.displayQuestions();
+					print = false;
+					done = false;
+					break;
+				case 8:	// Take this survey
+					test.take();
+					print = false;
+					done = false;
+					break;
+				case 9:
+
+				case 10:
+					done = true;
+					print = false;
+					System.out.print("Saving...");
+
+					try {
+						test.save();
+						System.out.println("Done.");
+					} catch (IOException e) {
+						System.out.println("Error.");
+						//e.printStackTrace();
+						errors = true;
+					}
+
+					break;
+										
+				default:
+					System.out.println("Sorry, input not recognized. Please try again.");
+					System.out.println("No question added");
+					System.out.println("");
+					errors = true;
+				}
+			} else {
+				errors = true;
+				System.out
+						.println("Sorry, input not recognized. Please try again.");
+				System.out.println("No question added");
+				System.out.println("");
+			}
+
+			if (!errors && print) {
+				questionCount = test.getNumberOfQuestions();
+				System.out.println("Question #" + questionCount
+						+ " was created successfully.");
+
+				System.out.println("Question as reader would see it: ");
+				System.out.println("");
+				// ****(MULTI-THREADING WARNING) LINE WILL NOT BE CORRECT IN
+				// CASE OF A RACE CONDITION****
+				test.getQuestions().get(test.getQuestions().size() - 1).displayQuestion();
+
+			}
+
+		} while(errors || (done == false));
 		surveyMainMenu();
+	} // createSurvey()
+	
+	public void listTests(){
+		ArrayList<String> tests = getDirs(test_location);
+		
+		printList(tests, "Id #","Tests");
 	}
 	
 	public void surveyMainMenu() {
@@ -180,7 +437,6 @@ public class Main {
 		} while(errors || (done == false));
 		surveyMainMenu();
 	} // createSurvey()
-	
 	
 	public void createSurvey() {
 		Creader rd = new Creader();
