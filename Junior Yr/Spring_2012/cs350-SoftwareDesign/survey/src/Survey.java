@@ -29,6 +29,12 @@ public class Survey {
 		this.surveyName = surveyName;
 		this.surveyPath = surveyPath;
 		createSurveyDirs();
+		try {
+			this.save();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error loading survey.");
+		}
 	}
 
 	public int getNumberOfQuestions() {
@@ -133,7 +139,7 @@ public class Survey {
 
 		try {
 			// TODO file name checking and better implementation
-			FileOutputStream fileOut = new FileOutputStream(this.surveyPath + this.surveyName +"/responses/" + name);
+			FileOutputStream fileOut = new FileOutputStream(this.surveyPath +"/" + this.surveyName +"/responses/" + name);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(this.answerSheet);
 			out.close();

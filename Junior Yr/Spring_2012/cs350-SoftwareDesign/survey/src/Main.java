@@ -79,7 +79,7 @@ public class Main {
 			System.out.println("");
 			System.out.println("-- Survey: " + survey.getSurveyName() + " --");
 			System.out.println("To add a question, select a type of question ");
-			System.out.println("from the following options or select Done when finished.");
+			System.out.println("from the following options or select 'Save & Close' when finished.");
 
 			System.out.println(" (1) Multiple Choice");
 			System.out.println(" (2) True or False");
