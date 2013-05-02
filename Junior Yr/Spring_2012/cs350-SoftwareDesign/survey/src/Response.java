@@ -17,4 +17,8 @@ public class Response implements Serializable {
 	public void setResponse(String r){
 		this.response = r;
 	}
+	
+	public boolean equals(Response r){
+		return (this.getResponse().equals(r.getResponse())) ? true : false;
+	}
 }

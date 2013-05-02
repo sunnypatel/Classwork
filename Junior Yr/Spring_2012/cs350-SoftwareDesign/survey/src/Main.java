@@ -29,7 +29,7 @@ public class Main {
 		do {
 			System.out.println("");
 			System.out.println(" (1) Survey menu");
-			System.out.println(" (2) Test survey");
+			System.out.println(" (2) Test menu");
 			System.out.println(" ---------------------");
 			System.out.println(" (3) Exit");
 			// get user input
@@ -106,9 +106,9 @@ public class Main {
 		System.out.println("");
 		System.out.println("-- Menu: Create new test --");
 		System.out.print("Test name: ");
-		Survey survey = new Survey(rd.readLine(), this.test_location);
+		Test test = new Test(rd.readLine(), this.test_location);
 		
-		editSurveyMenu(survey);
+		editTestMenu(test);
 	}
 	
 	public void loadTest(){
@@ -136,11 +136,11 @@ public class Main {
 					testMainMenu();
 				}
 				else{ // load survey
-					Survey test = new Test();
+					Test test = new Test();
 					// option is the survey name
 					try {
 						if(test.load(test_location + "/" + option))
-							editSurveyMenu(test);
+							editTestMenu(test);
 						
 					} catch (FileNotFoundException e) {
 						System.out.println("File not found. Please try again.");
@@ -154,17 +154,18 @@ public class Main {
 		} while (!done);
 	}
 	
-	public void editTestMenu(Survey test) {
+	public void editTestMenu(Test test) {
 		Creader rd = new Creader();
 		boolean done = false;
 		boolean errors = false;
 		boolean print = true;
-		
+		int opt = -1;
 		int questionCount = 0;
 
 		do {
 			print = true;
-
+			errors = false;
+			
 			// What type of question are we creating?
 			System.out.println("");
 			System.out.println("-- Test: " + test.getSurveyName() + " --");
@@ -187,14 +188,19 @@ public class Main {
 			System.out.print("Select: ");
 			// get user input
 			String option = rd.readLine();
-
+			
+			try {
+				opt = Integer.parseInt(option);
+			} catch (NumberFormatException e){
+				errors = true;
+			}
 			// make sure user has inputed something
-			if (option.length() > 0) {
+			if ((option.length() > 0) && errors == false) {
 
 				System.out.println("You selected option " + option);
 				System.out.println("");
 				
-				switch (Integer.parseInt(option)) {
+				switch (opt) {
 				case 1: // Multiple Choice
 					test.addQuestion(new MultipleChoice(1));
 					break;
@@ -227,7 +233,11 @@ public class Main {
 					done = false;
 					break;
 				case 9:
-
+					test.recordAnswerSheet();
+					print = false;
+					done = false;
+					break;
+					
 				case 10:
 					done = true;
 					print = false;
@@ -272,7 +282,7 @@ public class Main {
 			}
 
 		} while(errors || (done == false));
-		surveyMainMenu();
+		testMainMenu();
 	} // createSurvey()
 	
 	public void listTests(){
@@ -326,12 +336,14 @@ public class Main {
 		boolean done = false;
 		boolean errors = false;
 		boolean print = true;
+		int opt = 0;
 		
 		int questionCount = 0;
 
 		do {
 			print = true;
-
+			errors = false;
+			
 			// What type of question are we creating?
 			System.out.println("");
 			System.out.println("-- Survey: " + survey.getSurveyName() + " --");
@@ -353,9 +365,13 @@ public class Main {
 			System.out.print("Select: ");
 			// get user input
 			String option = rd.readLine();
-
+			try {
+				opt = Integer.parseInt(option);
+			} catch (NumberFormatException e){
+				errors = true;
+			}
 			// make sure user has inputed something
-			if (option.length() > 0) {
+			if ((option.length() > 0) && errors == false) {
 
 				System.out.println("You selected option " + option);
 				System.out.println("");

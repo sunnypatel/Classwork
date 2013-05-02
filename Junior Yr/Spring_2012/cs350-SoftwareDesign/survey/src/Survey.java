@@ -13,19 +13,18 @@ public class Survey {
 	private String surveyPath;
 	
 	private ArrayList<Question> questions;
-	private AnswerSheet answerSheet;
 	
 	public Survey() {
 
 		questions = new ArrayList<Question>();
-		answerSheet = new AnswerSheet();
+	
 		this.surveyName = "";
 		this.surveyPath = "";
 	}
 	
 	public Survey(String surveyName, String surveyPath){
 		questions = new ArrayList<Question>();
-		answerSheet = new AnswerSheet();
+	
 		this.surveyName = surveyName;
 		this.surveyPath = surveyPath;
 		createSurveyDirs();
@@ -33,7 +32,7 @@ public class Survey {
 			this.save();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error loading survey.");
+			System.out.println("Error saving survey.");
 		}
 	}
 
@@ -96,9 +95,11 @@ public class Survey {
 		}
 	}
 	
-	public void take(){
+	@SuppressWarnings("finally")
+	public AnswerSheet take(){
 		Creader rd = new Creader();
 		System.out.print("Your name: ");
+		AnswerSheet sheet = new AnswerSheet();
 		String userName = rd.readLine();
 		int count = 0;
 		
@@ -112,16 +113,21 @@ public class Survey {
 			String ans = rd.readLine();
 			System.out.println("You entered: " + ans);
 			Response r = new Response(ans);
-			this.answerSheet.addAns(r);
+			sheet.addAns(r);
 			
 		}
+		System.out.println("Finished!");
 		
 		try {
-			this.saveAnswerSheet(userName);
+			this.saveAnswerSheet(userName, sheet);
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally{
+			return sheet;
 		}
+		
 	}
 	
 	public void displayQuestions() {
@@ -135,13 +141,13 @@ public class Survey {
 	}
 
 	
-	public void saveAnswerSheet(String name) throws FileNotFoundException {
+	public void saveAnswerSheet(String name, AnswerSheet sheet) throws FileNotFoundException {
 
 		try {
 			// TODO file name checking and better implementation
 			FileOutputStream fileOut = new FileOutputStream(this.surveyPath +"/" + this.surveyName +"/responses/" + name);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(this.answerSheet);
+			out.writeObject(sheet);
 			out.close();
 			fileOut.close();
 
