@@ -20,11 +20,12 @@ public class Matching extends Question {
 	}
 
 	public void create(){
-		create_leftSide();
-		create_rightSide();
+		add_leftSide();
+		add_rightSide();
+		calibrate();
 	}
 	
-	public void create_leftSide(){
+	public void add_leftSide(){
 		System.out.println("Editing left side item list.");
 		boolean addAnother = true;
 		
@@ -41,7 +42,7 @@ public class Matching extends Question {
 		} // while (addAnother)		
 	}
 	
-	public void create_rightSide(){
+	public void add_rightSide(){
 		System.out.println("Editing right side item list.");
 		boolean addAnother = true;
 		
@@ -60,12 +61,12 @@ public class Matching extends Question {
 	
 	public void addToLeft(String item){
 		leftSide.add(item);
-		calibrate();
+		
 	}
 	
 	public void addToRight(String item){
 		rightSide.add(item);
-		calibrate();
+
 	}
 	
 	public ArrayList<String> getLeftSide() {
@@ -138,11 +139,12 @@ public class Matching extends Question {
 	 * compensate for them by adding "".  Hence allows for matching questions 
 	 * to have some options not matching anything!
 	 */
-	private void calibrate(){
+	public void calibrate(){
 		int leftSize = this.leftSide.size();
 		int rightSize = this.rightSide.size();
 
 		if(leftSize != rightSize){
+		//	System.out.println("calibrating leftCount=" + leftSize + ", rightCount=" + rightSize);
 			if(leftSize > rightSize ){
 			
 				for(int i=0; i<=(leftSize-rightSize);i++)

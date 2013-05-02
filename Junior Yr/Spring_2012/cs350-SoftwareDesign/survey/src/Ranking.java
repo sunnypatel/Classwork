@@ -7,7 +7,8 @@ public class Ranking extends Matching {
 	private String questionType = "Ranking";
 
 	public Ranking(){
-		this.create_leftSide();
+		this.add_leftSide();
+		super.calibrate();
 		this.setQuestionType(questionType);
 	}
 	

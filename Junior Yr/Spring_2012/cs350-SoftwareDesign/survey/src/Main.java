@@ -1,12 +1,14 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.lang.Math;
 
 
 public class Main {
 
-	private String survey_location = "saves/survey/";
-	private String test_location = "saves/test/";
+	private String survey_location = "saves/survey";
+	private String test_location = "saves/test";
 	
 	
 	/**
@@ -89,7 +91,9 @@ public class Main {
 			System.out.println(" (7) List all questions");
 			System.out.println(" (8) Take this survey");
 			System.out.println(" (9) Save & Close");
-
+			
+			System.out.println("");
+			System.out.print("Select: ");
 			// get user input
 			String option = rd.readLine();
 
@@ -108,7 +112,7 @@ public class Main {
 					break;
 				case 3: // Matching
 					Matching matching = new Matching();
-					matching.create(); // <----- DONT LIKE THIS CHANGE IF TIME
+					matching.create(); // <----- TODO DONT LIKE THIS CHANGE IF TIME
 					survey.addQuestion(matching);
 					break;
 				case 4: // Ranking
@@ -180,12 +184,11 @@ public class Main {
 	
 	public void createSurvey() {
 		Creader rd = new Creader();
-		Survey survey = new Survey();
 		
 		System.out.println("");
 		System.out.println("-- Menu: Create new survey --");
-		System.out.print("Survey name:");
-		survey.setSurveyName(rd.readLine());
+		System.out.print("Survey name: ");
+		Survey survey = new Survey(rd.readLine(), this.survey_location);
 		
 		editSurveyMenu(survey);
 	}
@@ -201,7 +204,8 @@ public class Main {
 		System.out.println("type \\back    to return to previous menu)");
 		do {
 			System.out.println("");
-			System.out.println("Enter survey name or ID# to load:");
+			// TODO add the abiltity to load using ID# 
+			System.out.print("Enter survey name to load: ");
 
 			// get user input
 			String option = rd.readLine();
@@ -218,7 +222,7 @@ public class Main {
 					Survey survey = new Survey();
 					// option is the survey name
 					try {
-						if(survey.load(survey_location + option))
+						if(survey.load(survey_location + "/" + option))
 							editSurveyMenu(survey);
 						
 					} catch (FileNotFoundException e) {
@@ -257,7 +261,8 @@ public class Main {
 	}
 	
 	public void listSurveys(){
-		ArrayList<String> surveys = getFiles(survey_location);
+		ArrayList<String> surveys = getDirs(survey_location);
+		
 		printList(surveys, "Id #","Surveys");
 	}
 	
@@ -312,28 +317,30 @@ public class Main {
 			System.out.print("-");
 		System.out.println("+");		
 		
-		
-		// start printing filenames
-		for (String filename : list){
-			System.out.print("|");
-			count++;
-			// start printing id column
-			int idStr_length = (int) Math.log10(count);
-			System.out.print(" "+ count);
-			// put appropriate number of spaces for id column
-			for(int i=0;i<=maxSpaces_id-(idStr_length);i++)
-				System.out.print(" ");
-			System.out.print("|");
-			
-			// start printing name column
-			System.out.print(" "+ filename);
-			// put appropriate number of spaces for name column
-			for(int i=0; i<=maxSpaces_name - (filename.length()); i++)
-				System.out.print(" ");
-			
-			System.out.println("|");
+		if(list.size() > 0){
+			// start printing filenames
+			for (String filename : list){
+				System.out.print("|");
+				count++;
+				// start printing id column
+				int idStr_length = (int) Math.log10(count);
+				System.out.print(" "+ count);
+				// put appropriate number of spaces for id column
+				for(int i=0;i<=maxSpaces_id-(idStr_length);i++)
+					System.out.print(" ");
+				System.out.print("|");
+				
+				// start printing name column
+				System.out.print(" "+ filename);
+				// put appropriate number of spaces for name column
+				for(int i=0; i<=maxSpaces_name - (filename.length()); i++)
+					System.out.print(" ");
+				
+				System.out.println("|");
+			}
+		} else {
+			System.out.println("    None    ");
 		}
-		
 		// ending bottom border
 		System.out.print("+");
 		for(int i=0;i<=total_spaces;i++)
@@ -357,5 +364,21 @@ public class Main {
 		     }
 		  }
 		  return fileList;
+	}
+	
+	public ArrayList<String> getDirs(String path){
+		File file = new File(path);
+		String[] directories = file.list(new FilenameFilter() {
+		  @Override
+		  public boolean accept(File dir, String name) {
+		    return new File(dir, name).isDirectory();
+		  }
+		});
+		
+		// convert string array to ArrayList
+		ArrayList<String> dirs = new ArrayList<String>();
+		dirs.addAll(Arrays.asList(directories));
+		
+		return dirs;
 	}
 }

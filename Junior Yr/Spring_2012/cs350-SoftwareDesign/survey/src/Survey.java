@@ -19,8 +19,16 @@ public class Survey {
 
 		questions = new ArrayList<Question>();
 		answerSheet = new AnswerSheet();
-		surveyName = "";
-		surveyPath = "";
+		this.surveyName = "";
+		this.surveyPath = "";
+	}
+	
+	public Survey(String surveyName, String surveyPath){
+		questions = new ArrayList<Question>();
+		answerSheet = new AnswerSheet();
+		this.surveyName = surveyName;
+		this.surveyPath = surveyPath;
+		createSurveyDirs();
 	}
 
 	public int getNumberOfQuestions() {
@@ -32,7 +40,26 @@ public class Survey {
 	}
 	
 	public void setSurveyName(String name) {
-		this.surveyName = name;
+		
+		// name passed in includes the full path and surveyQuestions, setup path and name properly
+		if( name.lastIndexOf("/surveyQuestions") != -1) {
+
+			this.setSurveyName(name.substring(0,name.lastIndexOf("/surveyQuestions")));
+
+		} else if(name.lastIndexOf("/") != -1){
+			// passed in the full path to survey, parse what we need to
+
+			// set dir
+			this.surveyPath = name.substring(0,name.lastIndexOf("/"));
+	
+			//nset name of survey
+			this.surveyName = name.substring(this.surveyPath.length()+1);
+		
+		}
+		else {
+			// normal name
+			this.surveyName = name;
+		}
 	}
 
 	public void setQuestions(ArrayList<Question> questions) {
@@ -65,7 +92,7 @@ public class Survey {
 	
 	public void take(){
 		Creader rd = new Creader();
-		System.out.println("Your name:");
+		System.out.print("Your name: ");
 		String userName = rd.readLine();
 		int count = 0;
 		
@@ -106,7 +133,7 @@ public class Survey {
 
 		try {
 			// TODO file name checking and better implementation
-			FileOutputStream fileOut = new FileOutputStream(this.getSurveyName() + name +"-answerSheet");
+			FileOutputStream fileOut = new FileOutputStream(this.surveyPath + this.surveyName +"/responses/" + name);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(this.answerSheet);
 			out.close();
@@ -124,24 +151,9 @@ public class Survey {
 	 * @throws IOException
 	 */
 	public void save() throws FileNotFoundException {
-		String directoryName = this.surveyPath + this.surveyName;
-		// try creating the directory for this survey if it doesn't already exist
-		File theDir = new File(directoryName);
 
-		  // if the directory does not exist, create it
-		  if (!theDir.exists())
-		  {
-		    System.out.println("creating directory: " + directoryName);
-		    boolean result = theDir.mkdir();  
-		    if(result){    
-		       System.out.println("DIR created");  
-		     }
-
-		  }
-		
-		
 		try {
-			FileOutputStream fileOut = new FileOutputStream(this.getSurveyPath() + this.getSurveyName());
+			FileOutputStream fileOut = new FileOutputStream(this.getSurveyPath() + "/" + this.getSurveyName() + "/surveyQuestions");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(this.getQuestions());
 			out.close();
@@ -161,15 +173,17 @@ public class Survey {
 	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
-	public boolean load(String filename) throws FileNotFoundException {
+	public boolean load(String pathToSurvey) throws FileNotFoundException {
 		try {
-			FileInputStream fileIn = new FileInputStream(filename);
+			System.out.print("Loading \"" + pathToSurvey + "\"... ");
+			FileInputStream fileIn = new FileInputStream(pathToSurvey + "/surveyQuestions");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			// try reading object from file
 			try {
 				this.setQuestions((ArrayList<Question>) in.readObject());
-				this.setSurveyName(filename);
+				this.setSurveyName(pathToSurvey);
 				in.close();
+				System.out.println("Done");
 				return true;
 			} catch (ClassNotFoundException e) {
 				// bad input
@@ -183,9 +197,48 @@ public class Survey {
 			// I/O error
 			// e.printStackTrace();
 			// TODO error logging
+			System.out.println("I/O error has occurred.");
 			return false;
 		}
 	
+	}
+	
+	public void createSurveyDirs(){
+		this.createSurveyDirs("");
+	}
+	
+	public void createSurveyDirs(String path){
+		String surveyPath = (path.length() > 0) ? path : this.surveyPath;
+		
+		String directoryName = surveyPath + "/" + this.surveyName;
+		// try creating the directory for this survey if it doesn't already exist
+		File theDir = new File(directoryName);
+
+		  // if the directory does not exist, create it
+		  if (!theDir.exists())
+		  {
+		   //System.out.println("creating directory: " + directoryName);
+		    boolean result = theDir.mkdirs();  
+		    if(result){    
+		      // System.out.println("DIR created");  
+		     }
+		    
+		   // System.out.println("creating directory: " + directoryName + "/responses");
+		    File responsesDir = new File(directoryName + "/responses");
+		    boolean result2 = responsesDir.mkdirs();
+		    if(result2){
+		    	//System.out.println("Responses dir created");
+		    }
+		    /*
+		    System.out.println("creating directory: " + directoryName + "/answersheet");
+		    File answerSheetDir = new File(directoryName + "/answersheet");
+		    boolean result3 = answerSheetDir.mkdirs();
+		    if(result3){
+		    	System.out.println("Answer Sheet dir created");
+		    }
+		    */
+		    
+		  }
 	}
 
 }
