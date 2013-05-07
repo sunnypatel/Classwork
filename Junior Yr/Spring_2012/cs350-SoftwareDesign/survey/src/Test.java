@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 
 
 public class Test extends Survey{
@@ -40,8 +41,61 @@ public class Test extends Survey{
 		}
 	}
 
-	public AnswerSheet getAnswerSheet_correct() {
-		return answerSheet_correct;
+	public int grade(AnswerSheet sheet){
+		AnswerSheet correctSheet = loadAnswerSheet_correct("answerSheet");
+		
+		if (correctSheet == null)
+			return -1;
+		
+		int wrongAnswers = 0;
+		
+		for( Response correctR : correctSheet.getCorrectAns() ){
+			for (Response r : sheet.getCorrectAns() ){
+				if(!r.equals(correctR)){
+					wrongAnswers++;
+				}
+			}
+		}
+		
+		return wrongAnswers;
+	}
+	
+	public AnswerSheet take(){
+		if(loadAnswerSheet_correct("answerSheet") == null)
+			return null;
+		return super.take();
+	}
+	
+	public AnswerSheet getAnswerSheet_correct(){
+		return this.answerSheet_correct;
+	}
+	
+	public AnswerSheet loadAnswerSheet_correct(String name) {
+		try {
+			System.out.print("Loading /" + this.getSurveyPath() + "/... ");
+			FileInputStream fileIn = new FileInputStream(this.getSurveyPath() + "/" + this.getSurveyName() + "/correctAnswerSheet/" + name);
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			// try reading object from file
+			try {
+				AnswerSheet correctSheet = (AnswerSheet) in.readObject();
+				in.close();
+				System.out.println("Done");
+				return correctSheet;
+			} catch (ClassNotFoundException e) {
+				// bad input
+				//e.printStackTrace();
+				in.close();
+				System.out.println("Bad input - Answer Sheet ");
+				return null;
+			}
+			
+		} catch (IOException e) {
+			// I/O error
+			// e.printStackTrace();
+			// TODO error logging
+			System.out.println("I/O error has occurred.");
+			return null;
+		}
 	}
 
 	public void setAnswerSheet_correct(AnswerSheet answerSheet_correct) {

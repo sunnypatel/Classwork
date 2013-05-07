@@ -228,7 +228,15 @@ public class Main {
 					done = false;
 					break;
 				case 8:	// Take this survey
-					test.take();
+					AnswerSheet sheet = test.take();
+					if(sheet != null){
+					int wrongAnswers = test.grade(sheet);
+					int numberOfQuestions = test.getQuestions().size();
+					
+					System.out.println("Final score: " + (numberOfQuestions - wrongAnswers) + "/" + numberOfQuestions);
+					} else {
+						System.out.println("Could not find answer sheet to grade.");
+					}
 					print = false;
 					done = false;
 					break;

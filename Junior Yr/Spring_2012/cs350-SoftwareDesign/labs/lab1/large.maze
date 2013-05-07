@@ -1,0 +1,31 @@
+room 0 wall 5 d5 wall
+room 1 wall wall 2 d5
+room 2 wall 7 wall 1
+room 3 wall wall 4 wall
+room 4 wall 9 wall 3
+room 5 0 wall wall wall
+room 6 wall d0 7 wall
+room 7 2 wall wall 6
+room 8 wall 13 wall wall
+room 9 4 14 wall wall
+room 10 wall d4 11 wall
+room 11 d0 wall 12 10
+room 12 wall d1 wall 11
+room 13 8 wall d3 wall
+room 14 9 d2 wall d3
+room 15 d4 20 wall wall
+room 16 wall 21 17 wall
+room 17 d1 22 wall 16
+room 18 wall 23 19 wall
+room 19 d2 24 wall 18
+room 20 15 wall 21 wall
+room 21 16 wall wall 20
+room 22 17 wall 23 wall
+room 23 18 wall wall 22
+room 24 19 wall wall wall
+door d0 11 6 close
+door d1 12 17 close
+door d2 19 14 close
+door d3 13 14 close
+door d4 10 15 close
+door d5 0 1 close

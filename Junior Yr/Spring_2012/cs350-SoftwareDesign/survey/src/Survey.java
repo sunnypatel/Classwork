@@ -111,10 +111,12 @@ public class Survey {
 			
 			// ask for answer
 			String ans = rd.readLine();
+			
 			System.out.println("You entered: " + ans);
+			if(q.getQuestionType() != "Essay"){
 			Response r = new Response(ans);
 			sheet.addAns(r);
-			
+			}
 		}
 		System.out.println("Finished!");
 		
@@ -241,14 +243,14 @@ public class Survey {
 		    if(result2){
 		    	//System.out.println("Responses dir created");
 		    }
-		    /*
-		    System.out.println("creating directory: " + directoryName + "/answersheet");
-		    File answerSheetDir = new File(directoryName + "/answersheet");
+		    
+		   // System.out.println("creating directory: " + directoryName + "/answersheet");
+		    File answerSheetDir = new File(directoryName + "/correctAnswerSheet");
 		    boolean result3 = answerSheetDir.mkdirs();
 		    if(result3){
 		    	System.out.println("Answer Sheet dir created");
 		    }
-		    */
+		   
 		    
 		  }
 	}

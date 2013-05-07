@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="MultipleChoice" project="survey" file="/survey/src/MultipleChoice.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="429" y="521"/>    
+    <position height="-1" width="-1" x="526" y="507"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="Essay" project="survey" file="/survey/src/Essay.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="586" y="487"/>    
+    <position height="-1" width="-1" x="737" y="495"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="Creader" project="survey" file="/survey/src/Creader.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="746" y="160"/>    
+    <position height="-1" width="-1" x="755" y="54"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="Ranking" project="survey" file="/survey/src/Ranking.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="797" y="843"/>    
+    <position height="-1" width="-1" x="905" y="804"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="Survey" project="survey" file="/survey/src/Survey.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="178" y="150"/>    
+    <position height="-1" width="-1" x="178" y="84"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="ShortAns" project="survey" file="/survey/src/ShortAns.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="558" y="878"/>    
+    <position height="-1" width="-1" x="695" y="746"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -57,8 +57,8 @@
   </class>  
   <class id="7" language="java" name="writer" project="survey" file="/survey/src/writer.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="997" y="213"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+    <position height="98" width="228" x="655" y="158"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -66,7 +66,7 @@
   </class>  
   <class id="8" language="java" name="Test" project="survey" file="/survey/src/Test.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="149" y="369"/>    
+    <position height="-1" width="-1" x="155" y="447"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -84,7 +84,7 @@
   </class>  
   <class id="10" language="java" name="Matching" project="survey" file="/survey/src/Matching.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="784" y="509"/>    
+    <position height="-1" width="-1" x="940" y="531"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -93,7 +93,7 @@
   </class>  
   <class id="11" language="java" name="Question" project="survey" file="/survey/src/Question.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="525" y="160"/>    
+    <position height="-1" width="-1" x="525" y="49"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -102,7 +102,7 @@
   </class>  
   <class id="12" language="java" name="TrueFalse" project="survey" file="/survey/src/TrueFalse.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="346" y="818"/>    
+    <position height="-1" width="-1" x="518" y="771"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -111,7 +111,7 @@
   </class>  
   <class id="13" language="java" name="Response" project="survey" file="/survey/src/Response.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="286" y="456"/>    
+    <position height="-1" width="-1" x="296" y="665"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -120,81 +120,73 @@
   </class>  
   <class id="14" language="java" name="AnswerSheet" project="survey" file="/survey/src/AnswerSheet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="125" y="682"/>    
+    <position height="-1" width="-1" x="129" y="939"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <association id="15">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="16" name="questions"/>      
-      <multiplicity id="17" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="18">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="10"/>  
-  </generalization>  
-  <generalization id="19">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <generalization id="20">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="21">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <generalization id="22">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <association id="23">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="24" name="questions"/>      
-      <multiplicity id="25" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="26">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="27" name="response"/>      
-      <multiplicity id="28" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="29">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <generalization id="30">    
+  <generalization id="15">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="5"/>  
   </generalization>  
-  <association id="31">    
+  <generalization id="16">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <generalization id="17">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <association id="18">    
     <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="32" name="correctAns"/>      
-      <multiplicity id="33" minimum="0" maximum="2147483647"/>    
+      <attribute id="19" name="correctAns"/>      
+      <multiplicity id="20" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="34">    
+  <generalization id="21">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <association id="22">    
     <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="35" name="rd"/>      
-      <multiplicity id="36" minimum="0" maximum="1"/>    
+      <attribute id="23" name="response"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="25">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="26" name="questions"/>      
+      <multiplicity id="27" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="28">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <association id="29">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="30" name="rd"/>      
+      <multiplicity id="31" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="32">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <generalization id="33">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    
