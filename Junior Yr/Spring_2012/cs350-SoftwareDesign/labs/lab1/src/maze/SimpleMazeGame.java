@@ -101,6 +101,7 @@ public class SimpleMazeGame
 				String line2;
 				while((line2 = br2.readLine()) != null){
 					String[] input2 = line2.split("\\s");
+				
 					if(input2[0].equals("room")){
 						
 						for(int i=2;i<=5;i++){
@@ -109,14 +110,15 @@ public class SimpleMazeGame
 							} else if(input2[i].matches("d[0-9][0-9]*")){
 								rooms.get(Integer.parseInt(input2[1])).setSide(getDirection(i-1),doors.get(Integer.parseInt(input2[i].substring(1))));
 							} else if(input2[i].matches("[0-9][0-9]*")){
-								rooms.get(Integer.parseInt(input2[1])).setSide(getDirection(i-1),rooms.get(Integer.parseInt(input2[i].substring(1))));
+								//System.out.println("="+input2[i]);
+								rooms.get(Integer.parseInt(input2[1])).setSide(getDirection(i-1),rooms.get(Integer.parseInt(input2[i])));
+							} else {
+								System.out.println("unknown input");
 							}
 						}
 						
 						
-					} else {
-						System.out.println("error");
-					}
+					} 
 
 				}
 			} catch (FileNotFoundException e) {
@@ -148,10 +150,15 @@ public class SimpleMazeGame
 	}
 	public static void main(String[] args)
 	{
+		Maze maze;
+		if(args[0].length() > 0){
+			maze = loadMaze(args[0]);
+		} else {
+			maze = createMaze();
+		}
 		
-		//Maze maze = createMaze();
-		Maze maze = loadMaze("small.maze");
-	    MazeViewer viewer = new MazeViewer(maze);
+	    
+		MazeViewer viewer = new MazeViewer(maze);
 	    viewer.run();
 	}
 }
