@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.lang.Math;
 
 
@@ -10,6 +9,7 @@ public class Main {
 	private String survey_location = "saves/survey";
 	private String test_location = "saves/test";
 	
+	private Menu mainMenu;
 	
 	/**
 	 * @param args
@@ -17,47 +17,42 @@ public class Main {
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.mainMenu();
-		
+	
+	}
+	
+	public void createMainMenu(){
+		if(this.mainMenu == null){
+			this.mainMenu = new Menu("Main Menu");
+			mainMenu.addOption("Create a new Survey");
+			mainMenu.addOption("Create a new Test");
+			mainMenu.addOption("Display Survey");
+			mainMenu.addOption("Display a Test");
+			mainMenu.addOption("Load a Survey");
+			mainMenu.addOption("Load a Test");
+			mainMenu.addOption("Save a Survey");
+			mainMenu.addOption("Save a Test");
+			mainMenu.addOption("Exit");
+		}
 	}
 	
 	public void mainMenu(){
-		Creader rd = new Creader();
-		boolean done = false;
+
+		this.createMainMenu();
 		
-		System.out.println("");
-		System.out.println("-- Main Menu --");
-		do {
-			System.out.println("");
-			System.out.println(" (1) Survey menu");
-			System.out.println(" (2) Test menu");
-			System.out.println(" ---------------------");
-			System.out.println(" (3) Exit");
-			// get user input
-			String option = rd.readLine();
-			// make sure user has inputed something
-			if (option.length() > 0) {
-
-				System.out.println("You selected option " + option);
-
-				switch (Integer.parseInt(option)) {
-				case 1: // load survey menu
-					surveyMainMenu();
-					break;
-				case 2: // load test menu
-					testMainMenu();
-					break;
-				case 3: // Go back
-					done = true;
-					break;
-				default:
-					System.out.println("Sorry, input not recognized. Please try again.");
-					done = false;
-				}
-			} else {
-				done = false;
-				System.out.println("Sorry, input not recognized. Please try again.");
-			}
-		} while (!done);
+		int opt = mainMenu.run("Select your option: ");
+		
+		switch (opt) {
+		case 1: // load survey menu
+			surveyMainMenu();
+			break;
+		case 2: // load test menu
+			testMainMenu();
+			break;
+		case 3: // Go back
+			break;
+		default:
+			System.out.println("Something terrble happened.");
+		}
 	}
 	
 	public void testMainMenu(){
