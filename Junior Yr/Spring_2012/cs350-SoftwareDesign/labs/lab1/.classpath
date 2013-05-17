@@ -4,5 +4,6 @@
 	<classpathentry kind="lib" path="maze-ui.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/sunny/Classwork/Junior Yr/Spring_2012/cs350-SoftwareDesign/labs/lab1/maze-ui.jar"/>
+	<classpathentry kind="lib" path="C:/Users/u0170616/Downloads/lab1/lab1/maze-ui.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

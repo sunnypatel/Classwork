@@ -2,7 +2,7 @@ import java.io.Serializable;
 
 
 
-public class Question implements Serializable{
+public abstract class Question implements Serializable{
 	/**
 	 * 
 	 */
