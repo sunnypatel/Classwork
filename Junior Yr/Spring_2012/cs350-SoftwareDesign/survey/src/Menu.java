@@ -8,14 +8,10 @@ public class Menu {
 	ArrayList<String> options;
 	// Menu title
 	String title;
-	// prompt user text
-	String userPrompt;
 	// error to display when user types unrecognized input.
 	String errMsg;
 	
-	/**
-	 * Creates menu with no title
-	 */
+	
 	public Menu(){
 		this.options = new ArrayList<String>();
 		// Menu title
@@ -25,11 +21,6 @@ public class Menu {
 		
 		console = new TextDriver();
 	}
-	
-	/** 
-	 * Creates a menu with given title
-	 * @param title
-	 */
 	public Menu(String title){
 		this.options = new ArrayList<String>();
 		// Menu title
@@ -66,26 +57,16 @@ public class Menu {
 		this.options.remove(index);
 	}
 	
-	/**
-	 * Prints out the menu
-	 */
 	public void display(){
-		if(options.size() > 0){
-			int count = 0;
+		int count = 1;
+		
+		console.draw();
+		for(String option : this.options){
+			console.draw(" (" + count + ") ");
+			console.draw(option);
 			console.draw();
-			console.draw(this.getTitle());
-			
-			console.draw();
-			for(String option : this.options){
-				console.draw(" (" + ++count + ") ");
-				console.draw(option);
-				console.draw();
-				
-			}
-			console.draw();
-		} else {
-			console.draw("Menu empty");
 		}
+		console.draw();
 	}
 	
 	public String askUser(String prompt){
@@ -97,38 +78,21 @@ public class Menu {
 		return rd.readLine();
 	}
 	
-	/**
-	 * Once options are added this will display the menu
-	 * and prompt user for their choice 
-	 * @param prompt
-	 * @return the choice user entered
-	 */
 	public int run(String prompt){
-		
 		String response;
 		boolean done = false;
 		do {
 			this.display();
 			response = this.askUser(prompt);
 			
-			try{
-				console.draw("You selected: " + options.get(Integer.parseInt(response)-1));
+			// ERROR! User entered something wack
+			if(response.length() <= 0 && this.options.get(Integer.parseInt(response)) == null){
+				console.draw(errMsg);
 				console.draw();
-				done = true;
-			} catch (Exception e){
-				// got something we can't do anything with. print error msg
-				this.printError();
-				done = false;
 			}
-
 		} while (!done);
 		
 		return Integer.parseInt(response);
-	}
-	
-	public void printError(){
-		console.draw(this.getErrMsg());
-		console.draw();
 	}
 	
 	public void clear(){
