@@ -34,6 +34,8 @@ public class Menu {
 		this.options = new ArrayList<String>();
 		// Menu title
 		this.setTitle(title);
+		// user prompt
+		this.setUserPrompt("Select your option:");
 		// Default error message
 		this.setErrMsg("Sorry, input not recognized. Please try again.");
 		
@@ -88,10 +90,10 @@ public class Menu {
 		}
 	}
 	
-	public String askUser(String prompt){
+	public String askUser(){
 		Creader rd = new Creader();
 		
-		console.draw(prompt);
+		console.draw(this.userPrompt);
 		console.draw();
 		
 		return rd.readLine();
@@ -103,13 +105,13 @@ public class Menu {
 	 * @param prompt
 	 * @return the choice user entered
 	 */
-	public int run(String prompt){
+	public int run(){
 		
 		String response;
 		boolean done = false;
 		do {
 			this.display();
-			response = this.askUser(prompt);
+			response = this.askUser();
 			
 			try{
 				console.draw("You selected: " + options.get(Integer.parseInt(response)-1));
@@ -148,5 +150,13 @@ public class Menu {
 	
 	public void setErrMsg(String msg){
 		this.errMsg = msg;
+	}
+	
+	public String getUserPrompt(){
+		return this.userPrompt;
+	}
+	
+	public void setUserPrompt(String userPrompt){
+		this.userPrompt = userPrompt;
 	}
 }
