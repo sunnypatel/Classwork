@@ -93,8 +93,7 @@ public class Menu {
 	public String askUser(){
 		Creader rd = new Creader();
 		
-		console.draw(this.userPrompt);
-		console.draw();
+		console.draw(this.userPrompt + " ");
 		
 		return rd.readLine();
 	}

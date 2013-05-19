@@ -28,8 +28,19 @@ public class Test extends Survey{
 			System.out.println("Error saving test.");
 		}
 	}
-	
+	public void displayQuestions() {
+		int count = 0;
+		for (Question q : this.getQuestions()) {
+			count++;
+			System.out.print("#" + count + " ");
+			q.displayQuestion();
+			System.out.println("");
+			System.out.print("Correct Ans: ");
+			System.out.println(this.getAnswerSheet_correct().getAns(count - 1).toString());
+		}
+	}
 	public void recordAnswerSheet(){
+		System.out.println("Record new answer sheet");
 		
 		setAnswerSheet_correct(super.take());
 		

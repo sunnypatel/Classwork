@@ -77,6 +77,7 @@ public class Survey {
 	
 	public void addQuestion(Question question){
 		this.questions.add(question);
+		System.out.println("Question #" + this.getQuestions().size() + " added.");
 	}
 	
 	public void setSurveyPath(String path){
@@ -207,11 +208,11 @@ public class Survey {
 				return false;
 			}
 			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// I/O error
 			// e.printStackTrace();
 			// TODO error logging
-			System.out.println("I/O error has occurred.");
+			System.out.println("Unable to locate file.  Please be sure to have typed the filename correctly.");
 			return false;
 		}
 	
@@ -248,7 +249,7 @@ public class Survey {
 		    File answerSheetDir = new File(directoryName + "/correctAnswerSheet");
 		    boolean result3 = answerSheetDir.mkdirs();
 		    if(result3){
-		    	System.out.println("Answer Sheet dir created");
+		    	//System.out.println("Answer Sheet dir created");
 		    }
 		   
 		    

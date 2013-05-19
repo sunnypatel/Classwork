@@ -32,7 +32,11 @@ public class AnswerSheet implements Serializable{
 	public ArrayList<Response> getCorrectAns(){
 		return this.correctAns;
 	}
-	
+	public void displayAnswerSheet(){
+		for(Response r : correctAns){
+			System.out.println(r.toString());
+		}
+	}
 	public void setAns(ArrayList<Response> ans){
 		this.correctAns = ans;
 	}
