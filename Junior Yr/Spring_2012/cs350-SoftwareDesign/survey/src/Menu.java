@@ -90,14 +90,34 @@ public class Menu {
 		}
 	}
 	
-	public String askUser(){
+	public String askUser(String prompt){
 		Creader rd = new Creader();
 		
-		console.draw(this.userPrompt + " ");
+		console.draw(prompt + " ");
 		
 		return rd.readLine();
 	}
 	
+	public String askUser(){
+		return askUser(this.userPrompt);
+	}
+	
+	public Boolean askYesNo(String prompt){
+		Boolean done = false;
+		while(!done) {
+			String reponse = askUser(prompt);
+			if(reponse.toLowerCase().equals("yes") || reponse.toLowerCase().equals("y"))
+				return true;
+			else if (reponse.toLowerCase().equals("no") || reponse.toLowerCase().equals("n"))
+				return false;
+			else{
+				console.draw(this.getErrMsg());
+				console.draw();
+				done = false;
+			}
+		}
+		return null;
+	}
 	/**
 	 * Once options are added this will display the menu
 	 * and prompt user for their choice 

@@ -15,6 +15,9 @@ public class Main {
 	private Menu mainMenu;
 	private Menu newSurveyMenu;
 	private Menu newTestMenu;
+	
+	private Creader rd = new Creader();
+	
 	/**
 	 * @param args
 	 */
@@ -34,9 +37,16 @@ public class Main {
 			mainMenu.addOption("Display Survey");
 			mainMenu.addOption("Display Test");
 			mainMenu.addOption("Load a Survey");
-			mainMenu.addOption("Load a Test");
+			mainMenu.addOption("Load a Test");			
 			mainMenu.addOption("Save Survey");
 			mainMenu.addOption("Save Test");
+			mainMenu.addOption("Modify an existing survey");
+			mainMenu.addOption("Modify an existing test");
+			mainMenu.addOption("Take a survey");
+			mainMenu.addOption("Take a test");
+			mainMenu.addOption("Grade a Test");
+			mainMenu.addOption("Tabulate a survey");
+			mainMenu.addOption("Tabulate a Test");
 			mainMenu.addOption("Exit");
 		}
 	}
@@ -62,9 +72,11 @@ public class Main {
 			break;
 		case 5:
 			this.loadSurvey();
+			mainMenu();
 			break;
 		case 6:
 			this.loadTest();
+			mainMenu();
 			break;
 		case 7:
 			this.saveSurvey();
@@ -73,6 +85,27 @@ public class Main {
 			this.saveTest();
 			break;
 		case 9:
+			this.modifySurvey();
+			break;
+		case 10:
+			this.modifyTest();
+			break;
+		case 11:
+			this.takeSurvey();
+			break;
+		case 12:
+			this.takeTest();
+			break;
+		case 13:
+			this.gradeTest();
+			break;
+		case 14:
+			this.tabulateSurvey();
+			break;
+		case 15:
+			this.tabulateTest();
+			break;
+		case 16:
 			console.draw("Exiting...");
 			console.draw();
 			break;
@@ -81,6 +114,67 @@ public class Main {
 		}
 	}
 	
+	private void tabulateTest() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void tabulateSurvey() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void gradeTest() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void takeTest() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void takeSurvey() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void modifyTest() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void modifySurvey() {
+	
+		this.loadSurvey();
+		this.survey.displayQuestions();
+		boolean done = false;
+		
+		while(!done){
+			int res = 0;
+			console.draw("Select question you would like to modify:");
+			try{
+				res = Integer.parseInt(rd.readLine());
+				console.draw(res + " " + this.survey.getNumberOfQuestions());
+				console.draw();
+				if(res <= this.survey.getNumberOfQuestions() && res > 0){
+					this.survey.getQuestion_byId(res-1).modify();
+					
+				} else {
+					console.draw(res + " " + this.survey.getNumberOfQuestions());
+					console.draw();
+					console.draw("asdf");
+				}
+				
+			} catch(Exception e){
+				console.draw("Unrecognized format.");
+				console.draw();
+				e.printStackTrace();
+			}
+
+		}
+	}
+
 	/****************************************************/
 	/*            CREATE A SURVEY                       */
 	/****************************************************/
@@ -314,7 +408,7 @@ public class Main {
 			}
 		} while (!done);
 		
-		mainMenu();
+	//	mainMenu();
 	}
 	/****************************************************/
 	/*              DISPLAY A SURVEY                    */
@@ -333,11 +427,10 @@ public class Main {
 	public void loadSurvey(){
 		Creader rd = new Creader();
 		boolean done = false;
-		System.out.println("");
-		System.out.println("Load survey");
+		console.draw();
+		console.draw("Select survey");
 		listSurveys();
-		//System.out.println("Options:");
-		//System.out.println("type \\list    to view all available surveys)");
+
 		System.out.println("type \\back    to return to previous menu)");
 		do {
 			System.out.println("");
@@ -376,7 +469,7 @@ public class Main {
 			}
 		} while (!done);
 		
-		mainMenu();
+	//	mainMenu();
 	}
 	public void listTests(){
 		ArrayList<String> tests = getDirs(test_location);

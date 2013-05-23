@@ -9,8 +9,9 @@ public abstract class Question implements Serializable{
 	private static final long serialVersionUID = 5363456947254228772L;
 	private String questionType = null;
 	// to make my life easier for now i just included this here.
-	
+	public transient Menu askUser = new Menu();
 	public transient Creader rd = new Creader();
+	public transient DisplayDriver console = new TextDriver();
 	private String prompt;
 	private Response response;
 	
@@ -50,7 +51,14 @@ public abstract class Question implements Serializable{
 		//System.out.println("");
 		System.out.println(this.getPrompt());
 	}
-	
+	public void modify(){
+		console.draw(this.getPrompt());
+		console.draw();
+
+		if(askUser.askYesNo("Would you like to change prompt?")){
+			this.setPrompt(askUser.askUser("New prompt:"));
+		}
+	}
 	public String getQuestionType(){
 		return questionType;
 	}

@@ -95,4 +95,36 @@ public class MultipleChoice extends Question{
 	public String getQuestionType() {
 		return questionType;
 	}
+	
+	public void modify(){
+		super.modify();
+		this.displayOptions();
+		
+		while(askUser.askYesNo("Would you like to change choices? (Y/N)")){
+			boolean err = false;
+			do{
+			try{
+				// ask user which choice they would like to change and parse that choice index to integer
+				int selectedOption = Integer.parseInt(askUser.askUser("Which choice would you like to change?"));
+				Boolean done = false;
+				// do while done
+				while(!done){
+					if(selectedOption < this.options.size()){
+						this.options.remove(selectedOption);
+						this.options.set(selectedOption, askUser.askUser("New choice #" + selectedOption));
+						done = true;
+					} else {
+						console.draw("Please select a valid choice.");
+						done = false;
+					}
+				}
+				err = false;
+			} catch (Exception e) {
+				console.draw("Please select a valid choice.");
+				err = true;
+			}
+			} while(!err);
+		}
+		
+	}
 }
