@@ -49,4 +49,8 @@ public class Essay extends Question{
 		return questionType;
 	}	
 	
+	public void modify(){
+		this.changePrompt();
+	}
+	
 }

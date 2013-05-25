@@ -125,7 +125,7 @@ public class MultipleChoice extends Question{
 	}
 	
 	public void modify() {
-		super.modify();
+		this.changePrompt();
 
 		while (askUser.askYesNo("Would you like to change choices? (Y/N)")) {
 

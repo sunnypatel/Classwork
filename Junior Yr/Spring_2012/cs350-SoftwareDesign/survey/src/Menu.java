@@ -45,6 +45,18 @@ public class Menu implements Serializable{
 		console = new TextDriver();
 	}
 	
+	public Menu(ArrayList<String> options) {
+		this.options = options;
+		// Menu title
+		this.setTitle(title);
+		// user prompt
+		this.setUserPrompt("Select your option:");
+		// Default error message
+		this.setErrMsg("Sorry, input not recognized. Please try again.");
+		
+		console = new TextDriver();
+	}
+
 	/**
 	 * Add the option to the bottom of options list
 	 * @param option

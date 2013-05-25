@@ -32,4 +32,8 @@ public class ShortAns extends Essay{
 	public void displayQuestion(){
 		super.displayQuestion();
 	}
+	
+	public void modify(){
+		this.changePrompt();
+	}
 }

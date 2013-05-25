@@ -125,18 +125,36 @@ public class Main {
 	}
 
 	private void gradeTest() {
-		// TODO Auto-generated method stub
+		this.loadTest();
+		// get all the files in the loaded test folder
+		ArrayList<String> answerSheets = this.getFiles(this.test.getFullPath() + "/responses/");
+
+		// create a new menu for all the responses sheets we just loaded
+		Menu menu = new Menu(answerSheets);
+		menu.setUserPrompt("Select a response to grade: ");
 		
+		// user selection
+		int sel = menu.run();
+		AnswerSheet responseSheet = this.test.loadAnswerSheet(this.test.getFullPath() + "/responses/" + answerSheets.get(sel-1));
+		console.draw("Grading...");
+		int wrong = this.test.grade(responseSheet);
+		console.draw("Done.");
+		console.draw();
+		
+		console.draw(answerSheets.get(sel-1) + " got " + (this.test.getNumberOfQuestions() - wrong) + "/" + this.test.getNumberOfQuestions());
+		console.draw();
 	}
 
 	private void takeTest() {
-		// TODO Auto-generated method stub
-		
+		this.loadTest();
+		this.test.take();
+		mainMenu();
 	}
 
 	private void takeSurvey() {
-		// TODO Auto-generated method stub
-		
+		this.loadSurvey();
+		this.survey.take();
+		mainMenu();
 	}
 
 	private void modifyTest() {
@@ -177,7 +195,7 @@ public class Main {
 			newSurveyMenu.addOption("Add a new essay question");
 			newSurveyMenu.addOption("Add a new ranking question");
 			newSurveyMenu.addOption("Add a new matching question");
-			newSurveyMenu.addOption("Close");
+			newSurveyMenu.addOption("Done");
 		}
 	}
 	public void editSurveyMenu(Survey survey){
@@ -187,35 +205,17 @@ public class Main {
 		
 		while(!done){
 			opt = newSurveyMenu.run();
-			switch(opt){
-			case 1: // True / False
-				survey.addQuestion(new TrueFalse());
-				break; 
-			case 2:
-				// Multiple Choice
-				survey.addQuestion(new MultipleChoice(1));
-				break;			
-			case 3:// Short Answer
-				survey.addQuestion(new ShortAns());
-				break; 
-			case 4: // Essay
-				survey.addQuestion(new Essay());
-				break;
-			case 5: // Ranking
-				Ranking ranking = new Ranking();
-				survey.addQuestion(ranking);
-				break;
-			case 6: // Matching
-				Matching matching = new Matching();
-				matching.create(); // <----- TODO DONT LIKE THIS CHANGE IF TIME
-				survey.addQuestion(matching);
-				break;
-			case 7: // Done
-				done = true;
-				break;
-			default:
-				System.out.println("Something terrible happened! :(");
-			
+			if(opt > 0 && opt <= 6){
+    			QuestionFactory qFactory = new QuestionFactory();
+    			survey.addQuestion(qFactory.create(opt));
+			} else {
+    			switch(opt){
+    			case 7: // Done
+    				done = true;
+    				break;
+    			default:
+    				System.out.println("Something terrible happened! :(");
+    			}
 			}
 		}
 		try {
@@ -261,36 +261,18 @@ public class Main {
 		Boolean done = false;
 		
 		while(!done){
-			opt = newTestMenu.run();
-			switch(opt){
-			case 1: // True / False
-				test.addQuestion(new TrueFalse());
-				break; 
-			case 2:
-				// Multiple Choice
-				test.addQuestion(new MultipleChoice(1));
-				break;			
-			case 3:// Short Answer
-				test.addQuestion(new ShortAns());
-				break; 
-			case 4: // Essay
-				test.addQuestion(new Essay());
-				break;
-			case 5: // Ranking
-				Ranking ranking = new Ranking();
-				test.addQuestion(ranking);
-				break;
-			case 6: // Matching
-				Matching matching = new Matching();
-				matching.create(); // <----- TODO DONT LIKE THIS CHANGE IF TIME
-				test.addQuestion(matching);
-				break;
-			case 7: // Done
-				done = true;
-				break;
-			default:
-				System.out.println("Something terrible happened! :(");
-			
+			opt = newSurveyMenu.run();
+			if(opt > 0 && opt <= 6){
+    			QuestionFactory qFactory = new QuestionFactory();
+    			survey.addQuestion(qFactory.create(opt));
+			} else {
+    			switch(opt){
+    			case 7: // Done
+    				done = true;
+    				break;
+    			default:
+    				System.out.println("Something terrible happened! :(");
+    			}
 			}
 		}
 		test.recordAnswerSheet();
@@ -448,6 +430,12 @@ public class Main {
 		
 		printList(surveys, "Id #","Surveys");
 	}
+	
+	public void listFiles(String path, String title1, String title2){
+		ArrayList<String> obj = getFiles(path);
+		printList(obj, title1, title2);
+		
+	}
 	/**
 	 * Neatly prints a formated list with index numbers
 	 * TODO clean up if you have time
@@ -549,6 +537,7 @@ public class Main {
 	}
 	
 	public ArrayList<String> getDirs(String path){
+		System.out.println("getDirs: " + path);
 		File file = new File(path);
 		String[] directories = file.list(new FilenameFilter() {
 		  @Override

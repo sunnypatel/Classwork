@@ -17,4 +17,7 @@ public class TrueFalse extends MultipleChoice{
 		return questionType;
 	}
 
+	public void modify(){
+		this.changePrompt();
+	}
 }

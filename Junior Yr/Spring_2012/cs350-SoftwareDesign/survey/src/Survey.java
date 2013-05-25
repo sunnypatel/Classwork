@@ -85,9 +85,19 @@ public class Survey {
 	public void setSurveyPath(String path){
 		this.surveyPath = path;
 	}
-	
+	/**
+	 * return the location of where surveys are stored
+	 * @return
+	 */
 	public String getSurveyPath(){
 		return this.surveyPath;
+	}
+	/**
+	 * returns the location of root directory of this survey
+	 * @return path
+	 */
+	public String getFullPath(){
+		return this.getSurveyPath() + "/" + this.getName();
 	}
 	
 	public Question getQuestion_byId(int index){
@@ -97,7 +107,11 @@ public class Survey {
 			return null;
 		}
 	}
-	
+	/**
+	 * Allows user to take the survey.
+	 * Saves the answer sheet submitted by user.
+	 * @return
+	 */
 	@SuppressWarnings("finally")
 	public AnswerSheet take(){
 		Creader rd = new Creader();
@@ -113,6 +127,7 @@ public class Survey {
 			q.displayQuestion();
 			
 			// ask for answer
+			System.out.print("Your answer: ");
 			String ans = rd.readLine();
 			
 			System.out.println("You entered: " + ans);
@@ -127,8 +142,7 @@ public class Survey {
 			this.saveAnswerSheet(userName, sheet);
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			console.draw("Err In Survey:take()");
 		} finally{
 			return sheet;
 		}
@@ -240,6 +254,9 @@ public class Survey {
 			}
 
 		}
+		
+		
+		
 		return success;
 	}
 	

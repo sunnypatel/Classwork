@@ -49,7 +49,7 @@ public abstract class Question implements Serializable{
 		//System.out.println("");
 		System.out.println(this.getPrompt());
 	}
-	public void modify(){
+	public void changePrompt(){
 		console.draw(this.getPrompt());
 		console.draw();
 
@@ -57,6 +57,11 @@ public abstract class Question implements Serializable{
 			this.setPrompt(askUser.askUser("New prompt:"));
 		}
 	}
+	
+	public void modify(){
+		
+	}
+	
 	public String getQuestionType(){
 		return questionType;
 	}
