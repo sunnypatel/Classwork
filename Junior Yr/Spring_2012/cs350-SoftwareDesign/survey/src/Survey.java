@@ -135,6 +135,7 @@ public class Survey {
 			Response r = new Response(ans);
 			sheet.addAns(r);
 			}
+			System.out.println("");
 		}
 		System.out.println("Finished!");
 		
@@ -178,7 +179,42 @@ public class Survey {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Loads any old answersheet that was once submitted by user
+	 * does not set any vars
+	 * @param name
+	 * @return answer sheet that was asked for
+	 */
+	public AnswerSheet loadAnswerSheet(String path){
+		try {
+			String ansSheetPath = path;
+			//System.out.println("Loading answer sheet: " + ansSheetPath);
+			FileInputStream fileIn = new FileInputStream(ansSheetPath);
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			// try reading object from file
+			try {
+				AnswerSheet correctSheet = (AnswerSheet) in.readObject();
+				// actually set the answer sheet
+				in.close();
+				//System.out.println("Done");
+				return correctSheet;
+			} catch (ClassNotFoundException e) {
+				// bad input
+				//e.printStackTrace();
+				in.close();
+				System.out.println("Bad input - Answer Sheet ");
+				return null;
+			}
+			
+		} catch (IOException e) {
+			// I/O error
+			 e.printStackTrace();
+			// TODO error logging
+			System.out.println("I/O error has occurred.");
+			return null;
+		}
+		
+	}
 	/**
 	 * Saves the survey questions in a filenamed [survey_name].q
 	 * 

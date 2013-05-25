@@ -103,42 +103,7 @@ public class Test extends Survey{
 	public AnswerSheet getAnswerSheet_correct(){
 		return this.answerSheet_correct;
 	}
-	/**
-	 * Loads any old answersheet that was once submitted by user
-	 * does not set any vars
-	 * @param name
-	 * @return answer sheet that was asked for
-	 */
-	public AnswerSheet loadAnswerSheet(String name){
-		try {
-			String ansSheetPath = this.getSurveyPath() + "/" + this.getName() + "/correctAnswerSheet/" + name;
-			//System.out.println("Loading answer sheet: " + ansSheetPath);
-			FileInputStream fileIn = new FileInputStream(ansSheetPath);
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			// try reading object from file
-			try {
-				AnswerSheet correctSheet = (AnswerSheet) in.readObject();
-				// actually set the answer sheet
-				in.close();
-				//System.out.println("Done");
-				return correctSheet;
-			} catch (ClassNotFoundException e) {
-				// bad input
-				//e.printStackTrace();
-				in.close();
-				System.out.println("Bad input - Answer Sheet ");
-				return null;
-			}
-			
-		} catch (IOException e) {
-			// I/O error
-			// e.printStackTrace();
-			// TODO error logging
-			System.out.println("I/O error has occurred.");
-			return null;
-		}
-		
-	}
+
 	/**
 	 * Should be used to load in correct answer sheet for test.
 	 * Sets the correct answer after loading is complete.

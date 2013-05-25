@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.lang.Math;
 
 
@@ -120,8 +122,54 @@ public class Main {
 	}
 
 	private void tabulateSurvey() {
-		// TODO Auto-generated method stub
+		this.loadSurvey();
+		// get all the files in the loaded test folder
+		ArrayList<String> responseSheets_str = this.getFiles(this.survey.getFullPath() + "/responses/");
+		ArrayList<AnswerSheet> responseSheets = new ArrayList<AnswerSheet>();
+		for(String sheet : responseSheets_str){
+			responseSheets.add(this.survey.loadAnswerSheet(this.survey.getFullPath() + "/responses/" + sheet));
+		}
 		
+		HashMap<Question, HashMap<String, Integer>> questionsTable = new HashMap<Question, HashMap<String, Integer>>();
+		// loop through all the questions for this survey
+		int i = 0;
+		int j = 0;
+		for(Question q : this.survey.getQuestions()){
+			if(q.getQuestionType() != "Essay") {
+				HashMap<String, Integer> qTally = new HashMap<String, Integer>();
+				questionsTable.put(q, qTally);
+				j = 0;
+    			// for each question add tally responses
+    			for(AnswerSheet responseSheet : responseSheets ){
+    				Response res = responseSheet.getAns(i);
+    				if(!questionsTable.get(q).containsKey(res)){
+    					questionsTable.get(q).put(res.getResponse(), 1);
+    				} else {
+    					questionsTable.get(q).put(res.getResponse(), questionsTable.get(q).get(res.getResponse()) + 1);
+    				}
+    				j++;
+    			}
+			}
+		}
+		
+		console.draw("Responses counted: " + j);
+		console.draw();
+		console.draw();
+		int count = 0;
+		// Start printing tabulated data
+		for(Question q : this.survey.getQuestions() ){
+			console.draw("#" + (++count) + "  " + q.getPrompt());
+			console.draw();
+			console.draw("Data: ( # of answers  |   answer )");
+			console.draw();
+			
+			for(Entry<String, Integer> row : questionsTable.get(q).entrySet()){
+				console.draw(row.getValue().intValue() + " | " + row.getKey());
+				console.draw();
+			}
+			
+			console.draw();
+		}
 	}
 
 	private void gradeTest() {
@@ -141,10 +189,23 @@ public class Main {
 		console.draw("Done.");
 		console.draw();
 		
-		console.draw(answerSheets.get(sel-1) + " got " + (this.test.getNumberOfQuestions() - wrong) + "/" + this.test.getNumberOfQuestions());
+		console.draw(answerSheets.get(sel-1) + " got " + (this.test.getNumberOfQuestions() - wrong) + "/" + this.test.getNumberOfQuestions() + " questions correct.");
+		
+		// count total number of essays
+		int essayCount = 0;
+		for(Question q : this.test.getQuestions()){
+			if(q.getQuestionType() == "Essay")
+				essayCount++;
+		}
+		// Check if response submitted any essays
+		if(essayCount > 0){
+    		console.draw();
+    		console.draw(answerSheets.get(sel-1) + " also submitted " + essayCount + " essays.");
+		}
 		console.draw();
 	}
 
+	
 	private void takeTest() {
 		this.loadTest();
 		this.test.take();
@@ -527,11 +588,12 @@ public class Main {
 		  for (int i = 0; i < listOfFiles.length; i++) 
 		  {
 		 
-		   if (listOfFiles[i].isFile()) 
+		   if (listOfFiles[i].isFile() ) 
 		   {
-		   files = listOfFiles[i].getName();
-		   fileList.add(files);
-		     }
+    		   files = listOfFiles[i].getName();
+    		   if(!files.startsWith("."))
+    			   fileList.add(files);
+		   }
 		  }
 		  return fileList;
 	}
