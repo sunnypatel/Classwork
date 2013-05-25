@@ -43,6 +43,21 @@ public class AnswerSheet implements Serializable{
 	public Response getAns(int i){
 		return this.correctAns.get(i);
 	}
+	
+	public void setAns(Response res){
+		this.correctAns.add(res);
+	}
+
+	public void setAns(int i, Response res){
+		this.correctAns.add(i, res);
+	}
+	
+	public void setAns(int i, String input){
+		Response res = new Response();
+		res.setResponse(input);
+		this.setAns(i, res);
+	}
+	
 	public void addAns(Response r){
 		this.correctAns.add(r);
 	}

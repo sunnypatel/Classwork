@@ -11,13 +11,13 @@ public class Survey {
 
 	private String surveyName;
 	private String surveyPath;
-	
+	private DisplayDriver console;
 	private ArrayList<Question> questions;
 	
 	public Survey() {
 
 		questions = new ArrayList<Question>();
-	
+		this.console = new TextDriver();
 		this.surveyName = "";
 		this.surveyPath = "";
 	}
@@ -27,7 +27,9 @@ public class Survey {
 	
 		this.surveyName = surveyName;
 		this.surveyPath = surveyPath;
+		this.console = new TextDriver();
 		createSurveyDirs();
+		
 		try {
 			this.save();
 		} catch (FileNotFoundException e) {
@@ -40,7 +42,7 @@ public class Survey {
 		return questions.size();
 	}
 
-	public String getSurveyName() {
+	public String getName() {
 		return surveyName;
 	}
 	
@@ -143,6 +145,9 @@ public class Survey {
 		}
 	}
 
+	public String getType(){
+		return "survey";
+	}
 	
 	public void saveAnswerSheet(String name, AnswerSheet sheet) throws FileNotFoundException {
 
@@ -168,7 +173,7 @@ public class Survey {
 	public void save() throws FileNotFoundException {
 
 		try {
-			FileOutputStream fileOut = new FileOutputStream(this.getSurveyPath() + "/" + this.getSurveyName() + "/surveyQuestions");
+			FileOutputStream fileOut = new FileOutputStream(this.getSurveyPath() + "/" + this.getName() + "/surveyQuestions");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(this.getQuestions());
 			out.close();
@@ -180,6 +185,65 @@ public class Survey {
 		}
 	}
 
+	public void test(){
+		console.draw("in survey");
+		
+	}
+	
+	// TODO: change this setup
+	public void recordAnswer(int i){};
+	
+	public boolean modify(){
+		boolean success = false;
+		
+		this.displayQuestions();
+		boolean done = false;
+		Creader rd = new Creader();
+		while(!done){
+			int res = 0;
+			console.draw("Select question you would like to modify (type '\\done' when finished): ");
+			try{
+				String input = rd.readLine();
+				
+				if(input.equals("\\done")){
+					done = true;
+				} else {
+					
+    				res = Integer.parseInt(input);
+    				if(res <= this.getNumberOfQuestions() && res > 0){
+    					this.getQuestion_byId(res-1).modify();
+    					this.recordAnswer(res-1);
+    					
+    					console.draw("Modifying '" + this.getName() + "' done.  Attempting to save...");
+    					// done modifying survey
+    					// save the modified survey back
+    					try {
+    						save();
+    						console.draw("Done.");
+    						console.draw();
+    						success = true;
+    					} catch (FileNotFoundException e) {
+    						console.draw("Failed."); 
+    						console.draw();
+    						success = false;
+    					}
+    					this.test();
+    				} else {
+    					console.draw("Please select valid question to modify");
+    					done = false;
+    				}
+				}
+			} catch(Exception e){
+				console.draw("Please select valid option.");
+				console.draw();
+				done = false;
+			}
+
+		}
+		return success;
+	}
+	
+	
 	/**
 	 * Loads a survey from .q file located in saves/survey/
 	 * 

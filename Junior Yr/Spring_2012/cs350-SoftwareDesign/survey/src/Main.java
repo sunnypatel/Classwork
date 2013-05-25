@@ -141,38 +141,17 @@ public class Main {
 
 	private void modifyTest() {
 		// TODO Auto-generated method stub
-		
+		this.loadTest();
+		this.test.modify();
+		this.mainMenu();
 	}
 
 	private void modifySurvey() {
 	
 		this.loadSurvey();
-		this.survey.displayQuestions();
-		boolean done = false;
-		
-		while(!done){
-			int res = 0;
-			console.draw("Select question you would like to modify:");
-			try{
-				res = Integer.parseInt(rd.readLine());
-				console.draw(res + " " + this.survey.getNumberOfQuestions());
-				console.draw();
-				if(res <= this.survey.getNumberOfQuestions() && res > 0){
-					this.survey.getQuestion_byId(res-1).modify();
-					
-				} else {
-					console.draw(res + " " + this.survey.getNumberOfQuestions());
-					console.draw();
-					console.draw("asdf");
-				}
-				
-			} catch(Exception e){
-				console.draw("Unrecognized format.");
-				console.draw();
-				e.printStackTrace();
-			}
+		this.survey.modify();
+		this.mainMenu();
 
-		}
 	}
 
 	/****************************************************/
@@ -202,7 +181,7 @@ public class Main {
 		}
 	}
 	public void editSurveyMenu(Survey survey){
-		this.createNewSurveyMenu(survey.getSurveyName());
+		this.createNewSurveyMenu(survey.getName());
 		int opt = 0;
 		Boolean done = false;
 		
@@ -277,7 +256,7 @@ public class Main {
 		}
 	}
 	public void editTestMenu(Test test) {
-		this.createNewTestMenu(test.getSurveyName());
+		this.createNewTestMenu(test.getName());
 		int opt = 0;
 		Boolean done = false;
 		
@@ -315,11 +294,7 @@ public class Main {
 			}
 		}
 		test.recordAnswerSheet();
-		try {
-			test.save();
-		} catch (FileNotFoundException e) {
-			console.draw("Unable to save.");
-		}
+		test.save();
 		mainMenu();
 	}
 	public void importTest(Test importTest){
@@ -340,18 +315,13 @@ public class Main {
 		if(test == null){
 			console.draw("No test loaded.  You need to load a test or create a new test.");
 		} else {
-			try {
-				test.save();
-			} catch (FileNotFoundException e) {
-				console.draw("Unable to save.");
-				console.draw();
-			}
+			test.save();
 		}
 		mainMenu();
 	}	
 	public void saveSurvey(){
 		if(test == null){
-			console.draw("No survey loaded.  You need to load a survey or create a new test.");
+			console.draw("No survey loaded.  You need to load a survey or create a new survey.");
 		} else {
 			try {
 				survey.save();
@@ -382,7 +352,7 @@ public class Main {
 			if (option.length() > 0) {
 				if(option.equals("\\list")){
 					// user wants all the surveys listed
-					listSurveys();
+					listTests();
 				} else if(option.equals("\\back")){
 					// user wants to go back to survey main menu
 					mainMenu();
@@ -395,10 +365,7 @@ public class Main {
 							importTest(loadingTest);
 							done = true;
 						}
-					} catch (FileNotFoundException e) {
-						System.out.println("File not found. Please try again.");
-						//loadSurvey_byIndex(Integer.parseInt(option));
-					} catch (Exception e){
+					}  catch (Exception e){
 						console.draw("An unknown error has occured please try again.");
 					}
 				}
@@ -589,11 +556,13 @@ public class Main {
 		    return new File(dir, name).isDirectory();
 		  }
 		});
-		
 		// convert string array to ArrayList
 		ArrayList<String> dirs = new ArrayList<String>();
-		dirs.addAll(Arrays.asList(directories));
-		
+		try{
+    		dirs.addAll(Arrays.asList(directories));
+		} catch (Exception e){
+			
+		}
 		return dirs;
 	}
 }

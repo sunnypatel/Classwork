@@ -21,12 +21,7 @@ public class Test extends Survey{
 		
 		this.createSurveyDirs();
 		
-		try {
-			this.save();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Error saving test.");
-		}
+		this.save();
 	}
 	public void displayQuestions() {
 		int count = 0;
@@ -36,9 +31,19 @@ public class Test extends Survey{
 			q.displayQuestion();
 			System.out.println("");
 			System.out.print("Correct Ans: ");
-			System.out.println(this.getAnswerSheet_correct().getAns(count - 1).toString());
+			System.out.println(this.getAnswerSheet_correct().getAns(count - 1).getResponse().toString());
 		}
 	}
+	
+	public void recordAnswer(int questionIndex){
+		Creader rd = new Creader();
+		this.getQuestion_byId(questionIndex).displayQuestion();
+		System.out.println("Enter correct answer: ");
+		String res = rd.readLine();
+		
+		this.getAnswerSheet_correct().setAns(questionIndex, res);
+	}
+	
 	public void recordAnswerSheet(){
 		System.out.println("Record new answer sheet");
 		
@@ -48,7 +53,8 @@ public class Test extends Survey{
 			this.saveCorrectAnswerSheet("answerSheet", this.getAnswerSheet_correct());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("err in test:recordAnswerSheet() ");
 		}
 	}
 
@@ -71,6 +77,18 @@ public class Test extends Survey{
 		return wrongAnswers;
 	}
 	
+	public boolean load(String pathToTest){
+		boolean success = false;
+		try {
+			super.load(pathToTest);
+			this.loadAnswerSheet_correct("answerSheet");
+			success = true;
+		} catch (FileNotFoundException e) {
+			// TODO: add stuff here
+		}
+		return success;
+	}
+	
 	public AnswerSheet take(){
 		if(loadAnswerSheet_correct("answerSheet") == null)
 			return null;
@@ -83,12 +101,15 @@ public class Test extends Survey{
 	
 	public AnswerSheet loadAnswerSheet_correct(String name) {
 		try {
-			System.out.print("Loading /" + this.getSurveyPath() + "/... ");
-			FileInputStream fileIn = new FileInputStream(this.getSurveyPath() + "/" + this.getSurveyName() + "/correctAnswerSheet/" + name);
+			String ansSheetPath = this.getSurveyPath() + "/" + this.getName() + "/correctAnswerSheet/" + name;
+			System.out.println("Loading answer sheet: " + ansSheetPath);
+			FileInputStream fileIn = new FileInputStream(ansSheetPath);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			// try reading object from file
 			try {
 				AnswerSheet correctSheet = (AnswerSheet) in.readObject();
+				// actually set the answer sheet
+				this.setAnswerSheet_correct(correctSheet);
 				in.close();
 				System.out.println("Done");
 				return correctSheet;
@@ -107,6 +128,7 @@ public class Test extends Survey{
 			System.out.println("I/O error has occurred.");
 			return null;
 		}
+	
 	}
 
 	public void setAnswerSheet_correct(AnswerSheet answerSheet_correct) {
@@ -117,7 +139,7 @@ public class Test extends Survey{
 
 		try {
 			// TODO file name checking and better implementation
-			FileOutputStream fileOut = new FileOutputStream(this.getSurveyPath() +"/" + this.getSurveyName() +"/correctAnswerSheet/" + name);
+			FileOutputStream fileOut = new FileOutputStream(this.getSurveyPath() +"/" + this.getName() +"/correctAnswerSheet/" + name);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(sheet);
 			out.close();
@@ -127,5 +149,15 @@ public class Test extends Survey{
 			// I/O error
 			e.printStackTrace();
 		}
+	}
+	
+	public void save(){
+		try {
+			super.save();
+			this.saveCorrectAnswerSheet("answerSheet", this.getAnswerSheet_correct());
+		} catch (FileNotFoundException e) {
+			System.out.println("Error saving test.");
+		}
+		
 	}
 }

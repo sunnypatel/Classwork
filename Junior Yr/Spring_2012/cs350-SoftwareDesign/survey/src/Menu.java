@@ -1,7 +1,10 @@
+import java.io.Serializable;
 import java.util.*;
 
 
-public class Menu {
+public class Menu implements Serializable{
+
+	private static final long serialVersionUID = -682387028201373104L;
 	// how the menu is going to be printed out
 	DisplayDriver console;
 	// List of options for the user
