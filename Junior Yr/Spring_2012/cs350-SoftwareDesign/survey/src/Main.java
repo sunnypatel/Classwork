@@ -1,7 +1,5 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 import java.util.Map.Entry;
 import java.lang.Math;
 
@@ -115,21 +113,7 @@ public class Main {
 			System.out.println("I don't know what to do");
 		}
 	}
-	
-	private void tabulateTest() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void tabulateSurvey() {
-		this.loadSurvey();
-		// get all the files in the loaded test folder
-		ArrayList<String> responseSheets_str = this.getFiles(this.survey.getFullPath() + "/responses/");
-		ArrayList<AnswerSheet> responseSheets = new ArrayList<AnswerSheet>();
-		for(String sheet : responseSheets_str){
-			responseSheets.add(this.survey.loadAnswerSheet(this.survey.getFullPath() + "/responses/" + sheet));
-		}
-		
+	private void tabulate(ArrayList<AnswerSheet> responseSheets){
 		HashMap<Question, HashMap<String, Integer>> questionsTable = new HashMap<Question, HashMap<String, Integer>>();
 		// loop through all the questions for this survey
 		int i = 0;
@@ -153,7 +137,7 @@ public class Main {
 		}
 		
 		console.draw("Responses counted: " + j);
-		console.draw();
+		console.draw("HashMap questionsTable size = " + questionsTable.size());
 		console.draw();
 		int count = 0;
 		// Start printing tabulated data
@@ -167,9 +151,33 @@ public class Main {
 				console.draw(row.getValue().intValue() + " | " + row.getKey());
 				console.draw();
 			}
-			
+		    
 			console.draw();
 		}
+	}
+	private void tabulateTest() {
+		
+		this.loadTest();
+		// get all the files in the loaded test folder
+		ArrayList<String> responseSheets_str = this.getFiles(this.test.getFullPath() + "/responses/");
+		ArrayList<AnswerSheet> responseSheets = new ArrayList<AnswerSheet>();
+		for(String sheet : responseSheets_str){
+			responseSheets.add(this.test.loadAnswerSheet(this.test.getFullPath() + "/responses/" + sheet));
+		}
+		
+		this.tabulate(responseSheets);	
+	}
+
+	private void tabulateSurvey() {
+		this.loadSurvey();
+		// get all the files in the loaded test folder
+		ArrayList<String> responseSheets_str = this.getFiles(this.survey.getFullPath() + "/responses/");
+		ArrayList<AnswerSheet> responseSheets = new ArrayList<AnswerSheet>();
+		for(String sheet : responseSheets_str){
+			responseSheets.add(this.survey.loadAnswerSheet(this.survey.getFullPath() + "/responses/" + sheet));
+		}
+		
+		this.tabulate(responseSheets);
 	}
 
 	private void gradeTest() {
