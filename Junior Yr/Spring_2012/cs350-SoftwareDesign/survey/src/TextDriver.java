@@ -20,5 +20,8 @@ public class TextDriver extends DisplayDriver {
 		
 	}
 	
-
+	@Override
+	public void render(){
+		
+	}
 }

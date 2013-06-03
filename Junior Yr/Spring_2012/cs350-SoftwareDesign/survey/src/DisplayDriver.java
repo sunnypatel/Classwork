@@ -13,4 +13,6 @@ public abstract class DisplayDriver implements Serializable {
 	public abstract void draw();
 	
 	public abstract void draw(Object x);
+	
+	public abstract void render();
 }

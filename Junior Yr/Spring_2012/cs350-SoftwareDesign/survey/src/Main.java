@@ -3,6 +3,8 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.lang.Math;
 
+import edu.drexel.cs350.graphics.ImageFileRenderer;
+
 
 public class Main {
 
@@ -47,6 +49,7 @@ public class Main {
 			mainMenu.addOption("Grade a Test");
 			mainMenu.addOption("Tabulate a survey");
 			mainMenu.addOption("Tabulate a Test");
+			mainMenu.addOption("Output blank survey");
 			mainMenu.addOption("Exit");
 		}
 	}
@@ -106,6 +109,9 @@ public class Main {
 			this.tabulateTest();
 			break;
 		case 16:
+			this.OutputBlankSurvey();
+			break;
+		case 17:
 			console.draw("Exiting...");
 			console.draw();
 			break;
@@ -439,6 +445,25 @@ public class Main {
 		}
 		mainMenu();
 	}
+	
+	public void OutputBlankSurvey(){
+		ImageRendDriver_adapter rendDriver = new ImageRendDriver_adapter();
+		if(survey == null){
+			this.loadSurvey();
+		}
+		
+		this.survey.setDisplayDriver(rendDriver);
+		//this.console = rendDriver;
+		
+		this.survey.displayQuestions();
+		this.survey.getDisplayDriver().render();
+	
+		//this.survey.setDisplayDriver(new TextDriver());
+	//	this.console = new TextDriver();
+
+		
+	}
+	
 	/****************************************************/
 	/*                LOAD A SURVEY                     */
 	/****************************************************/

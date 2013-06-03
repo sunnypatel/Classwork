@@ -11,7 +11,7 @@ public class Survey {
 
 	private String surveyName;
 	private String surveyPath;
-	private DisplayDriver console;
+	protected DisplayDriver console;
 	private ArrayList<Question> questions;
 	
 	public Survey() {
@@ -73,6 +73,15 @@ public class Survey {
 		this.questions = questions;
 	}
 
+	public void setDisplayDriver(DisplayDriver d){
+		System.out.println("in here");
+		this.console = d;
+	}
+	
+	public DisplayDriver getDisplayDriver(){
+		return this.console;
+	}
+	
 	public ArrayList<Question> getQuestions() {
 		return this.questions;
 	}
@@ -154,9 +163,9 @@ public class Survey {
 		int count = 0;
 		for (Question q : this.questions) {
 			count++;
-			System.out.print("#" + count + " ");
+			console.draw("#" + count + " ");
 			q.displayQuestion();
-			System.out.println("");
+			console.draw();
 		}
 	}
 

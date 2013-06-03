@@ -27,11 +27,12 @@ public class Test extends Survey{
 		int count = 0;
 		for (Question q : this.getQuestions()) {
 			count++;
-			System.out.print("#" + count + " ");
+			console.draw("#" + count + " ");
 			q.displayQuestion();
-			System.out.println("");
-			System.out.print("Correct Ans: ");
-			System.out.println(this.getAnswerSheet_correct().getAns(count - 1).getResponse().toString());
+			console.draw();
+			console.draw("Correct Ans: ");
+			console.draw(this.getAnswerSheet_correct().getAns(count - 1).getResponse().toString());
+			console.draw();
 		}
 	}
 	
