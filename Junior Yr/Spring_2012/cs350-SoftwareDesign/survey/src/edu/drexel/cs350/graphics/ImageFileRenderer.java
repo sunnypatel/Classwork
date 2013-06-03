@@ -4,7 +4,7 @@
  * Copyright (c) 2007 Drexel University. All rights reserved.
  *
  */
-package edu.drexel.cs350;
+package edu.drexel.cs350.graphics;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
+
 
 
 /**
@@ -32,8 +33,7 @@ public class ImageFileRenderer implements Renderer
 	private RenderedImage image;
 	private Graphics2D gfx;
 	
-	public ImageFileRenderer(final String frmt, final String path)
-			throws IOException
+	public ImageFileRenderer(final String frmt, final String path) throws IOException
 	{
 		this(frmt, new File(path));
 	}

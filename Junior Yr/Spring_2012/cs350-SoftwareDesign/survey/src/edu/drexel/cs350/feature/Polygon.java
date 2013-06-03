@@ -1,13 +1,17 @@
-package edu.drexel.cs350;
+package edu.drexel.cs350.feature;
+
 
 import java.util.List;
+
+import edu.drexel.cs350.Feature;
+import edu.drexel.cs350.graphics.Renderer;
 
 public class Polygon extends Feature {
 
 	List<Point> points;
 	
-	public Polygon(Renderer renderer, final Point... pts){
-		this.renderer = renderer;
+	public Polygon(Renderer rend, final Point... pts){
+		super(rend);
 		
 		for(Point p : pts){
 			this.points.add(p);
@@ -50,14 +54,25 @@ public class Polygon extends Feature {
 	public void remove(Point p){
 		this.points.remove(p);
 	}
-	@Override
-	public void translate(int dx, int dy) {
-		
-	}
 
 	@Override
-	public void render() {
-		this.renderer.render();
+	public void translate(int dx, int dy) {
+		for (int i = 0; i < points.size(); i++) {
+			points.get(i).setX(points.get(i).getX() + dx);
+			points.get(i).setY(points.get(i).getY() + dy);
+		}
 	}
 	
+	// Iterate through points list, draw a line from each point to the next
+	public void render() {
+		for (int i = 0; i < points.size(); i++) {
+			points.get(i).render();
+			// Go to the next point
+			if (i != (points.size() - 1))
+				drawLine(points.get(i).getX(), points.get(i).getY(), points.get(i+1).getX(), points.get(i+1).getY());
+			// Last point -> first point
+			else
+				drawLine(points.get(i).getX(), points.get(i).getY(), points.get(0).getX(), points.get(0).getY());
+		}
+	}
 }

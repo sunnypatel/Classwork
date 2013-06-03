@@ -4,7 +4,7 @@
  * Copyright (c) 2007 Drexel University. All rights reserved.
  *
  */
-package edu.drexel.cs350;
+package edu.drexel.cs350.graphics;
 
 /**
  * Abstract interface to render features

@@ -1,5 +1,12 @@
 package edu.drexel.cs350;
 
+import edu.drexel.cs350.feature.Circle;
+import edu.drexel.cs350.feature.Point;
+import edu.drexel.cs350.feature.Polygon;
+import edu.drexel.cs350.feature.Rectangle;
+import edu.drexel.cs350.feature.Text;
+import edu.drexel.cs350.graphics.Renderer;
+
 public class FeatureFactory {
 	private Renderer gfx;
 	

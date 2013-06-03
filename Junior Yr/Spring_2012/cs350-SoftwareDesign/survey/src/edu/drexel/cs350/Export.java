@@ -10,10 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import edu.drexel.cs350.XmlGeometryFactory;
-import edu.drexel.cs350.ImageFileRenderer;
-import edu.drexel.cs350.PostScriptRenderer;
-import edu.drexel.cs350.Renderer;
+import edu.drexel.cs350.graphics.ImageFileRenderer;
+import edu.drexel.cs350.graphics.PostScriptRenderer;
+import edu.drexel.cs350.graphics.Renderer;
+import edu.drexel.cs350.xml.XmlGeometryFactory;
 
 /**
  *
@@ -37,8 +37,7 @@ public class Export
 	private final Renderer graphics;
 	private final Geometry geometry;
 
-	public Export(final Renderer gfx, final String path)
-			throws VirCadException
+	public Export(final Renderer gfx, final String path) throws VirCadException
 	{
 		this(gfx, new File(path));
 	}

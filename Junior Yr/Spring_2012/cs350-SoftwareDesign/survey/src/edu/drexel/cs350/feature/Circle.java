@@ -1,4 +1,7 @@
-package edu.drexel.cs350;
+package edu.drexel.cs350.feature;
+
+import edu.drexel.cs350.Feature;
+import edu.drexel.cs350.graphics.Renderer;
 
 public class Circle extends Feature {
 
@@ -8,7 +11,7 @@ public class Circle extends Feature {
 	
 	public Circle(final Renderer rend, int x, int y, int radius) {
 	
-		this.renderer = rend;
+		super(rend);
 		this.setRadius(radius);
 		this.setX(x);
 		this.setY(y);
@@ -17,14 +20,15 @@ public class Circle extends Feature {
 
 	@Override
 	public void translate(int dx, int dy) {
-		
+		this.x += dx;
+		this.y += dy;
 
 	}
 
 	@Override
 	public void render() {
 	
-		this.renderer.render();
+		drawCircle(x,y, radius);
 
 	}
 

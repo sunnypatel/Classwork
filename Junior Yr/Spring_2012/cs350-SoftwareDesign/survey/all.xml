@@ -1,0 +1,35 @@
+<geometry width="500" height="500">
+<polygon>
+<point x="100" y="375" />
+<point x="200" y="325" />
+<point x="300" y="375" />
+<point x="250" y="290" />
+<point x="300" y="225" />
+<point x="225" y="225" />
+<point x="200" y="150" />
+<point x="175" y="225" />
+<point x="100" y="225" />
+<point x="150" y="290" />
+</polygon>
+        <text x="20" y="300" size="20">I'll make him an offer he can't refuse</text>
+        <text x="20" y="321" size="20">Marlon Brando</text>
+        <rectangle>
+            <point x="100" y="50" />
+            <point x="150" y="250" />
+        </rectangle>
+        <rectangle>
+            <point x="50" y="100" />
+            <point x="200" y="150" />
+        </rectangle>
+        <rectangle>
+            <point x="20" y="300" />
+            <point x="500" y="300" />
+        </rectangle>
+        <rectangle>
+            <point x="20" y="321" />
+            <point x="500" y="321" />
+        </rectangle>
+
+<circle x="300" y="100" radius="100"/>
+
+</geometry>

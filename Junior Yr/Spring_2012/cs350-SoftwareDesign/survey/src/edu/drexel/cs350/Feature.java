@@ -1,5 +1,7 @@
 package edu.drexel.cs350;
 
+import edu.drexel.cs350.graphics.Renderer;
+
 public abstract class Feature {
 	
 	public Renderer renderer;

@@ -1,4 +1,8 @@
-package edu.drexel.cs350;
+package edu.drexel.cs350.feature;
+
+
+import edu.drexel.cs350.Feature;
+import edu.drexel.cs350.graphics.Renderer;
 
 public class Text extends Feature {
 
@@ -27,14 +31,13 @@ public class Text extends Feature {
 	
 	@Override
 	public void translate(int dx, int dy) {
-		// TODO Auto-generated method stub
-
+		this.x += dx;
+		this.y += dy;		
 	}
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
-
+		drawText(x, y, text, size);
 	}
 
 	/**

@@ -1,4 +1,7 @@
-package edu.drexel.cs350;
+package edu.drexel.cs350.feature;
+
+import edu.drexel.cs350.Feature;
+import edu.drexel.cs350.graphics.Renderer;
 
 public class Rectangle extends Feature {
 
@@ -9,7 +12,7 @@ public class Rectangle extends Feature {
 	
 	public Rectangle(final Renderer rend, int x1, int y1, int x2, int y2) {
 	
-		this.renderer = rend;
+		super(rend);
 		this.setX1(x1);
 		this.setY1(y1);
 		this.setX2(x2);
@@ -19,14 +22,19 @@ public class Rectangle extends Feature {
 
 	@Override
 	public void translate(int dx, int dy) {
-		
+		this.x1 += dx;
+		this.y1 += dy;
+		this.x2 += dx;
+		this.y2 += dy;
 
 	}
 
 	@Override
 	public void render() {
-	
-		this.renderer.render();
+		drawLine(x1, y1, x2, y1); // Bottom
+		drawLine(x2, y1, x2, y2); // Right
+		drawLine(x1, y2, x2, y2); // Top
+		drawLine(x1, y2, x1, y1); // Left
 	}
 
 	public int getY2() {

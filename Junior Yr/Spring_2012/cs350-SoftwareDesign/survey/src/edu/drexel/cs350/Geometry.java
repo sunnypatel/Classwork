@@ -1,7 +1,6 @@
 package edu.drexel.cs350;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Geometry {
 
@@ -10,7 +9,10 @@ public class Geometry {
 	private int height;
 	
 	public Geometry(int w, int h){
+		this.width = w;
+		this.height = h;
 		
+		this.features = new ArrayList<Feature>();
 	}
 
 	public List<Feature> getFeatures() {

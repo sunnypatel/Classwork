@@ -1,4 +1,7 @@
-package edu.drexel.cs350;
+package edu.drexel.cs350.feature;
+
+import edu.drexel.cs350.Feature;
+import edu.drexel.cs350.graphics.Renderer;
 
 public class Point extends Feature {
 
@@ -7,7 +10,7 @@ public class Point extends Feature {
 
 	public Point(final Renderer rend, int x, int y) {
 	
-		this.renderer = rend;
+		super(rend);
 		this.setX(x);
 		this.setY(y);
 		
@@ -15,14 +18,15 @@ public class Point extends Feature {
 
 	@Override
 	public void translate(int dx, int dy) {
-		
+		this.x += dx;
+		this.y += dy;
 
 	}
 
 	@Override
 	public void render() {
 	
-		this.renderer.render();
+		drawPoint(x, y);
 		
 	}
 

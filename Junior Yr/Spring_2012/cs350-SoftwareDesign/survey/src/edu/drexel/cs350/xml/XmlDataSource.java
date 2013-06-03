@@ -3,7 +3,7 @@
  * Copyright (c) 2007 Drexel University. All rights reserved.
  * 
  */
-package edu.drexel.cs350;
+package edu.drexel.cs350.xml;
 
 import java.io.File;
 import java.io.IOException;
