@@ -10,6 +10,7 @@ public class MultipleChoice extends Question{
 	private static final long serialVersionUID = -4290684159989804503L;
 	private String questionType = "Multiple Choice";
 	private ArrayList<String> options;
+	private DisplayDriver console = new TextDriver();
 	
 	public MultipleChoice(){
 		options = new ArrayList<String>();
@@ -82,8 +83,13 @@ public class MultipleChoice extends Question{
 	 * with the multiple choices
 	 */
 	public void displayQuestion(){
-		super.displayQuestion();
-		displayOptions();
+		super.displayQuestion(this.console);
+		displayOptions(this.console);
+	}
+	
+	public void displayQuestion(DisplayDriver console){
+		super.displayQuestion(console);
+		displayOptions(console);
 	}
 	
 	/**
@@ -91,14 +97,24 @@ public class MultipleChoice extends Question{
 	 * in a numbered list type order.
 	 */
 	public void displayOptions(){
+		displayOptions(this.console);
+	}
+
+	/**
+	 * Neatly displays all the options
+	 * in a numbered list type order.
+	 */
+	public void displayOptions(DisplayDriver console){
 		int optionNum = 1;
 		
 		Iterator<String> it = options.iterator();
 		while(it.hasNext()){
-			System.out.println(" ("+ optionNum + ") " + it.next());
+			console.draw(" ("+ optionNum + ") " + it.next());
+			
 			optionNum = optionNum + 1;
 		}
 	}
+	
 	
 	public String getQuestionType() {
 		return questionType;

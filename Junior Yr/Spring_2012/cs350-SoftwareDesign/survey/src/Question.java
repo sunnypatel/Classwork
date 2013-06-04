@@ -41,17 +41,17 @@ public abstract class Question implements Serializable{
 	}
 	
 	public void displayQuestion(){
-		// Check if question mark is included in prompt
-		/*if(this.getPrompt().lastIndexOf("?") == -1){
-			this.setPrompt(this.getPrompt() + "?");
-		} */
-		System.out.println("| " + this.getQuestionType() + " | ");
-		//System.out.println("");
-		System.out.println(this.getPrompt());
+		this.displayQuestion(this.console);
 	}
+	
+	public void displayQuestion(DisplayDriver console){
+		console.draw("| " + this.getQuestionType() + " | ");
+		console.draw(this.getPrompt());
+
+	}
+	
 	public void changePrompt(){
 		console.draw(this.getPrompt());
-		console.draw();
 
 		if(askUser.askYesNo("Would you like to change prompt (Y/N) ?")){
 			this.setPrompt(askUser.askUser("New prompt:"));

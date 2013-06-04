@@ -49,7 +49,8 @@ public class Main {
 			mainMenu.addOption("Grade a Test");
 			mainMenu.addOption("Tabulate a survey");
 			mainMenu.addOption("Tabulate a Test");
-			mainMenu.addOption("Output blank survey");
+			mainMenu.addOption("Output a survey");
+			mainMenu.addOption("Output a test");
 			mainMenu.addOption("Exit");
 		}
 	}
@@ -109,9 +110,12 @@ public class Main {
 			this.tabulateTest();
 			break;
 		case 16:
-			this.OutputBlankSurvey();
+			this.OutputSurvey();
 			break;
 		case 17:
+			this.OutputTest();
+			break;
+		case 18:
 			console.draw("Exiting...");
 			console.draw();
 			break;
@@ -336,7 +340,7 @@ public class Main {
 		Boolean done = false;
 		
 		while(!done){
-			opt = newSurveyMenu.run();
+			opt = newTestMenu.run();
 			if(opt > 0 && opt <= 6){
     			QuestionFactory qFactory = new QuestionFactory();
     			survey.addQuestion(qFactory.create(opt));
@@ -440,30 +444,42 @@ public class Main {
 	public void displaySurvey(){
 		if(survey == null){
 			console.draw("No survey loaded. You need to load a survey or create a new survey");
+			this.loadSurvey();
 		} else {
 			survey.displayQuestions();
 		}
 		mainMenu();
 	}
-	
 	public void OutputBlankSurvey(){
+		this.OutputSurvey();
+	}
+	public void OutputSurvey(){
 		ImageRendDriver_adapter rendDriver = new ImageRendDriver_adapter();
 		if(survey == null){
 			this.loadSurvey();
 		}
-		
+
 		this.survey.setDisplayDriver(rendDriver);
-		//this.console = rendDriver;
-		
 		this.survey.displayQuestions();
 		this.survey.getDisplayDriver().render();
-	
-		//this.survey.setDisplayDriver(new TextDriver());
-	//	this.console = new TextDriver();
 
+		this.mainMenu();
 		
 	}
 	
+	public void OutputTest(){
+		ImageRendDriver_adapter rendDriver = new ImageRendDriver_adapter();
+		if(test == null){
+			this.loadTest();
+		}
+
+		this.test.setDisplayDriver(rendDriver);
+		this.test.displayQuestions();
+		this.test.getDisplayDriver().render();
+
+		this.mainMenu();
+				
+	}
 	/****************************************************/
 	/*                LOAD A SURVEY                     */
 	/****************************************************/

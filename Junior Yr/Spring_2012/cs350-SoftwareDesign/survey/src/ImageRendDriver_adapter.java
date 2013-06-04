@@ -27,7 +27,7 @@ public class ImageRendDriver_adapter extends DisplayDriver {
 		
 		
 		try {
-			this.setRend(new ImageFileRenderer("jpg", "Prints/Survey_output.jpg"));
+			this.setRend(new ImageFileRenderer("png", "C:/Users/u0170616/Documents/GitHub/Classwork/Junior Yr/Spring_2012/cs350-SoftwareDesign/survey/Prints/Survey_output.png"));
 			//this.getRend().initialize(this.getWidth(), this.getHeight());
 			
 		} catch (Exception e) {
@@ -44,18 +44,29 @@ public class ImageRendDriver_adapter extends DisplayDriver {
 
 	@Override
 	public void draw(Object x) {
-		this.printList.add((String) x);
+		/*
+		String last = null;
+		if(this.printList.size() > 0 && this.printList.get(this.printList.size()-1) != " "){
+			last = this.printList.get(this.printList.size()-1);
+			this.printList.set(this.printList.size()-1, last + x.toString());
+		} else {
+			this.printList.add(x.toString());
+		}
+		*/
+		this.printList.add(x.toString());
 	}
-	
+	@Override
 	public void render(){
 		int width = calcWidth();
 		int height = calcHeight();
 		// make image size;
-		this.getRend().initialize(width, height);
-		
+		//this.getRend().initialize(width, height);
+		this.getRend().initialize(1000, 1000);
 		for(String line : printList){
 			this.rend.drawText(this.getX_margin(), this.nextLine(), line, getFontSize());
 		}
+		
+		this.rend.render();
 	}
 	
 	public int calcHeight(){
@@ -83,7 +94,8 @@ public class ImageRendDriver_adapter extends DisplayDriver {
 	}
 
 	public int nextLine(){
-		return this.getY_pos() + this.getFontSize();
+		this.setY_pos(this.getY_pos() + this.getFontSize());
+		return this.getY_pos();
 	}
 	
 	/**

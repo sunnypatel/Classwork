@@ -177,15 +177,24 @@ public class Matching extends Question {
 
 		}
 	}
+	
 	public void displaySide(ArrayList<String> side){
+		this.displaySide(side, this.console);
+	}
+	
+	public void displaySide(ArrayList<String> side, DisplayDriver console){
 		int count = 0;
 		for(String choice : side){
 			count++;
-			System.out.println(" ("+count+") "+ choice);
+			console.draw(" ("+count+") "+ choice);
+			console.draw();
 		}
 	}
 	public void displayQuestion(){
-		super.displayQuestion();	
+		this.displayQuestion(this.console);
+	}
+	public void displayQuestion(DisplayDriver console){
+		super.displayQuestion(console);	
 		
 		// get the string length of the biggest string in leftside items
 		// this will be used to format neatly
@@ -203,20 +212,23 @@ public class Matching extends Question {
 		int i = 0;
 		for(i = 0; i < leftSide.size(); i++){
 			String roman = this.convertToRoman((i + 1));
-			System.out.print("(" + roman + ")");
+			console.draw("(" + roman + ")");
 			
+			String lineToPrint = "";
 			// Put the appropriate number of spaces to account for roman numeral string length
 			// using 5 because max roman numeral allowed is MMMM(4000) of length=4.
 			for(int k=0; k<=(4 - roman.length());k++)
-				System.out.print(" ");
+				lineToPrint += " ";
 			
-			System.out.print( leftSide.get(i) );
+			lineToPrint += leftSide.get(i);
 		
 			// Put the appropriate number of spaces to account for left side items string length
 			for(int j=0; j<=((maxSpaces+2)-leftSide.get(i).length()); j++)
-				System.out.print(" ");
+				lineToPrint += " ";
 			
-			System.out.print("(" + (i + 1) + ") " + this.rightSide.get(i) + "\n");
+			lineToPrint += "(" + (i + 1) + ") " + this.rightSide.get(i) + "\n";
+			
+			console.draw(lineToPrint);
 		}
 	}
 	
@@ -243,16 +255,17 @@ public class Matching extends Question {
 		int rightSize = this.rightSide.size();
 
 		if(leftSize != rightSize){
-		//	System.out.println("calibrating leftCount=" + leftSize + ", rightCount=" + rightSize);
+			System.out.println("calibrating leftCount=" + leftSize + ", rightCount=" + rightSize);
 			if(leftSize > rightSize ){
 			
-				for(int i=0; i<=(leftSize-rightSize);i++)
+				for(int i=0; i<(leftSize-rightSize);i++)
 					this.rightSide.add(" ");
 			} else {
-			;
-				for(int i=0; i<=(rightSize-leftSize);i++)
+			
+				for(int i=0; i<(rightSize-leftSize);i++)
 					this.leftSide.add(" ");
 			}
+			//System.out.println(" after calibrating leftCount=" + this.leftSide.size() + ", rightCount=" + this.rightSide.size());
 		}
 	}
 

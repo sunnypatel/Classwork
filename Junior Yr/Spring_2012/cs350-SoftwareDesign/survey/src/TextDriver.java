@@ -16,7 +16,7 @@ public class TextDriver extends DisplayDriver {
 	@Override
 	public void draw(Object x) {
 		
-		System.out.print(x);
+		System.out.println(x);
 		
 	}
 	

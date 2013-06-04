@@ -33,12 +33,18 @@ public class Essay extends Question{
 	/**
 	 * Display the maximum number of characters warning
 	 */
-	public void displayMaxChar(){
+	public void displayMaxChar(DisplayDriver console){
 		if(this.getMaxChar() > 0){
-			System.out.print(" (Warning: Max characters allowed " + this.getMaxChar());
-			System.out.println(", remaining characters will be truncated.)");
+			console.draw(" (Warning: Max characters allowed " + this.getMaxChar());
+			console.draw(", remaining characters will be truncated.)");
+			console.draw();
 		}
 	}
+	
+	public void displayMaxChar(){
+		this.displayMaxChar(this.console);
+	}
+	
 	public void displayQuestion(){
 		super.displayQuestion();
 		displayMaxChar();

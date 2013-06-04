@@ -74,7 +74,6 @@ public class Survey {
 	}
 
 	public void setDisplayDriver(DisplayDriver d){
-		System.out.println("in here");
 		this.console = d;
 	}
 	
@@ -163,8 +162,9 @@ public class Survey {
 		int count = 0;
 		for (Question q : this.questions) {
 			count++;
-			console.draw("#" + count + " ");
-			q.displayQuestion();
+			String s = "#" + count + " ";
+			console.draw(s);
+			q.displayQuestion(this.console);
 			console.draw();
 		}
 	}
@@ -244,10 +244,6 @@ public class Survey {
 		}
 	}
 
-	public void test(){
-		console.draw("in survey");
-		
-	}
 	
 	// TODO: change this setup
 	public void recordAnswer(int i){};
@@ -286,7 +282,7 @@ public class Survey {
     						console.draw();
     						success = false;
     					}
-    					this.test();
+    			
     				} else {
     					console.draw("Please select valid question to modify");
     					done = false;
