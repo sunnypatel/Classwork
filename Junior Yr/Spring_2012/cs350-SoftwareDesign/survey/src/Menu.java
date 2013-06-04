@@ -89,15 +89,11 @@ public class Menu implements Serializable{
 	public void display(){
 		if(options.size() > 0){
 			int count = 0;
-			console.draw();
 			console.draw(this.getTitle());
 			
 			console.draw();
 			for(String option : this.options){
-				console.draw(" (" + ++count + ") ");
-				console.draw(option);
-				console.draw();
-				
+				console.draw(" (" + ++count + ") " + option);
 			}
 			console.draw();
 		} else {

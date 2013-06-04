@@ -23,15 +23,16 @@ public class Test extends Survey{
 		
 		this.save();
 	}
+	
+	
 	public void displayQuestions() {
 		int count = 0;
 		for (Question q : this.getQuestions()) {
 			count++;
 			console.draw("#" + count + " ");
-			q.displayQuestion();
+			q.displayQuestion(this.console);
 			console.draw();
-			console.draw("Correct Ans: ");
-			console.draw(this.getAnswerSheet_correct().getAns(count - 1).getResponse().toString());
+			console.draw("Correct Ans: " + this.getAnswerSheet_correct().getAns(count - 1).getResponse().toString());
 			console.draw();
 		}
 	}
@@ -39,14 +40,14 @@ public class Test extends Survey{
 	public void recordAnswer(int questionIndex){
 		Creader rd = new Creader();
 		this.getQuestion_byId(questionIndex).displayQuestion();
-		System.out.println("Enter correct answer: ");
+		console.draw("Enter correct answer: ");
 		String res = rd.readLine();
 		
 		this.getAnswerSheet_correct().setAns(questionIndex, res);
 	}
 	
 	public void recordAnswerSheet(){
-		System.out.println("Record new answer sheet");
+		console.draw("Record new answer sheet");
 		
 		setAnswerSheet_correct(super.take());
 		
@@ -55,7 +56,7 @@ public class Test extends Survey{
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("err in test:recordAnswerSheet() ");
+			console.draw("err in test:recordAnswerSheet() ");
 		}
 	}
 
@@ -114,7 +115,7 @@ public class Test extends Survey{
 	public AnswerSheet loadAnswerSheet_correct(String name) {
 		try {
 			String ansSheetPath = this.getSurveyPath() + "/" + this.getName() + "/correctAnswerSheet/" + name;
-			//System.out.println("Loading answer sheet: " + ansSheetPath);
+			//console.draw("Loading answer sheet: " + ansSheetPath);
 			FileInputStream fileIn = new FileInputStream(ansSheetPath);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			// try reading object from file
@@ -123,13 +124,13 @@ public class Test extends Survey{
 				// actually set the answer sheet
 				this.setAnswerSheet_correct(correctSheet);
 				in.close();
-				//System.out.println("Done");
+				//console.draw("Done");
 				return correctSheet;
 			} catch (ClassNotFoundException e) {
 				// bad input
 				//e.printStackTrace();
 				in.close();
-				System.out.println("Bad input - Answer Sheet ");
+				console.draw("Bad input - Answer Sheet ");
 				return null;
 			}
 			
@@ -137,7 +138,7 @@ public class Test extends Survey{
 			// I/O error
 			// e.printStackTrace();
 			// TODO error logging
-			System.out.println("I/O error has occurred.");
+			console.draw("I/O error has occurred.");
 			return null;
 		}
 	
@@ -168,7 +169,7 @@ public class Test extends Survey{
 			super.save();
 			this.saveCorrectAnswerSheet("answerSheet", this.getAnswerSheet_correct());
 		} catch (FileNotFoundException e) {
-			System.out.println("Error saving test.");
+			console.draw("Error saving test.");
 		}
 		
 	}

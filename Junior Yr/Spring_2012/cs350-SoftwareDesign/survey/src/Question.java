@@ -46,8 +46,9 @@ public abstract class Question implements Serializable{
 	
 	public void displayQuestion(DisplayDriver console){
 		console.draw("| " + this.getQuestionType() + " | ");
+		console.draw();
 		console.draw(this.getPrompt());
-
+		console.draw();
 	}
 	
 	public void changePrompt(){

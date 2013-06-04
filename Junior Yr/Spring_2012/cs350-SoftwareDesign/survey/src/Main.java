@@ -343,7 +343,7 @@ public class Main {
 			opt = newTestMenu.run();
 			if(opt > 0 && opt <= 6){
     			QuestionFactory qFactory = new QuestionFactory();
-    			survey.addQuestion(qFactory.create(opt));
+    			test.addQuestion(qFactory.create(opt));
 			} else {
     			switch(opt){
     			case 7: // Done
@@ -367,6 +367,7 @@ public class Main {
 	public void displayTest(){
 		if(test == null){
 			console.draw("No test loaded.  You need to load a test or create a new test.");
+			this.loadTest();
 		} else {
 			test.displayQuestions();
 		}
@@ -460,6 +461,9 @@ public class Main {
 		}
 
 		this.survey.setDisplayDriver(rendDriver);
+		rendDriver.draw();
+		rendDriver.draw(" Survey: " + this.survey.getName());
+		rendDriver.draw();
 		this.survey.displayQuestions();
 		this.survey.getDisplayDriver().render();
 
@@ -474,6 +478,9 @@ public class Main {
 		}
 
 		this.test.setDisplayDriver(rendDriver);
+		rendDriver.draw();
+		rendDriver.draw(" Test: " + this.test.getName());
+		rendDriver.draw();
 		this.test.displayQuestions();
 		this.test.getDisplayDriver().render();
 
@@ -648,7 +655,7 @@ public class Main {
 	}
 	
 	public ArrayList<String> getDirs(String path){
-		System.out.println("getDirs: " + path);
+		//System.out.println("getDirs: " + path);
 		File file = new File(path);
 		String[] directories = file.list(new FilenameFilter() {
 		  @Override

@@ -24,7 +24,8 @@ public class ImageRendDriver_adapter extends DisplayDriver {
 		this.printList = new ArrayList<String>();
 		
 		this.setFontSize(fontSize);
-		
+		this.setX_margin(50);
+		this.setY_margin(50);
 		
 		try {
 			this.setRend(new ImageFileRenderer("png", "C:/Users/u0170616/Documents/GitHub/Classwork/Junior Yr/Spring_2012/cs350-SoftwareDesign/survey/Prints/Survey_output.png"));

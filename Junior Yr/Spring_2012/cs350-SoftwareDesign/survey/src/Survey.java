@@ -162,7 +162,7 @@ public class Survey {
 		int count = 0;
 		for (Question q : this.questions) {
 			count++;
-			String s = "#" + count + " ";
+			String s = count + ".";
 			console.draw(s);
 			q.displayQuestion(this.console);
 			console.draw();

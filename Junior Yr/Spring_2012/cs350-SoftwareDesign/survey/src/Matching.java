@@ -60,12 +60,12 @@ public class Matching extends Question {
 	}
 	
 	public void addToLeft(String item){
-		leftSide.add(item);
+		leftSide.add(item.trim());
 		
 	}
 	
 	public void addToRight(String item){
-		rightSide.add(item);
+		rightSide.add(item.trim());
 
 	}
 	
@@ -176,7 +176,9 @@ public class Matching extends Question {
 			}
 
 		}
+		this.calibrate();
 	}
+	
 	
 	public void displaySide(ArrayList<String> side){
 		this.displaySide(side, this.console);
@@ -212,9 +214,10 @@ public class Matching extends Question {
 		int i = 0;
 		for(i = 0; i < leftSide.size(); i++){
 			String roman = this.convertToRoman((i + 1));
-			console.draw("(" + roman + ")");
-			
 			String lineToPrint = "";
+			lineToPrint += "(" + roman + ")";
+			
+			
 			// Put the appropriate number of spaces to account for roman numeral string length
 			// using 5 because max roman numeral allowed is MMMM(4000) of length=4.
 			for(int k=0; k<=(4 - roman.length());k++)
