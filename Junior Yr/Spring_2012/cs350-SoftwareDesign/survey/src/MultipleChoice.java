@@ -58,7 +58,7 @@ public class MultipleChoice extends Question{
 	 * @param optionStr string of the option value
 	 */
 	public void addOption(String optionStr){
-		options.add(optionStr);
+		options.add(optionStr.trim());
 	}
 	
 	public ArrayList<String> getOptions(){

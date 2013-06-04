@@ -117,7 +117,7 @@ public class Main {
 			break;
 		case 18:
 			console.draw("Exiting...");
-			console.draw();
+	
 			break;
 		default:
 			System.out.println("I don't know what to do");
@@ -148,18 +148,18 @@ public class Main {
 		
 		console.draw("Responses counted: " + j);
 		console.draw("HashMap questionsTable size = " + questionsTable.size());
-		console.draw();
+	
 		int count = 0;
 		// Start printing tabulated data
 		for(Question q : this.survey.getQuestions() ){
 			console.draw("#" + (++count) + "  " + q.getPrompt());
-			console.draw();
+		
 			console.draw("Data: ( # of answers  |   answer )");
-			console.draw();
+	
 			
 			for(Entry<String, Integer> row : questionsTable.get(q).entrySet()){
 				console.draw(row.getValue().intValue() + " | " + row.getKey());
-				console.draw();
+			
 			}
 		    
 			console.draw();
@@ -451,40 +451,35 @@ public class Main {
 		}
 		mainMenu();
 	}
-	public void OutputBlankSurvey(){
-		this.OutputSurvey();
+	public void OutputSurvey(Survey a){
+		Menu askUser = new Menu();
+		console.draw();
+		String filename = askUser.askUser("Enter file name of output (* . is not allowed): ", ".");
+		
+		ImageRendDriver_adapter rendDriver = new ImageRendDriver_adapter(filename);
+
+		a.setDisplayDriver(rendDriver);
+		rendDriver.draw();
+		rendDriver.draw(a.getType().toUpperCase() + ": " + a.getName());
+		rendDriver.draw();
+		a.displayQuestions();
+		a.getDisplayDriver().render();
+
+		this.mainMenu();
 	}
 	public void OutputSurvey(){
-		ImageRendDriver_adapter rendDriver = new ImageRendDriver_adapter();
+		
 		if(survey == null){
 			this.loadSurvey();
 		}
-
-		this.survey.setDisplayDriver(rendDriver);
-		rendDriver.draw();
-		rendDriver.draw(" Survey: " + this.survey.getName());
-		rendDriver.draw();
-		this.survey.displayQuestions();
-		this.survey.getDisplayDriver().render();
-
-		this.mainMenu();
-		
+		OutputSurvey(this.survey);
 	}
 	
 	public void OutputTest(){
-		ImageRendDriver_adapter rendDriver = new ImageRendDriver_adapter();
 		if(test == null){
 			this.loadTest();
 		}
-
-		this.test.setDisplayDriver(rendDriver);
-		rendDriver.draw();
-		rendDriver.draw(" Test: " + this.test.getName());
-		rendDriver.draw();
-		this.test.displayQuestions();
-		this.test.getDisplayDriver().render();
-
-		this.mainMenu();
+		OutputSurvey(this.test);
 				
 	}
 	/****************************************************/

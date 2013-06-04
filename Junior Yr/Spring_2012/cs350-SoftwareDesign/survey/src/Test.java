@@ -32,7 +32,9 @@ public class Test extends Survey{
 			console.draw("#" + count + " ");
 			q.displayQuestion(this.console);
 			console.draw();
-			console.draw("Correct Ans: " + this.getAnswerSheet_correct().getAns(count - 1).getResponse().toString());
+			String correctAns = this.getAnswerSheet_correct().getAns(count - 1).getResponse().toString();
+			if(correctAns.length() > 0)
+				console.draw("Correct Ans: " + this.getAnswerSheet_correct().getAns(count - 1).getResponse().toString());
 			console.draw();
 		}
 	}

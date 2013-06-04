@@ -142,6 +142,9 @@ public class Survey {
 			if(q.getQuestionType() != "Essay"){
 			Response r = new Response(ans);
 			sheet.addAns(r);
+			} else {
+				Response r = new Response("");
+				sheet.addAns(r);
 			}
 			System.out.println("");
 		}

@@ -91,22 +91,52 @@ public class Menu implements Serializable{
 			int count = 0;
 			console.draw(this.getTitle());
 			
-			console.draw();
+			
 			for(String option : this.options){
 				console.draw(" (" + ++count + ") " + option);
 			}
-			console.draw();
+		
 		} else {
 			console.draw("Menu empty");
 		}
 	}
 	
 	public String askUser(String prompt){
+		return this.askUser(prompt, null);
+	}
+	
+	public String askUser(String prompt, String notAllowed){
 		Creader rd = new Creader();
+		Boolean done = false;
+		String res = "";
+		ArrayList<String> invalids = new ArrayList<String>();
+		// Everything is allowed
+		if(notAllowed == null || notAllowed.length() == 0){
+			done = true;
+		} else {
+			if(notAllowed.contains(","))
+				for(String x : notAllowed.split(","))
+					invalids.add(x.trim());
 		
-		console.draw(prompt + " ");
-		
-		return rd.readLine();
+			else
+				invalids.add(notAllowed.trim());
+		}
+
+		do{
+			console.draw(prompt + " ");
+			res = rd.readLine().trim();
+			
+			for(String bad : invalids){
+				if(res.contains(bad)){
+					done = false;
+					console.draw("Your response cannot contain " + notAllowed);
+				}
+				else 
+					done = true;
+			}
+						
+		} while(!done);
+		return res;
 	}
 	
 	public String askUser(){
@@ -123,7 +153,7 @@ public class Menu implements Serializable{
 				return false;
 			else{
 				console.draw(this.getErrMsg());
-				console.draw();
+				
 				done = false;
 			}
 		}
@@ -145,7 +175,7 @@ public class Menu implements Serializable{
 			
 			try{
 				console.draw("You selected: " + options.get(Integer.parseInt(response)-1));
-				console.draw();
+				
 				done = true;
 			} catch (Exception e){
 				// got something we can't do anything with. print error msg
@@ -160,7 +190,7 @@ public class Menu implements Serializable{
 	
 	public void printError(){
 		console.draw(this.getErrMsg());
-		console.draw();
+
 	}
 	
 	public void clear(){

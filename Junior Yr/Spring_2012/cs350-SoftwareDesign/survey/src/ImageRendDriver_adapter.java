@@ -13,14 +13,18 @@ public class ImageRendDriver_adapter extends DisplayDriver {
 	private int y_margin;
 	private int x_pos;
 	private int y_pos;
-	
-	
+
 	public ImageRendDriver_adapter(){
 		// Use default font size = 14
-		this(14);
+		this(14, "output");
 	}
 	
-	public ImageRendDriver_adapter(int fontSize){
+	public ImageRendDriver_adapter(String filename){
+		// Use default font size = 14
+		this(14, filename);
+	}
+	
+	public ImageRendDriver_adapter(int fontSize, String filename){
 		this.printList = new ArrayList<String>();
 		
 		this.setFontSize(fontSize);
@@ -28,12 +32,16 @@ public class ImageRendDriver_adapter extends DisplayDriver {
 		this.setY_margin(50);
 		
 		try {
-			this.setRend(new ImageFileRenderer("png", "C:/Users/u0170616/Documents/GitHub/Classwork/Junior Yr/Spring_2012/cs350-SoftwareDesign/survey/Prints/Survey_output.png"));
+			Exception e = new Exception();
+			if(filename.contains("."))
+				throw e;
+			
+			this.setRend(new ImageFileRenderer("png", "Prints/" + filename + ".png"));
 			//this.getRend().initialize(this.getWidth(), this.getHeight());
 			
 		} catch (Exception e) {
-			//System.out.println("Bad input. Try again. I'm not gonna crash!");
-			e.printStackTrace();
+			System.out.println("Bad input, please try again. * output file name cannot contain .");
+		
 		}
 	}
 	
@@ -95,7 +103,7 @@ public class ImageRendDriver_adapter extends DisplayDriver {
 	}
 
 	public int nextLine(){
-		this.setY_pos(this.getY_pos() + this.getFontSize());
+		this.setY_pos(this.getY_pos() + this.getFontSize() + 1);
 		return this.getY_pos();
 	}
 	
