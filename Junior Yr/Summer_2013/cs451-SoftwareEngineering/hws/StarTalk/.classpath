@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="src" path="src/test"/>
+	<classpathentry kind="lib" path="lib/main/apache/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/main/joda/joda-time-2.2.jar"/>
+	<classpathentry kind="lib" path="lib/test/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="lib/test/mockito/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

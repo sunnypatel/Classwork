@@ -1,0 +1,35 @@
+License
+
+Copyright © 2006, 2012 Mountainminds GmbH & Co. KG and Contributors
+
+All rights reserved. This program and the accompanying materials are made
+available under the terms of the Eclipse Public License v1.0 which accompanies
+this distribution. A copy of the EPL is available at
+http://www.eclipse.org/legal/epl-v10.html.
+
+This program is based on the JaCoCo code coverage library which includes the
+ASM Java bytecode library, provided under the terms and conditions of the BSD
+License, and Google Code Prettify, provided under the terms and conditions of
+the Apache License Version 2.0.
+
+The user documentation contains example code taken from the Apache Jakarta
+Commons project, provided under the terms and conditions of the Apache License
+Version 2.0.
+
+EclEmma.org Content
+
+Copyright © 2006, 2012 Mountainminds GmbH & Co. KG and Contributors
+
+The copyright in www.eclemma.org and the material on this website is owned by
+Mountainminds GmbH & Co. KG and provided to you under the terms and conditions
+of the Eclipse Public License Version 1.0 ("EPL"). A copy of the EPL is
+available at http://www.eclipse.org/legal/epl-v10.html.
+
+Trademarks
+
+Java and all Java-based trademarks are trademarks of Oracle Corporation in th
+United States, other countries, or both. Eclipse and all Eclipse related
+trademarks and logos are trademarks of Eclipse Foundation, Inc. OSGi is a
+trademark, registered trademark, or service mark of The OSGi Alliance in the
+US and other countries. All other trademarks are the property of their
+respective owners.

@@ -1,0 +1,191 @@
+<!--
+  build.xml
+  Copyright (c) 2013, Drexel University.
+  All rights reserved.
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are met:
+      * Redistributions of source code must retain the above copyright
+        notice, this list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright
+        notice, this list of conditions and the following disclaimer in the
+        documentation and/or other materials provided with the distribution.
+      * Neither the name of the Drexel University nor the
+        names of its contributors may be used to endorse or promote products
+        derived from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY DREXEL UNIVERSITY ``AS IS'' AND ANY
+  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL DREXEL UNIVERSITY BE LIABLE FOR ANY
+  DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<project name="StarTalk" default="dist" basedir="." xmlns:cov="antlib:org.jacoco.ant">
+	<property name="src.main" location="src/main" />
+	<property name="src.test" location="src/test" />
+	<property name="bin" location="bin" />
+	<property name="bin.main" location="bin/main" />
+	<property name="bin.test" location="bin/test" />
+	<property name="lib.main" location="lib/main" />
+	<property name="lib.test" location="lib/test" />
+	<property name="out.main" location="${ant.project.name}.jar" />
+	<property name="out.test" location="${ant.project.name}_tests.jar" />
+
+	<property name="results" location="results" />
+	<property name="results.html" location="results/html" />
+	<property name="results.coverage" location="results/coverage" />
+	<property name="coverage.out" location="${results.coverage}/coverage.exec" />
+	<property name="doc" location="doc" />
+
+	<path id="class.path.main">
+		<fileset dir="${lib.main}" includes="**/*.jar" />
+	</path>
+
+	<path id="class.path.test">
+		<pathelement path="${bin.main}" />
+		<pathelement path="${bin.test}" />
+		<fileset dir="${lib.main}" includes="**/*.jar" />
+		<fileset dir="${lib.test}" includes="**/*.jar" />
+	</path>
+
+	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+		<classpath path="${lib.test}/jacoco/jacocoant.jar" />
+	</taskdef>
+
+	<tstamp>
+		<format property="year" pattern="yyyy" />
+	</tstamp>
+
+	<target name="init">
+		<tstamp />
+		<mkdir dir="${bin}" />
+	</target>
+
+	<target name="init-main" depends="init">
+		<mkdir dir="${bin.main}" />
+	</target>
+
+	<target name="init-test" depends="init">
+		<mkdir dir="${bin.test}" />
+		<mkdir dir="${results}" />
+		<mkdir dir="${results.coverage}" />
+	</target>
+
+	<target name="compile-main" depends="init-main">
+		<javac srcdir="${src.main}" destdir="${bin.main}" deprecation="on"
+				optimize="on" debug="no" debuglevel="none" source="1.7"
+				classpathref="class.path.main" includeantruntime="false">
+			<compilerarg value="-Xlint" />
+		</javac>
+	</target>
+	
+	<target name="compile-debug" depends="compile-main-debug,compile-test" />
+
+	<target name="compile-main-debug" depends="init-main">
+		<javac srcdir="${src.main}" destdir="${bin.main}" deprecation="on"
+				optimize="off" debug="yes" source="1.7"
+				classpathref="class.path.main" includeantruntime="false">
+			<compilerarg value="-Xlint" />
+		</javac>
+	</target>
+
+	<target name="compile-test" depends="init-test">
+		<javac srcdir="${src.test}" destdir="${bin.test}" deprecation="on"
+				optimize="off" debug="yes" source="1.7"
+				classpathref="class.path.test" includeantruntime="false">
+			<compilerarg value="-Xlint" />
+		</javac>
+	</target>	
+
+	<target name="data-main" depends="init-main">
+		<copy todir="${bin.main}">
+			<fileset dir="${src.main}" excludes="**/*.java" />
+		</copy>
+	</target>
+
+	<target name="data-test" depends="init-test">
+		<copy todir="${bin.test}">
+			<fileset dir="${src.test}" excludes="**/*.java" />
+		</copy>
+	</target>
+
+	<target name="archive-main" depends="init-main,data-main">
+		<jar destfile="${out.main}" basedir="${bin.main}" />
+	</target>
+
+	<target name="data" depends="data-main,data-test" />
+
+	<target name="archive-test" depends="init-test,data">
+		<jar destfile="${out.test}" basedir="${bin.test}" />
+	</target>
+
+	<target name="archive" depends="archive-main,archive-test" />
+
+	<target name="dist" depends="compile-main,archive-main" />
+
+	<target name="debug" depends="test,junit-report,report,archive" />
+
+	<target name="test" depends="compile-debug,data">
+		<cov:coverage destfile="${coverage.out}">
+			<junit fork="yes" dir="." printsummary="withOutAndErr">
+				<classpath refid="class.path.test" />
+				<assertions>
+					<enable package="edu.drexel.cs.stalk" />
+				</assertions>
+				<formatter type="xml" />
+
+				<batchtest fork="yes" failureproperty="tests.failed" todir="${results}">
+					<fileset dir="${src.test}" includes="**/*Test.java" />
+				</batchtest>
+			</junit>
+		</cov:coverage>
+	</target>
+
+	<target name="junit-report" depends="test" if="tests.failed">
+		<junitreport todir="${results}">
+			<report format="frames" todir="${results.html}" />
+			<fileset dir="${results}" includes="*.xml" />
+		</junitreport>
+		<fail message="Test results are at ${results.html}\index.html" />
+	</target>
+
+	<target name="report" depends="test" unless="tests.failed">
+		<cov:report>
+			<executiondata>
+				<file file="${coverage.out}" />
+			</executiondata>
+			<structure name="${ant.project.name}">
+				<classfiles>
+					<fileset dir="${bin.main}" />
+				</classfiles>
+				<sourcefiles encoding="UTF-8">
+					<fileset dir="${src.main}" />
+				</sourcefiles>
+			</structure>
+			<html destdir="${results.coverage}" />
+		</cov:report>
+	</target>
+
+	<target name="doc">
+		<javadoc destdir="${doc}" windowtitle="${ant.project.name}">
+			<packageset dir="${src.main}" defaultexcludes="yes">
+				<include name="edu/drexel/cs/**"/>
+			</packageset>
+			<link href="http://docs.oracle.com/javase/7/docs/api/" />
+		</javadoc>
+	</target>
+
+	<target name="clean">
+		<delete dir="${bin.main}" />
+		<delete dir="${bin.test}" />
+		<delete dir="${bin}/edu" />
+		<delete file="${out.main}" />
+		<delete file="${out.test}" />
+		<delete dir="${results}" />
+	</target>
+</project>
