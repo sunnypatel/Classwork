@@ -1,0 +1,8 @@
+Implement the production code methods with TODOs (i.e., those files under src/main).
+Make sure all production code is tested and with good code coverage.
+TODOs in the test code (i.e., those files under src/test) are not comprehension.
+You may need to add more methods/files to ensure that the production code is thoroughly tested.
+Run a cyclomatic complexity tool to make sure that no methods have complexity higher than 10.
+
+Submit a single zip or tar.gz file of the StarTalk directory.
+Run "ant clean" before creating the archive file for submission.
