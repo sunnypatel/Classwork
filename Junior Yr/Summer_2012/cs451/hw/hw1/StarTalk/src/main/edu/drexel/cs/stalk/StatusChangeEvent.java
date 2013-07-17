@@ -27,7 +27,7 @@
  */
 package edu.drexel.cs.stalk;
 
-public class StatusChangeEvent
+public class StatusChangeEvent extends ClientEvent
 {
 	private Status status;
 

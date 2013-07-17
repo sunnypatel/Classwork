@@ -89,20 +89,34 @@ public class Conversation implements Serializable, Iterable<LogEvent>
 
 	public void addParticipant(final String userId)
 	{
-		// TODO
+		User user = new User();
+		user.setId(userId);
+		
+		this.participants.add(user);
+		
 		throw new UnsupportedOperationException();
 	}
 
 	public void removeParticipant(final String userId)
 	{
-		// TODO
+		for(User u : participants){
+			if(u.getId().equals(userId)){
+				participants.remove(u);
+			}
+		}
+		
 		throw new UnsupportedOperationException();
 	}
 
 	public boolean hasParticipant(final String userId)
 	{
-		// TODO
-		throw new UnsupportedOperationException();
+		for(User u: participants){
+			if(u.getId().equals(userId))
+				return true;
+		}
+		
+		//throw new UnsupportedOperationException();
+		return false;
 	}
 
 	public List<LogEvent> getEvents()
@@ -112,13 +126,13 @@ public class Conversation implements Serializable, Iterable<LogEvent>
 
 	public void addEvent(final LogEvent event)
 	{
-		// TODO
+		events.add(event);
 		throw new UnsupportedOperationException();
 	}
 
 	public void removeEvent(int index)
 	{
-		// TODO
+		events.remove(index);
 		throw new UnsupportedOperationException();
 	}
 

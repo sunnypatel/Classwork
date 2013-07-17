@@ -32,7 +32,7 @@ import java.util.List;
 
 public class Client
 {
-	private List<ClientListener> listeners = new ArrayList<>();
+	protected List<ClientListener> listeners = new ArrayList<>();
 
 	private String id;
 
@@ -55,7 +55,7 @@ public class Client
 
 	public void removeListener(final ClientListener l)
 	{
-		// TODO
+		listeners.remove(l);
 	}
 
 	protected void sendMessage(final String message)
@@ -76,6 +76,17 @@ public class Client
 
 	protected void updateStatus(final Status status, final String message)
 	{
-		// TODO
+		final List<ClientListener> list;
+		synchronized (listeners) {
+			list = new ArrayList<>(listeners);
+		}
+		
+		final StatusChangeEvent event = new StatusChangeEvent();
+		event.setMessage(message);
+		event.setStatus(status);
+		
+		for(final ClientListener l : list){
+			l.statusChanged(event);
+		}
 	}
 }
