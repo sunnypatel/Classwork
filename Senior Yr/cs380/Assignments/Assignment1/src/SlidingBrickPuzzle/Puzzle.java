@@ -187,7 +187,7 @@ public class Puzzle extends GameBoard{
     
     public GameBoard appleMoveSeparate(GameBoard state, Move move){
         // Clone the original board and make a new one.
-        GameBoard newBoard = state.cloneBoard();
+        GameBoard newBoard = new GameBoard((ArrayList<ArrayList>)state.getBoard().clone());
         // Use the applyMove method to make the move on this new board of ours
         newBoard = applyMove(newBoard, move);
         

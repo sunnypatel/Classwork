@@ -5,6 +5,7 @@
 package SlidingBrickPuzzle;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -14,10 +15,14 @@ public class main {
     public static void main(String[] args){
         Puzzle brickPuzzle = new Puzzle();
         
-        brickPuzzle.load("SBP-level0.txt");
+        Scanner user_input = new Scanner( System.in );
+        System.out.println("Enter filename to load:");
+        String filename = user_input.next();
+        
+        brickPuzzle.load(filename);
         brickPuzzle.printBoard();
         
-        System.out.println("Solved="+brickPuzzle.checkPuzzle());
+        System.out.println("Is puzzle solved="+brickPuzzle.checkPuzzle());
         
         ArrayList<Move> moves = new ArrayList<Move>();
         moves = brickPuzzle.calculateMoves(brickPuzzle, 3);
@@ -26,16 +31,24 @@ public class main {
         for (Move move : moves){
             System.out.println(move.getDirection());
         }
+        
+        System.out.println("List all possible moves:");
+        System.out.println("l=left, r=right, u=up, b=bottom");
         ArrayList<Move> allMoves = new ArrayList<Move>();
         allMoves = brickPuzzle.calculateAllMove(brickPuzzle);
         
         for (Move move : allMoves){
             System.out.println("allMoves="+move.getPiece()+" to "+ move.getDirection());
         }
-        System.out.println("Number of blocks=" + brickPuzzle.numberOfBlocks());
+        //System.out.println("Number of blocks=" + brickPuzzle.numberOfBlocks());
         
+        
+        // Pick a move and apply it
+        System.out.println("Pick the first move and apply it");
         brickPuzzle.applyMove(brickPuzzle, allMoves.get(0));
         brickPuzzle.printBoard();
+        
+        System.out.println("Pick the next move and apply it to separate board.");
         brickPuzzle.appleMoveSeparate(brickPuzzle, allMoves.get(1));
         
         
