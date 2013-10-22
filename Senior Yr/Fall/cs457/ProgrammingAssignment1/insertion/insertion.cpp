@@ -6,14 +6,25 @@ using namespace std;
 
 int main (int argc, char *argv[])
 {
-	if(argc < 2){
-	  cout << "Not enough input params!\n";
-		return 0;
+	string inputFile = argv[1];
+	string outputFile = argv[2];
+
+	cout << "inputFile=" << inputFile << "\n";
+	cout << "outputFile=" << outputFile << "\n";
+
+	string line;
+	ifstream fileStream (inputFile);
+
+	if(fileStream.is_open()){
+		while ( getline(fileStream,line) ){
+
+			cout << line << endl;
+
+		}
+		fileStream.close();
+	} else{
+		cout << "Unable to open file";
 	}
 
-	string inputFile = argv[0];
-	string outputFile = argv[1];
-
-	cout << inputFile << "\n";
-	cout << outputFile << "\n";
+	return 0;
 }
