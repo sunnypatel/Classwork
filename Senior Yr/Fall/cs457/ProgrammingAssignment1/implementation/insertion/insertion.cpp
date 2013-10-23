@@ -75,6 +75,7 @@ int main (int argc, char *argv[])
 	
 	printf("Time elapsed:  %ld \n", endTime - startTime);
 	
+
 	//cout << "After sorting" << endl;
 	//printArray(array, arraySize);
 
@@ -93,6 +94,13 @@ int main (int argc, char *argv[])
 	} else {
 		cout << "Could not open output file!" << endl;
 	}
+
+
+	FILE *pfile;
+	pfile = fopen("Analytics.txt","a");
+
+	//analytics.open("Analysis.txt", std::ofstream::app);
+	fprintf(pfile, "Time elapsed: %ld \n", endTime - startTime);
 
 	return 0;
 }
