@@ -73,7 +73,8 @@ int main (int argc, char *argv[])
 	}
 	int endTime = getTime();
 	
-	//printf("Time elapsed:  %ld \n", endTime - startTime);
+	printf("Sorted: %d numbers, in ~%ld milliseconds. \n", arraySize, endTime - startTime);
+	//printf("Time elapsed:  %ld milliseconds for sorting %d numbers\n", endTime - startTime, arraySize);
 	
 
 	//cout << "After sorting" << endl;
@@ -96,11 +97,11 @@ int main (int argc, char *argv[])
 	}
 
 
-	//FILE *pfile;
-	//pfile = fopen("Analytics.txt","a");
+	FILE *pfile;
+	pfile = fopen("Analytics.txt","a");
 
 	//analytics.open("Analysis.txt", std::ofstream::app);
-	//fprintf(pfile, "Time elapsed: %ld \n", endTime - startTime);
+	fprintf(pfile, "Sorted: %d numbers, in %ld milliseconds. \n", arraySize, endTime - startTime);
 
 	return 0;
 }
@@ -113,3 +114,17 @@ void printArray(int array[], int size){
 	}
 	cout << endl;
 }
+
+static long getTime() 
+{ 
+ long timeMilliseconds; 
+ struct timeval time_data; /* seconds since 0 GMT */ 
+ 
+ gettimeofday(&time_data,NULL); 
+ 
+ timeMilliseconds = time_data.tv_usec; 
+ timeMilliseconds /= 1000; 
+ timeMilliseconds += time_data.tv_sec * 1000 ; 
+ 
+ return timeMilliseconds; 
+} 

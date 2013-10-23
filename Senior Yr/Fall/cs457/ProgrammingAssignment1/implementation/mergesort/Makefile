@@ -1,6 +1,6 @@
 ALG=mergesort
 
-all: compile run
+all: clean compile run
 	
 compile: 
 	g++ -o ./$(ALG) ./$(ALG).cpp
@@ -33,3 +33,5 @@ run:
 
 clean:
 	rm -f $(ALG)
+	rm -f output.txt
+	rm -f Analytics.txt

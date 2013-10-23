@@ -1,0 +1,29 @@
+-- Starting heapsort sort --
+Run time (in milliseconds) of array sizes of (1K, 5K, 10K, 15K, 20K, 25K, 50K)  
+ 
+Sorted Arrays
+Time elapsed: 0 
+Time elapsed: 0 
+Time elapsed: 2 
+Time elapsed: 2 
+Time elapsed: 3 
+Time elapsed: 3 
+Time elapsed: 7 
+ 
+Random ordered Arrays 
+Time elapsed: 1 
+Time elapsed: 1 
+Time elapsed: 2 
+Time elapsed: 2 
+Time elapsed: 3 
+Time elapsed: 5 
+Time elapsed: 9 
+ 
+Reverse ordered Arrays 
+Time elapsed: 0 
+Time elapsed: 0 
+Time elapsed: 1 
+Time elapsed: 2 
+Time elapsed: 3 
+Time elapsed: 4 
+Time elapsed: 7 

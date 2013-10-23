@@ -9,6 +9,7 @@ using namespace std;
 
 void printArray(int array[], int size);
 static long getTime();
+void quickSort(int arr[], int left, int right);
 
 int main (int argc, char *argv[])
 {
@@ -58,22 +59,12 @@ int main (int argc, char *argv[])
 
 	int startTime = getTime();
 
-	// INSERTION SORT
-	int i,j,tmp;
-	for( i=1; i<arraySize; i++){
-		j = i;
-		while( j > 0 && (array[j-1] > array[j]) ){
-			
-			tmp = array[j];
-			array[j] = array[j-1];
-			array[j-1] = tmp;
-			j--;
-			
-		}
-	}
+	// 	QUICKSORT
+	quickSort(array, 0, arraySize-1);
+	
 	int endTime = getTime();
 	
-	//printf("Time elapsed:  %ld \n", endTime - startTime);
+	printf("Sorted: %d numbers, in ~%ld milliseconds. \n", arraySize, endTime - startTime);
 	
 
 	//cout << "After sorting" << endl;
@@ -86,7 +77,7 @@ int main (int argc, char *argv[])
 		outFile << "# Size of input array:\n";
 		outFile << inputSize << "\n";
 		outFile << "# Elements of the array:\n";
-
+		int i;
 		for(i=0; i<arraySize; i++){
 			outFile << array[i] << "\n";
 		}		
@@ -96,11 +87,11 @@ int main (int argc, char *argv[])
 	}
 
 
-	//FILE *pfile;
-	//pfile = fopen("Analytics.txt","a");
+	FILE *pfile;
+	pfile = fopen("Analytics.txt","a");
 
 	//analytics.open("Analysis.txt", std::ofstream::app);
-	//fprintf(pfile, "Time elapsed: %ld \n", endTime - startTime);
+	fprintf(pfile, "Sorted: %d numbers, in %ld milliseconds. \n", arraySize, endTime - startTime);
 
 	return 0;
 }
@@ -112,4 +103,45 @@ void printArray(int array[], int size){
 		cout << " " << array[i];
 	}
 	cout << endl;
+}
+
+static long getTime() 
+{ 
+ long timeMilliseconds; 
+ struct timeval time_data; /* seconds since 0 GMT */ 
+ 
+ gettimeofday(&time_data,NULL); 
+ 
+ timeMilliseconds = time_data.tv_usec; 
+ timeMilliseconds /= 1000; 
+ timeMilliseconds += time_data.tv_sec * 1000 ; 
+ 
+ return timeMilliseconds; 
+} 
+
+void quickSort(int input[], int left, int right) {
+      // select start and end
+      int i = left, j = right;
+      int tmp;
+      // calculate pivot
+      int pivot = input[(left + right) / 2];
+ 
+      while (i <= j) {
+            while (input[i] < pivot)
+                  i++;
+            while (input[j] > pivot)
+                  j--;
+            if (i <= j) {
+                  tmp = input[i];
+                  input[i] = input[j];
+                  input[j] = tmp;
+                  i++;
+                  j--;
+            }
+      };
+
+      if (left < j)
+            quickSort(input, left, j);
+      if (i < right)
+            quickSort(input, i, right);
 }

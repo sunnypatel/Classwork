@@ -9,6 +9,8 @@ using namespace std;
 
 void printArray(int array[], int size);
 static long getTime();
+void mergeSort(int input[], int temp[],  int left, int right);
+void merge(int input[], int temp[], int left, int mid, int right);
 
 int main (int argc, char *argv[])
 {
@@ -57,23 +59,13 @@ int main (int argc, char *argv[])
 	//printArray(array,arraySize);
 
 	int startTime = getTime();
-
-	// INSERTION SORT
-	int i,j,tmp;
-	for( i=1; i<arraySize; i++){
-		j = i;
-		while( j > 0 && (array[j-1] > array[j]) ){
-			
-			tmp = array[j];
-			array[j] = array[j-1];
-			array[j-1] = tmp;
-			j--;
-			
-		}
-	}
+	int temp[arraySize];
+	// 	MERGESORT
+	mergeSort(array, temp, 0, arraySize-1);
+	
 	int endTime = getTime();
 	
-	//printf("Time elapsed:  %ld \n", endTime - startTime);
+	printf("Sorted: %d numbers, in ~%ld milliseconds. \n", arraySize, endTime - startTime);
 	
 
 	//cout << "After sorting" << endl;
@@ -86,7 +78,7 @@ int main (int argc, char *argv[])
 		outFile << "# Size of input array:\n";
 		outFile << inputSize << "\n";
 		outFile << "# Elements of the array:\n";
-
+		int i;
 		for(i=0; i<arraySize; i++){
 			outFile << array[i] << "\n";
 		}		
@@ -96,12 +88,10 @@ int main (int argc, char *argv[])
 	}
 
 
-	//FILE *pfile;
-	//pfile = fopen("Analytics.txt","a");
-
-	//analytics.open("Analysis.txt", std::ofstream::app);
-	//fprintf(pfile, "Time elapsed: %ld \n", endTime - startTime);
-
+	FILE *pfile;
+	pfile = fopen("Analytics.txt","a");
+	fprintf(pfile, "Sorted: %d numbers, in %ld milliseconds. \n", arraySize, endTime - startTime);
+	
 	return 0;
 }
 
@@ -112,4 +102,65 @@ void printArray(int array[], int size){
 		cout << " " << array[i];
 	}
 	cout << endl;
+}
+
+static long getTime() 
+{ 
+ long timeMilliseconds; 
+ struct timeval time_data; /* seconds since 0 GMT */ 
+ 
+ gettimeofday(&time_data,NULL); 
+ 
+ timeMilliseconds = time_data.tv_usec; 
+ timeMilliseconds /= 1000; 
+ timeMilliseconds += time_data.tv_sec * 1000 ; 
+ 
+ return timeMilliseconds; 
+} 
+
+void mergeSort(int input[], int temp[],  int left, int right)
+{
+  if (right > left){
+    int mid = (right + left) / 2;
+    mergeSort(input, temp, left, mid);
+    mergeSort(input, temp, mid+1, right);
+ 
+    merge(input, temp, left, mid+1, right);
+  }
+}
+ 
+void merge(int input[], int temp[], int left, int mid, int right){
+  int i, left_end, arraySize, tempPos;
+ 
+  left_end = mid - 1;
+  tempPos = left;
+  arraySize = right - left + 1;
+ 
+  while ((left <= left_end) && (mid <= right)){
+    if (input[left] <= input[mid]){
+      temp[tempPos] = input[left];
+      tempPos = tempPos + 1;
+      left = left +1;
+    } else {
+      temp[tempPos] = input[mid];
+      tempPos = tempPos + 1;
+      mid = mid + 1;
+    }
+  }
+ 
+  while (left <= left_end){
+    temp[tempPos] = input[left];
+    left = left + 1;
+    tempPos = tempPos + 1;
+  }
+  while (mid <= right){
+    temp[tempPos] = input[mid];
+    mid = mid + 1;
+    tempPos = tempPos + 1;
+  }
+ 
+  for (i=0; i <= arraySize; i++){
+    input[right] = temp[right];
+    right = right - 1;
+  }
 }

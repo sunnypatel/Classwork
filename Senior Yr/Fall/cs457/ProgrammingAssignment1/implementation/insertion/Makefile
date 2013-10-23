@@ -33,3 +33,5 @@ run:
 
 clean:
 	rm -f $(ALG)
+	rm -f Analytics.txt
+	rm -f output.txt
