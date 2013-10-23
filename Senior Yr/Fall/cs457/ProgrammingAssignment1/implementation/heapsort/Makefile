@@ -6,7 +6,8 @@ compile:
 	g++ -o ./$(ALG) ./$(ALG).cpp
 
 run:
-	./$(ALG)
+	./$(ALG) inputs/test20.txt output.txt
+
 
 clean:
 	rm -f $(ALG)
