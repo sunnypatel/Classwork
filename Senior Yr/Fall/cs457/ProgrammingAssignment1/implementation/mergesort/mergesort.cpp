@@ -17,9 +17,6 @@ int main (int argc, char *argv[])
 	char* inputFile = argv[1];
 	char* outputFile = argv[2];
 
-	cout << "inputFile=" << inputFile << "\n";
-	cout << "outputFile=" << outputFile << "\n";
-
 	string line;
 	string inputSize;
 	int arraySize;
@@ -55,21 +52,9 @@ int main (int argc, char *argv[])
 	}
 
 	// Before sorting
-	//cout << "Before sorting" << endl;
-	//printArray(array,arraySize);
-
-	int startTime = getTime();
 	int temp[arraySize];
 	// 	MERGESORT
 	mergeSort(array, temp, 0, arraySize-1);
-	
-	int endTime = getTime();
-	
-	printf("Time elapsed:  %ld \n", endTime - startTime);
-	
-
-	//cout << "After sorting" << endl;
-	//printArray(array, arraySize);
 
 	// Write to output file
 	std::ofstream outFile;
@@ -87,11 +72,6 @@ int main (int argc, char *argv[])
 		cout << "Could not open output file!" << endl;
 	}
 
-
-	FILE *pfile;
-	pfile = fopen("Analytics.txt","a");
-	fprintf(pfile, "Time elapsed: %ld \n", endTime - startTime);
-
 	return 0;
 }
 
@@ -104,19 +84,6 @@ void printArray(int array[], int size){
 	cout << endl;
 }
 
-static long getTime() 
-{ 
- long timeMilliseconds; 
- struct timeval time_data; /* seconds since 0 GMT */ 
- 
- gettimeofday(&time_data,NULL); 
- 
- timeMilliseconds = time_data.tv_usec; 
- timeMilliseconds /= 1000; 
- timeMilliseconds += time_data.tv_sec * 1000 ; 
- 
- return timeMilliseconds; 
-} 
 
 void mergeSort(int input[], int temp[],  int left, int right)
 {
@@ -130,13 +97,13 @@ void mergeSort(int input[], int temp[],  int left, int right)
 }
  
 void merge(int input[], int temp[], int left, int mid, int right){
-  int i, left_end, arraySize, tempPos;
+  int i, leftEnd, arraySize, tempPos;
  
-  left_end = mid - 1;
+  leftEnd = mid - 1;
   tempPos = left;
   arraySize = right - left + 1;
  
-  while ((left <= left_end) && (mid <= right)){
+  while ((left <= leftEnd) && (mid <= right)){
     if (input[left] <= input[mid]){
       temp[tempPos] = input[left];
       tempPos = tempPos + 1;
@@ -148,7 +115,7 @@ void merge(int input[], int temp[], int left, int mid, int right){
     }
   }
  
-  while (left <= left_end){
+  while (left <= leftEnd){
     temp[tempPos] = input[left];
     left = left + 1;
     tempPos = tempPos + 1;

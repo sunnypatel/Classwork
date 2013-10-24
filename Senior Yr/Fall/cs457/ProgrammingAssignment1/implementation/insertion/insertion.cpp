@@ -15,8 +15,6 @@ int main (int argc, char *argv[])
 	char* inputFile = argv[1];
 	char* outputFile = argv[2];
 
-	cout << "inputFile=" << inputFile << "\n";
-	cout << "outputFile=" << outputFile << "\n";
 
 	string line;
 	string inputSize;
@@ -32,7 +30,7 @@ int main (int argc, char *argv[])
 	getline(ifs,line);
 	// convert inputSize from string to int
 	arraySize = atoi(inputSize.c_str());	
-	// create an array with inputSize
+	// create an array with incoutputSize
 	int array[arraySize];
 	// print out the input size	
 	cout << "Input size= " << inputSize << endl;
@@ -53,10 +51,6 @@ int main (int argc, char *argv[])
 	}
 
 	// Before sorting
-	//cout << "Before sorting" << endl;
-	//printArray(array,arraySize);
-
-	int startTime = getTime();
 
 	// INSERTION SORT
 	int i,j,tmp;
@@ -71,13 +65,6 @@ int main (int argc, char *argv[])
 			
 		}
 	}
-	int endTime = getTime();
-	
-	//printf("Time elapsed:  %ld \n", endTime - startTime);
-	
-
-	//cout << "After sorting" << endl;
-	//printArray(array, arraySize);
 
 	// Write to output file
 	std::ofstream outFile;
@@ -94,13 +81,6 @@ int main (int argc, char *argv[])
 	} else {
 		cout << "Could not open output file!" << endl;
 	}
-
-
-	//FILE *pfile;
-	//pfile = fopen("Analytics.txt","a");
-
-	//analytics.open("Analysis.txt", std::ofstream::app);
-	//fprintf(pfile, "Time elapsed: %ld \n", endTime - startTime);
 
 	return 0;
 }

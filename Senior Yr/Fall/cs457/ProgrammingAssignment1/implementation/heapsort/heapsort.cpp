@@ -7,9 +7,6 @@
 
 using namespace std;
 
-void printArray(int array[], int size);
-static long getTime();
-
 void heapify(int* array, int low, int high);
 void heapSort(int* array, int size);
 void shiftRight(int* array, int low, int high);
@@ -19,8 +16,6 @@ int main (int argc, char *argv[])
 	char* inputFile = argv[1];
 	char* outputFile = argv[2];
 
-	cout << "inputFile=" << inputFile << "\n";
-	cout << "outputFile=" << outputFile << "\n";
 
 	string line;
 	string inputSize;
@@ -57,21 +52,11 @@ int main (int argc, char *argv[])
 	}
 
 	// Before sorting
-	//cout << "Before sorting" << endl;
-	//printArray(array,arraySize);
 
-	int startTime = getTime();
 	int temp[arraySize];
 	// 	HEAPSORT
 	heapSort(array, arraySize);
-	
-	int endTime = getTime();
-	
-	printf("Time elapsed:  %ld \n", endTime - startTime);
-	
 
-	//cout << "After sorting" << endl;
-	//printArray(array, arraySize);
 
 	// Write to output file
 	std::ofstream outFile;
@@ -89,11 +74,6 @@ int main (int argc, char *argv[])
 		cout << "Could not open output file!" << endl;
 	}
 
-
-	FILE *pfile;
-	pfile = fopen("Analytics.txt","a");
-	fprintf(pfile, "Time elapsed: %ld \n", endTime - startTime);
-
 	return 0;
 }
 
@@ -105,20 +85,6 @@ void printArray(int array[], int size){
 	}
 	cout << endl;
 }
-
-static long getTime() 
-{ 
- long timeMilliseconds; 
- struct timeval time_data; /* seconds since 0 GMT */ 
- 
- gettimeofday(&time_data,NULL); 
- 
- timeMilliseconds = time_data.tv_usec; 
- timeMilliseconds /= 1000; 
- timeMilliseconds += time_data.tv_sec * 1000 ; 
- 
- return timeMilliseconds; 
-} 
 
 void heapSort(int* array, int size){
 
