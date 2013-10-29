@@ -17,14 +17,14 @@ public class main {
         
         Scanner user_input = new Scanner( System.in );
         System.out.println("Enter filename to load:");
-        String filename = user_input.next();
-        
+        //String filename = user_input.next();
+        String filename = "SBP-level1.txt";
         brickPuzzle.load(filename);
         brickPuzzle.printBoard();
         
         System.out.println("Is puzzle solved="+brickPuzzle.checkPuzzle());
         
-        ArrayList<Move> moves = new ArrayList<Move>();
+     /**   ArrayList<Move> moves = new ArrayList<Move>();
         moves = brickPuzzle.calculateMoves(brickPuzzle, 3);
         
         System.out.println("Possible Moves for block 3");
@@ -35,7 +35,7 @@ public class main {
         System.out.println("List all possible moves:");
         System.out.println("l=left, r=right, u=up, b=bottom");
         ArrayList<Move> allMoves = new ArrayList<Move>();
-        allMoves = brickPuzzle.calculateAllMove(brickPuzzle);
+        allMoves = brickPuzzle.calculateAllMoves(brickPuzzle);
         
         for (Move move : allMoves){
             System.out.println("allMoves="+move.getPiece()+" to "+ move.getDirection());
@@ -54,5 +54,14 @@ public class main {
         
         
         brickPuzzle.printBoard();
+        */
+        
+        DepthFirst searchAlg = new DepthFirst(brickPuzzle);
+        Node goalNode = searchAlg.run();
+        if(goalNode != null)
+            searchAlg.printNodeSol(goalNode);
+        else
+            System.out.println("No solution found!");
     }
+    
 }

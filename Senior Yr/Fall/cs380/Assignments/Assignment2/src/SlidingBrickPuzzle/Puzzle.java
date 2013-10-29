@@ -12,7 +12,12 @@ import java.util.ArrayList;
  */
 public class Puzzle extends GameBoard{
     
-    
+    public Puzzle(){
+        
+    }
+    public Puzzle(ArrayList<ArrayList> newBoard){
+        this.setBoard(newBoard);
+    }
     
     /**
      * Checks if the puzzle has been solved.
@@ -90,7 +95,7 @@ public class Puzzle extends GameBoard{
      * @param state
      * @return 
      */
-    public ArrayList<Move> calculateAllMove(GameBoard state){
+    public ArrayList<Move> calculateAllMoves(GameBoard state){
         ArrayList<Move> allMoves = new ArrayList<Move>();
         // calculate the number of blocks there are in the puzzle
         int lastBlock = this.numberOfBlocks();
@@ -108,7 +113,7 @@ public class Puzzle extends GameBoard{
      * @param move
      * @return state after move was applied
      */
-    public GameBoard applyMove(GameBoard state, Move move){
+    public Puzzle applyMove(Puzzle state, Move move){
         // Starts to move each piece one by one 
         // If the move is UP OR Left start from the top down
         // if the move is Down OR Right start from the bottom up
@@ -189,11 +194,11 @@ public class Puzzle extends GameBoard{
         
     }
     
-    public GameBoard applyMoveSeparate(GameBoard state, Move move){
+    public Puzzle applyMoveSeparate(Puzzle state, Move move){
         // Clone the original board and make a new one.
-        GameBoard newBoard = new GameBoard((ArrayList<ArrayList>)state.getBoard().clone());
+        Puzzle newBoard = new Puzzle((ArrayList<ArrayList>)state.getBoard().clone());
         // Use the applyMove method to make the move on this new board of ours
-        newBoard = applyMove(newBoard, move);
+        newBoard = this.applyMove(newBoard, move);
         
         return newBoard;
     }

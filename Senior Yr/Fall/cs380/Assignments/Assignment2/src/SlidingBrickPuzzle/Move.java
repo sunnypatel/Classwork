@@ -31,6 +31,17 @@ public class Move {
     public void setDirection(char dir){
         this.direction = dir;
     }
+    
+    public boolean equals(Move m){
+        if((m.piece == this.piece) && (m.direction == this.direction)){
+            return true;
+        } 
+        return false;
+    }
+    
+    public void printMove(){
+        System.out.print("("+this.piece+", "+this.direction+")");
+    }
     /**
      * Takes the position from params and 
      * returns the new position after this move
