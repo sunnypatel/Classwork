@@ -18,12 +18,12 @@ public class main {
         Scanner user_input = new Scanner( System.in );
         System.out.println("Enter filename to load:");
         //String filename = user_input.next();
-        String filename = "SBP-level1.txt";
+        String filename = "SBP-level0.txt";
         brickPuzzle.load(filename);
         brickPuzzle.printBoard();
         
         System.out.println("Is puzzle solved="+brickPuzzle.checkPuzzle());
-        
+       /** 
         ArrayList<Move> moves = new ArrayList<Move>();
         moves = brickPuzzle.calculateMoves(brickPuzzle, 3);
         
@@ -40,9 +40,10 @@ public class main {
         for (Move move : allMoves){
             System.out.println("allMoves="+move.getPiece()+" to "+ move.getDirection());
         }
-        //System.out.println("Number of blocks=" + brickPuzzle.numberOfBlocks());
         
-        /**
+         //System.out.println("Number of blocks=" + brickPuzzle.numberOfBlocks());
+        
+        
         // Pick a move and apply it
         System.out.println("Pick the first move and apply it");
         brickPuzzle.applyMove(brickPuzzle, allMoves.get(0));
@@ -55,11 +56,12 @@ public class main {
         
         brickPuzzle.printBoard();
         
-        
-        DepthFirst searchAlg = new DepthFirst(brickPuzzle);
-        Node goalNode = searchAlg.run();
-        if(goalNode != null)
-            searchAlg.printNodeSol(goalNode);
+        */
+        A_star searchAlg = new A_star(brickPuzzle);
+        searchAlg.run();
+        /*if(goalNode != null)
+            //searchAlg.printNodeSol(goalNode);
+            System.out.println("Horreay");
         else
             System.out.println("No solution found!");
         */

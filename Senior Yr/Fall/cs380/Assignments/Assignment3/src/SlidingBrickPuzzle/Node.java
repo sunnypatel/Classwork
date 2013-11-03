@@ -14,13 +14,17 @@ public class Node {
     public ArrayList<Node> children;
     public Move move;
     public int depth;
-    public double gFunc;
+    public double g;
+    public double h;
     public Puzzle state;
     
     public Node(Node parent){
         this.parent = parent;
         this.depth = parent.depth + 1;
         this.children = new ArrayList<Node>();
+        this.h = 0;
+        this.g = 0;
+        this.move = null;
     }
     
     public Node(Puzzle state){
@@ -28,6 +32,9 @@ public class Node {
         this.parent = null;
         this.depth = 0;
         this.children = new ArrayList<Node>();
+        this.move = null;
+        this.h = 0;
+        this.g = 0;
     }
     
     public void addChild(Node child){
@@ -40,5 +47,18 @@ public class Node {
 
     public void setMove(Move m){
         this.move = m;
+    }
+    /**
+     * Two nodes are considered equal if both their states are the same
+     * and the move is the same
+     * @param n
+     * @return 
+     */
+    public boolean equals(Node n){
+       
+        if((n.move.equals(this.move)) && (this.state.compare(n.state)))
+            return true;
+        
+        return false;
     }
 }

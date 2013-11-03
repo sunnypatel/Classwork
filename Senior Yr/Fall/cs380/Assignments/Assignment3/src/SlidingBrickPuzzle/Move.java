@@ -33,6 +33,9 @@ public class Move {
     }
     
     public boolean equals(Move m){
+        if(m==null)
+            return false;
+        
         if((m.piece == this.piece) && (m.direction == this.direction)){
             return true;
         } 

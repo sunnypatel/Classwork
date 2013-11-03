@@ -34,28 +34,17 @@ public class GameBoard {
     
     
     public void printDimensions(){
-        System.out.println(board.size() + " x " + board.get(0).size());
+        System.out.println(this.getW() + " x " + this.getH());
     }
     
     // Display the game board
     public void printBoard(){
         int j =0;
-        int i =0;
-        for(j=0; j<board.size(); j++){
-        /*    for(i=0; i<board.get(j).size(); i++){
-                
-                
-                System.out.print(board.get(j).get(i));
-                
-                // Little formating tidyness
-                if(i!=(board.get(j).size()-1))
-                    System.out.print(",");
-            }
-            System.out.println();
-         */
+        
+        for(j=0; j<this.getH(); j++){
+        
             System.out.println(board.get(j));
         }
-        //System.out.println("j="+j+"i="+i);
     }
     
     
