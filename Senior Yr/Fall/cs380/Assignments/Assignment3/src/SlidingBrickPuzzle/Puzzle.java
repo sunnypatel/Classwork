@@ -80,19 +80,19 @@ public class Puzzle extends GameBoard {
 
                         Position pos = new Position(i, j);
                         // Check UP
-                        if (state.getPieceAbove(pos) == piece || state.getPieceAbove(pos) == 0) {
+                        if (state.getPieceAbove(pos, state) == piece || state.getPieceAbove(pos, state) == 0) {
                             moves.add('u');
                         }
                         // Check RIGHT
-                        if (state.getPieceRight(pos) == piece || state.getPieceRight(pos) == 0) {
+                        if (state.getPieceRight(pos) == piece || state.getPieceRight(pos, state) == 0) {
                             moves.add('r');
                         }
                         // Check BELOW
-                        if (state.getPieceBelow(pos) == piece || state.getPieceBelow(pos) == 0) {
+                        if (state.getPieceBelow(pos, state) == piece || state.getPieceBelow(pos, state == 0) {
                             moves.add('b');
                         }
                         // Check LEFT
-                        if (state.getPieceLeft(pos) == piece || state.getPieceLeft(pos) == 0) {
+                        if (state.getPieceLeft(pos, state) == piece || state.getPieceLeft(pos, state) == 0) {
                             moves.add('l');
                         }
 
@@ -110,8 +110,8 @@ public class Puzzle extends GameBoard {
                 int count = Collections.frequency(allMoves, direction);
                 if (count == pieceSize_count) {
                     Move move = new Move(piece, direction.toString().charAt(0));
-                    possibleMoves.add(move);
-                   /*
+                    
+                   
                     // has the move already being added?
                     boolean newMove = true;
                     // search through and make sure it has been added to possibleMove already.
@@ -122,7 +122,7 @@ public class Puzzle extends GameBoard {
                     }
                     if (newMove) {
                         possibleMoves.add(move);
-                    }*/
+                    }
                 }
             }
 
@@ -165,9 +165,10 @@ public class Puzzle extends GameBoard {
         // Starts to move each piece one by one 
         // If the move is UP OR Left start from the top down
         // if the move is Down OR Right start from the bottom up
-
+int debug_counter =0;
         // ABOVE
         if (move.getDirection() == 'u') {
+            
             for (int j = 0; j < state.getH(); j++) {
                 for (int i = 0; i < state.getW(); i++) {
 
@@ -176,29 +177,38 @@ public class Puzzle extends GameBoard {
                             Position curPos = new Position(i, j);
                             // actually make the move happen, moves the values over
                             makeMove(curPos, move.apply(curPos), state);
+                            debug_counter++;
                         }
                     }
                 }
             }
+            System.out.println("Number of digits moved: " + debug_counter);
         }
 
         // LEFT
         if (move.getDirection() == 'l') {
             //   System.out.println("applying move left");
-            for (int j = 0; j < state.getH(); j++) {
-                for (int i = 0; i < state.getW(); i++) {
-
-                    if (state.getPiece(i, j) == move.getPiece()) {
-
-                        if (getPieceLeft(i, j) == 0) {
-
-                            Position curPos = new Position(i, j);
+            int j;
+            int x=0;
+            for ( j = 0; j < state.getH(); j++) {
+                for (x = 0; x < state.getW(); x++) {
+// Integer is an object!!! state.getPiece is an int!
+                    System.out.println("state.getPiece = "+state.getPiece(x,j) + "move.getPiece() ="+move.getPiece());
+                    if (state.getPiece(x, j) == move.getPiece()) {
+                        System.out.println("Inside first if");
+                        System.out.println("getPieceLeft=" + getPieceLeft(x, j, state));
+                        if (getPieceLeft(x, j, state) == 0) {
+                            System.out.println("inside 2nd if");
+                            Position curPos = new Position(x, j);
                             // actually make the move happen, moves the values over
                             makeMove(curPos, move.apply(curPos), state);
+                            debug_counter++;
                         }
                     }
                 }
             }
+            System.out.println("Number of digits moved: " + debug_counter);
+            System.out.println("x="+x+"   j="+j);
         }
 
 

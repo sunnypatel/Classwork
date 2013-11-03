@@ -215,43 +215,43 @@ public class GameBoard {
         this.setPiece(new Position(x,y), piece);
     }
     
-    public int getPieceAbove(int x, int y){
-        return getPieceAbove(new Position(x,y));
+    public int getPieceAbove(int x, int y, GameBoard state){
+        return getPieceAbove(new Position(x,y), state);
     }
     
-    public int getPieceAbove(Position pos){
+    public int getPieceAbove(Position pos, GameBoard state){
         if(pos.getY()-1 >= 0)
-            return (Integer)board.get(pos.getY()-1).get(pos.getX());
+            return (Integer)state.board.get(pos.getY()-1).get(pos.getX());
         else 
             return -1;
     }
-    public int getPieceRight(int x, int y){
-        return getPieceRight(new Position(x,y));
+    public int getPieceRight(int x, int y, GameBoard state){
+        return getPieceRight(new Position(x,y), state);
     }
-    public int getPieceRight(Position pos){
-        if(pos.getX()+1 < board.get(pos.getY()).size())
-            return (Integer)board.get(pos.getY()).get(pos.getX()+1);
+    public int getPieceRight(Position pos, GameBoard state){
+        if(pos.getX()+1 < state.board.get(pos.getY()).size())
+            return (Integer)state.board.get(pos.getY()).get(pos.getX()+1);
         else
             return -1;
     }
-    public int getPieceBelow(int x, int y){
-        return getPieceBelow(new Position(x,y));
+    public int getPieceBelow(int x, int y,GameBoard state){
+        return getPieceBelow(new Position(x,y), state);
     }
     
-    public int getPieceBelow(Position pos){
-        if(pos.getY()+1 < board.size())
-            return (Integer)board.get(pos.getY()+1).get(pos.getX());
+    public int getPieceBelow(Position pos, GameBoard state){
+        if(pos.getY()+1 < state.board.size())
+            return (Integer)state.board.get(pos.getY()+1).get(pos.getX());
         else
             return -1;
     }
     
-    public int getPieceLeft(int x, int y){
-        return getPieceLeft(new Position(x,y));
+    public int getPieceLeft(int x, int y, GameBoard state){
+        return getPieceLeft(new Position(x,y), state);
     }
     
-    public int getPieceLeft(Position pos){
+    public int getPieceLeft(Position pos, GameBoard state){
         if(pos.getX()-1 >= 0){
-            return (Integer)board.get(pos.getY()).get(pos.getX()-1);
+            return (Integer)state.board.get(pos.getY()).get(pos.getX()-1);
         }
         else
             return -1;
