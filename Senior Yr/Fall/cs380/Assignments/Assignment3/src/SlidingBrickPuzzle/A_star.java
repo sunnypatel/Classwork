@@ -39,20 +39,50 @@ public class A_star {
         opened.add(start);
 
         while (!opened.isEmpty()) {
+            
+            // Print out the open array
+            /*
+            for( Node open : opened){
+                if(open.move != null){
+                open.move.printMove();
+                System.out.print("  |  ");
+                }
+            }
+            System.out.println();
+            for( Node open : opened){
+                if(open.move != null){
+                System.out.print("  f()=  "+(open.g+open.h) + "  ");
+                }
+            }
+            */
             Node n = this.removeLowestF(opened);
+            
+            if(n.move != null){
+                System.out.print("Picked:");
+                n.move.printMove();
+                System.out.println();
+            }
             if (this.goalTest(n)) {
                 // return path to n
                 System.out.println("Solved!");
+                
+                this.printPath(n);
+                
+                n.state.printBoard();
+                return;
             }
             closed.add(n);
 
             ArrayList<Move> allMoves = n.state.calculateAllMoves(n.state);
             
             
-            
+           
             System.out.println();
             System.out.println("************");
             n.state.printBoard();
+           // System.out.println("g= " +n.g);
+           // System.out.println("h= " +n.h);
+            
             System.out.println("List all possible moves:");
             System.out.println("l=left, r=right, u=up, b=bottom");
         
@@ -61,7 +91,7 @@ public class A_star {
             }
             System.out.println("************");
             System.out.println();
-            
+          
             // create children
             for (Move move : allMoves) {
                 Node newChild = new Node(n);
@@ -81,19 +111,35 @@ public class A_star {
                 if (!checkIfClosed(newChild)) {
                     n.addChild(newChild);
                     opened.add(newChild);
-                    System.out.print("Made move: ");
-                    move.printMove();
-                    System.out.println();
+                   // System.out.print("Made move: ");
+                   // move.printMove();
+                   // System.out.println();
                 } else {
-                    System.out.println("Move was already made.");
+                   // System.out.print("Move was already made: ");
+                   // move.printMove();
+                   // System.out.println();
                 }
                 //System.out.println("done");
             }
-           System.out.println("Opened size= " +opened.size());
-           System.out.println("Closed size= " +closed.size());
+          System.out.println("Opened size= " +opened.size());
+          System.out.println("Closed size= " +closed.size());
         }
     }
 
+    public void printPath(Node n){
+        ArrayList<Move> successFullMoves = new ArrayList<Move>();
+        //Node parent = n;
+        
+        while(n.parent != null){
+            successFullMoves.add(0,n.move);
+            n = n.parent;
+        }
+        for(Move m : successFullMoves){
+            m.printMove();
+            System.out.println();
+        }
+    }
+    
     public boolean goalTest(Node a) {
         return a.state.checkPuzzle();
     }
@@ -163,7 +209,11 @@ public class A_star {
                 }
             }
         }
-
+        // Here we know that the master block is on the goal
+        if(goal.isEmpty())
+            return 0;
+        
+        
         // TODO now that we know where the goal block and master block,
         //      calculate the difference between them
         // Hold min distance

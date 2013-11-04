@@ -84,18 +84,30 @@ public class Puzzle extends GameBoard {
                             moves.add('u');
                         }
                         // Check RIGHT
-                        if (state.getPieceRight(pos) == piece || state.getPieceRight(pos, state) == 0) {
+                        if (state.getPieceRight(pos, state) == piece || state.getPieceRight(pos, state) == 0) {
                             moves.add('r');
                         }
                         // Check BELOW
-                        if (state.getPieceBelow(pos, state) == piece || state.getPieceBelow(pos, state == 0) {
+                        if (state.getPieceBelow(pos, state) == piece || state.getPieceBelow(pos, state) == 0) {
                             moves.add('b');
                         }
                         // Check LEFT
                         if (state.getPieceLeft(pos, state) == piece || state.getPieceLeft(pos, state) == 0) {
                             moves.add('l');
                         }
-
+                        
+                        /**
+                         * Check if goal state is available
+                         */
+                        if ( (state.getPieceAbove(pos, state) == -1)  && (piece == 2))
+                            moves.add('u');
+                        if ( (state.getPieceRight(pos, state) == -1)  && (piece == 2))
+                            moves.add('r');
+                        if ( (state.getPieceBelow(pos, state) == -1)  && (piece == 2))
+                            moves.add('b');
+                        if ( (state.getPieceLeft(pos, state) == -1)  && (piece == 2))
+                            moves.add('l');
+                        
 
                         // Only save those moves that are similar to the number nxt to me
                         allMoves.addAll(moves);
@@ -165,7 +177,7 @@ public class Puzzle extends GameBoard {
         // Starts to move each piece one by one 
         // If the move is UP OR Left start from the top down
         // if the move is Down OR Right start from the bottom up
-int debug_counter =0;
+        int debug_counter =0;
         // ABOVE
         if (move.getDirection() == 'u') {
             
@@ -173,7 +185,7 @@ int debug_counter =0;
                 for (int i = 0; i < state.getW(); i++) {
 
                     if (state.getPiece(i, j) == move.getPiece()) {
-                        if (getPieceAbove(i, j) == 0) {
+                        if ( (getPieceAbove(i, j, state) == 0) || (getPieceAbove(i, j, state) == -1) ) {
                             Position curPos = new Position(i, j);
                             // actually make the move happen, moves the values over
                             makeMove(curPos, move.apply(curPos), state);
@@ -182,7 +194,7 @@ int debug_counter =0;
                     }
                 }
             }
-            System.out.println("Number of digits moved: " + debug_counter);
+           // System.out.println("Number of digits moved: " + debug_counter);
         }
 
         // LEFT
@@ -193,12 +205,12 @@ int debug_counter =0;
             for ( j = 0; j < state.getH(); j++) {
                 for (x = 0; x < state.getW(); x++) {
 // Integer is an object!!! state.getPiece is an int!
-                    System.out.println("state.getPiece = "+state.getPiece(x,j) + "move.getPiece() ="+move.getPiece());
+                    //System.out.println("state.getPiece = "+state.getPiece(x,j) + "move.getPiece() ="+move.getPiece());
                     if (state.getPiece(x, j) == move.getPiece()) {
-                        System.out.println("Inside first if");
-                        System.out.println("getPieceLeft=" + getPieceLeft(x, j, state));
-                        if (getPieceLeft(x, j, state) == 0) {
-                            System.out.println("inside 2nd if");
+                      //  System.out.println("Inside first if");
+                      //  System.out.println("getPieceLeft=" + getPieceLeft(x, j, state));
+                        if ( (getPieceLeft(x, j, state) == 0) || (getPieceLeft(x, j, state) == -1) ) {
+                          //  System.out.println("inside 2nd if");
                             Position curPos = new Position(x, j);
                             // actually make the move happen, moves the values over
                             makeMove(curPos, move.apply(curPos), state);
@@ -207,8 +219,8 @@ int debug_counter =0;
                     }
                 }
             }
-            System.out.println("Number of digits moved: " + debug_counter);
-            System.out.println("x="+x+"   j="+j);
+          //  System.out.println("Number of digits moved: " + debug_counter);
+          //  System.out.println("x="+x+"   j="+j);
         }
 
 
@@ -219,7 +231,7 @@ int debug_counter =0;
                 for (int i = state.getW() - 1; i >= 0; i--) {
 
                     if (state.getPiece(i, j) == move.getPiece()) {
-                        if (getPieceRight(i, j) == 0) {
+                        if ((getPieceRight(i, j, state) == 0) || (getPieceRight(i, j, state) == -1)) {
                             Position curPos = new Position(i, j);
                             // actually make the move happen, moves the values over
                             makeMove(curPos, move.apply(curPos), state);
@@ -236,7 +248,7 @@ int debug_counter =0;
                 for (int i = state.getW() - 1; i >= 0; i--) {
 
                     if (state.getPiece(i, j) == move.getPiece()) {
-                        if (getPieceBelow(i, j) == 0) {
+                        if ( (getPieceBelow(i, j, state) == 0) || (getPieceRight(i, j, state) == -1) ) {
                             Position curPos = new Position(i, j);
                             // actually make the move happen, moves the values over
                             makeMove(curPos, move.apply(curPos), state);
