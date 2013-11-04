@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Node {
     public Node parent;
     public ArrayList<Node> children;
-    public Move move;
+    public Move move;                       // the move that was applied to get to this state
     public int depth;
     public double g;
     public double h;
@@ -44,7 +44,7 @@ public class Node {
     public void setState(Puzzle state){
         this.state = state;
     }
-
+    
     public void setMove(Move m){
         this.move = m;
     }
@@ -55,10 +55,14 @@ public class Node {
      * @return 
      */
     public boolean equals(Node n){
-       
-        if((n.move.equals(this.move)) && (this.state.compare(n.state)))
+       /*if(this.state.compare(n.state))
+           return true;
+        */
+         if((n.move.equals(this.move)) && (this.state.compare(n.state)))
             return true;
-        
+      /* if((n.move.equals(this.move)) && (this.h == n.h))
+            return true;
+        */
         return false;
     }
 }

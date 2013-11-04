@@ -248,7 +248,7 @@ public class Puzzle extends GameBoard {
                 for (int i = state.getW() - 1; i >= 0; i--) {
 
                     if (state.getPiece(i, j) == move.getPiece()) {
-                        if ( (getPieceBelow(i, j, state) == 0) || (getPieceRight(i, j, state) == -1) ) {
+                        if ( (getPieceBelow(i, j, state) == 0) || (getPieceBelow(i, j, state) == -1) ) {
                             Position curPos = new Position(i, j);
                             // actually make the move happen, moves the values over
                             makeMove(curPos, move.apply(curPos), state);
@@ -259,7 +259,7 @@ public class Puzzle extends GameBoard {
         }
 
 
-
+        state.normalize();
         return state;
 
     }
@@ -276,7 +276,7 @@ public class Puzzle extends GameBoard {
         //newBoard.printDimensions();
         // Use the applyMove method to make the move on this new board of ours
         newBoard = this.applyMove(newBoard, move);
-
+        newBoard.normalize();
         return newBoard;
     }
 
@@ -306,4 +306,32 @@ public class Puzzle extends GameBoard {
         }
         return maxNum;
     }
+    
+    
+    public void normalize(){
+        int nextIdx=3;
+        for(int h=0; h < this.getH(); h++){
+            for(int w=0; w < this.getW(); w++){
+                if(this.getPiece(w, h)==nextIdx){
+                    nextIdx++;
+                } else if(this.getPiece(w,h) > nextIdx){
+                    this.swapIdx(nextIdx,this.getPiece(w,h));
+                    nextIdx++;
+                }
+            }
+        }
+    }
+    
+    public void swapIdx(int idx1, int idx2){
+        for(int h=0; h < this.getH(); h++){
+            for(int w=0; w < this.getW(); w++){
+                if(this.getPiece(w,h) == idx1){
+                    this.setPiece(w, h, idx2);
+                } else if (this.getPiece(w,h) == idx2){
+                    this.setPiece(w, h, idx1);
+                }
+            }
+        }
+    }
+    
 }

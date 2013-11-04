@@ -41,11 +41,13 @@ public class A_star {
         while (!opened.isEmpty()) {
             
             // Print out the open array
-            /*
+            
+            
+      /*
             for( Node open : opened){
                 if(open.move != null){
                 open.move.printMove();
-                System.out.print("  |  ");
+               System.out.print("  |  ");
                 }
             }
             System.out.println();
@@ -54,14 +56,20 @@ public class A_star {
                 System.out.print("  f()=  "+(open.g+open.h) + "  ");
                 }
             }
-            */
-            Node n = this.removeLowestF(opened);
+            System.out.println();
+     */
             
+            
+            
+            
+            Node n = this.removeLowestF(opened);
+      /*
             if(n.move != null){
                 System.out.print("Picked:");
                 n.move.printMove();
                 System.out.println();
             }
+       */
             if (this.goalTest(n)) {
                 // return path to n
                 System.out.println("Solved!");
@@ -76,8 +84,8 @@ public class A_star {
             ArrayList<Move> allMoves = n.state.calculateAllMoves(n.state);
             
             
-           
-            System.out.println();
+       /*
+           System.out.println();
             System.out.println("************");
             n.state.printBoard();
            // System.out.println("g= " +n.g);
@@ -85,13 +93,17 @@ public class A_star {
             
             System.out.println("List all possible moves:");
             System.out.println("l=left, r=right, u=up, b=bottom");
-        
+       */
             for (Move move : allMoves){
                 System.out.println("allMoves="+move.getPiece()+" to "+ move.getDirection());
             }
+            
+       /*
             System.out.println("************");
             System.out.println();
-          
+        */
+            
+            
             // create children
             for (Move move : allMoves) {
                 Node newChild = new Node(n);
@@ -111,17 +123,21 @@ public class A_star {
                 if (!checkIfClosed(newChild)) {
                     n.addChild(newChild);
                     opened.add(newChild);
-                   // System.out.print("Made move: ");
-                   // move.printMove();
-                   // System.out.println();
+                    System.out.print("Made move: ");
+                    move.printMove();
+                    System.out.println();
                 } else {
-                   // System.out.print("Move was already made: ");
-                   // move.printMove();
-                   // System.out.println();
+                    System.out.print("Move was already made: ");
+                    move.printMove();
+                   System.out.println();
                 }
                 //System.out.println("done");
             }
-          System.out.println("Opened size= " +opened.size());
+            
+            // temp ish
+            int openSize = opened.size();
+            if(openSize%1000 == 0)
+                System.out.println("Opened size= " + openSize);
           System.out.println("Closed size= " +closed.size());
         }
     }
@@ -223,18 +239,23 @@ public class A_star {
                 // Use the distance formula
                 int tmpX = mBlock.getX() - gBlock.getX();
                 int tmpY = mBlock.getY() - gBlock.getY();
-
+                /*
                 int tmp = (tmpX * tmpX) + (tmpY * tmpY);
                 double dist = Math.sqrt(tmp);
+                */
+                double dist = tmpX + tmpY;
                 if (min == -1) {
                     min = dist;
                 } else if (dist < min) {
                     min = dist;
                 }
-
+                
+                
+                
             }
         }
 
+        
         return min;
     }
 }
