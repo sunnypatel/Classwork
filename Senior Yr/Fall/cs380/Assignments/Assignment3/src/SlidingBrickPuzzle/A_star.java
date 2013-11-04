@@ -93,12 +93,12 @@ public class A_star {
             
             System.out.println("List all possible moves:");
             System.out.println("l=left, r=right, u=up, b=bottom");
-       */
+       
             for (Move move : allMoves){
                 System.out.println("allMoves="+move.getPiece()+" to "+ move.getDirection());
             }
             
-       /*
+       
             System.out.println("************");
             System.out.println();
         */
@@ -111,34 +111,40 @@ public class A_star {
                 newChild.g = n.g + 1;
                 
                 newChild.move = move;
-                System.out.println("Before:");
-                n.state.printBoard();
+    //            System.out.println("Before:");
+    //           n.state.printBoard();
                 newChild.state = n.state.applyMoveSeparate(n.state, move);
-                System.out.println("After:");
-                newChild.state.printBoard();
+    //            System.out.println("After:");
+    //            newChild.state.printBoard();
                 
                 newChild.h = this.heuristic(newChild);
                 
                 // add as child only if not in closed already
                 if (!checkIfClosed(newChild)) {
+    
                     n.addChild(newChild);
                     opened.add(newChild);
-                    System.out.print("Made move: ");
+    /*                System.out.print("Made move: ");
                     move.printMove();
-                    System.out.println();
+                   System.out.println();
+   */                 
+                    
                 } else {
+     /*         
                     System.out.print("Move was already made: ");
                     move.printMove();
                    System.out.println();
+     */              
                 }
                 //System.out.println("done");
             }
             
             // temp ish
             int openSize = opened.size();
-            if(openSize%1000 == 0)
+            if(openSize%1000 == 0){
                 System.out.println("Opened size= " + openSize);
-          System.out.println("Closed size= " +closed.size());
+                System.out.println("Closed size= " +closed.size());
+            }
         }
     }
 

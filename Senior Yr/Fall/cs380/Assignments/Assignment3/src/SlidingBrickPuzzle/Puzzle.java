@@ -185,7 +185,7 @@ public class Puzzle extends GameBoard {
                 for (int i = 0; i < state.getW(); i++) {
 
                     if (state.getPiece(i, j) == move.getPiece()) {
-                        if ( (getPieceAbove(i, j, state) == 0) || (getPieceAbove(i, j, state) == -1) ) {
+                        if ( (getPieceAbove(i, j, state) == 0) || ( (getPieceAbove(i, j, state) == -1)&&(move.getPiece()==2) )) {
                             Position curPos = new Position(i, j);
                             // actually make the move happen, moves the values over
                             makeMove(curPos, move.apply(curPos), state);
@@ -209,7 +209,7 @@ public class Puzzle extends GameBoard {
                     if (state.getPiece(x, j) == move.getPiece()) {
                       //  System.out.println("Inside first if");
                       //  System.out.println("getPieceLeft=" + getPieceLeft(x, j, state));
-                        if ( (getPieceLeft(x, j, state) == 0) || (getPieceLeft(x, j, state) == -1) ) {
+                        if ( (getPieceLeft(x, j, state) == 0) || ( (getPieceLeft(x, j, state) == -1)&&(move.getPiece()==2) )) {
                           //  System.out.println("inside 2nd if");
                             Position curPos = new Position(x, j);
                             // actually make the move happen, moves the values over
@@ -231,7 +231,7 @@ public class Puzzle extends GameBoard {
                 for (int i = state.getW() - 1; i >= 0; i--) {
 
                     if (state.getPiece(i, j) == move.getPiece()) {
-                        if ((getPieceRight(i, j, state) == 0) || (getPieceRight(i, j, state) == -1)) {
+                        if ((getPieceRight(i, j, state) == 0) || ( (getPieceRight(i, j, state) == -1)&&(move.getPiece()==2) )) {
                             Position curPos = new Position(i, j);
                             // actually make the move happen, moves the values over
                             makeMove(curPos, move.apply(curPos), state);
@@ -248,7 +248,7 @@ public class Puzzle extends GameBoard {
                 for (int i = state.getW() - 1; i >= 0; i--) {
 
                     if (state.getPiece(i, j) == move.getPiece()) {
-                        if ( (getPieceBelow(i, j, state) == 0) || (getPieceBelow(i, j, state) == -1) ) {
+                        if ( (getPieceBelow(i, j, state) == 0) || ( (getPieceBelow(i, j, state) == -1)&&(move.getPiece()==2) )) {
                             Position curPos = new Position(i, j);
                             // actually make the move happen, moves the values over
                             makeMove(curPos, move.apply(curPos), state);

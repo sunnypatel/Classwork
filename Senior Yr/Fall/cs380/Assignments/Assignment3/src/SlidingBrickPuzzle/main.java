@@ -18,7 +18,7 @@ public class main {
         Scanner user_input = new Scanner( System.in );
         System.out.println("Enter filename to load:");
         //String filename = user_input.next();
-        String filename = "SBP-level0.txt";
+        String filename = "SBP-level2.txt";
         // String filename = "test-not-normalized.txt";
         brickPuzzle.load(filename);
         brickPuzzle.printBoard();
