@@ -24,10 +24,23 @@ public class main {
         brickPuzzle.printBoard();
         
         System.out.println("Is puzzle solved="+brickPuzzle.checkPuzzle());
-        /** 
-        brickPuzzle.normalize();
+        
+      //  brickPuzzle.normalize();
+     /**     Puzzle clone = brickPuzzle.cloneBoard();
+        
+        Move m = new Move(4,'l');
+        brickPuzzle.applyMove(brickPuzzle, m);
         brickPuzzle.printBoard();
-       
+        System.out.println("Clone:");
+        clone.printBoard();
+        
+        
+        
+        
+        
+        
+        
+      
         ArrayList<Move> moves = new ArrayList<Move>();
         moves = brickPuzzle.calculateMoves(brickPuzzle, 3);
         

@@ -29,10 +29,10 @@ public class Puzzle extends GameBoard {
     private ArrayList<ArrayList> createBoard(int x, int y) {
 
         // create a X x Y game board
-        ArrayList<ArrayList> tempBoard = new ArrayList<ArrayList>();
+        ArrayList<ArrayList> tempBoard = new ArrayList<ArrayList>(y);
 
         for (int j = 0; j < y; j++) {
-            ArrayList row = new ArrayList();
+            ArrayList row = new ArrayList(x);
 
             for (int i = 0; i < x; i++) {
                 row.add(0);
@@ -259,7 +259,7 @@ public class Puzzle extends GameBoard {
         }
 
 
-        state.normalize();
+        //state.normalize();
         return state;
 
     }
@@ -276,7 +276,7 @@ public class Puzzle extends GameBoard {
         //newBoard.printDimensions();
         // Use the applyMove method to make the move on this new board of ours
         newBoard = this.applyMove(newBoard, move);
-        newBoard.normalize();
+        //newBoard.normalize();
         return newBoard;
     }
 
@@ -306,7 +306,38 @@ public class Puzzle extends GameBoard {
         }
         return maxNum;
     }
+   public Puzzle cloneBoard(){
+       
+       return new Puzzle(this.getBoard());
+    }
+    /**
+     * Check to see if b is the same as this board
+     * 
+     * @param b
+     * @return 
+     */
+    public boolean compare(Puzzle a, Puzzle b){
+        Puzzle one = a.cloneBoard();
+        Puzzle two = b.cloneBoard();
+        
+        one.normalize();
+        two.normalize();
+        
+        if((two.getW() != one.getW()) || two.getH() != one.getH())
+            return false;
+        
+        for(int x=0; x<one.getW(); x++){
+            for(int y=0; y<one.getH(); y++){
+                if(one.getPiece(x, y) != two.getPiece(x, y))
+                    return false;
+            }
+        }
+        return true;
+    }
     
+    public boolean compare(Puzzle b){
+        return this.compare(this,b);
+    }
     
     public void normalize(){
         int nextIdx=3;

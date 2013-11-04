@@ -53,10 +53,10 @@ public class GameBoard {
     private ArrayList<ArrayList> createBoard(int x, int y){
         
        // create a X x Y game board
-       ArrayList<ArrayList> tempBoard = new ArrayList<ArrayList>();
+       ArrayList<ArrayList> tempBoard = new ArrayList<ArrayList>(y);
        
        for(int j=0; j<y; j++){
-           ArrayList row = new ArrayList();
+           ArrayList row = new ArrayList(x);
            
            for(int i=0; i<x; i++)
                row.add(0);
@@ -134,31 +134,22 @@ public class GameBoard {
     }
     
     public void setBoard(ArrayList<ArrayList> tempBoard){
-        this.board = tempBoard;
-    }
-    
-    public GameBoard cloneBoard(){
-        return new GameBoard(this.board);
-    }
-    
-    /**
-     * Check to see if b is the same as this board
-     * 
-     * @param b
-     * @return 
-     */
-    public boolean compare(GameBoard b){
-        if((b.getW() != getW()) || b.getH() != getH())
-            return false;
         
-        for(int x=0; x<getW(); x++){
-            for(int y=0; y<getH(); y++){
-                if(this.getPiece(x, y) != b.getPiece(x, y))
-                    return false;
+        int maxH = tempBoard.size();
+        int maxW = tempBoard.get(0).size();
+        
+        this.board = this.createBoard(maxW, maxH);
+        
+        for(int h=0; h < maxH; h++){
+            for(int w=0; w < maxW; w++){
+                this.setPiece(w, h,(Integer)tempBoard.get(h).get(w));
             }
         }
-        return true;
+      // System.out.println(maxH + " " + maxW);
+       // this.board = (ArrayList<ArrayList>)tempBoard.clone();
     }
+
+
     
     /**
      * Finds all the pieces = i around position.
