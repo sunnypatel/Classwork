@@ -6,6 +6,7 @@ package SlidingBrickPuzzle;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
@@ -19,12 +20,12 @@ public class A_star {
     public LinkedList<Node> tree;
     Comparator<Node> openedComparator = new OpenedComparator();
     public PriorityQueue<Node> opened;
-    public ArrayList<Node> closed;
+    public HashMap<Double,LinkedList<Node>> closed;
 
     public A_star(Puzzle initState) {
         tree = new LinkedList<Node>();
         opened = new PriorityQueue<Node>(10, openedComparator);
-        closed = new ArrayList<Node>();
+        closed = new HashMap<Double,LinkedList<Node>>();
 
         // create root node
         this.root = new Node(initState);
@@ -83,8 +84,17 @@ public class A_star {
                 n.state.printBoard();
                 return;
             }
-            closed.add(n);
-
+            // The linkedList with all nodes of the same h
+            // adding nodes to closed list, hopefully...
+            if(closed.get(n.h) != null){
+                closed.get(n.h).add(n);
+            } else{
+                LinkedList<Node> tmp = new LinkedList<Node>();
+                tmp.add(n);
+                closed.put(n.h, tmp);
+            }
+            //closed.add(n);
+            
             ArrayList<Move> allMoves = n.state.calculateAllMoves(n.state);
             
             
@@ -125,7 +135,7 @@ public class A_star {
                 
                 // add as child only if not in closed already
                 if (!checkIfClosed(newChild)) {
-    
+                    n.state.normalize();
                     n.addChild(newChild);
                     opened.add(newChild);
     /*                System.out.print("Made move: ");
@@ -148,6 +158,11 @@ public class A_star {
             if(openSize%1000 == 0){
                 System.out.println("Opened size= " + openSize);
                 System.out.println("Closed size= " +closed.size());
+                /*for(Node closed : closed){
+                    System.out.println("******************");
+                    closed.state.printBoard();
+                    System.out.println("******************");
+                }*/
             }
         }
     }
@@ -182,6 +197,16 @@ public class A_star {
            // System.out.println("Child move is null");
             return false;
         }
+        LinkedList<Node> tmpBucket = closed.get(child.h);
+        if(tmpBucket == null)
+            return false;
+        
+        for(Node bucketNode : tmpBucket){
+            if(bucketNode.equals(child))
+                return true;
+        }
+        return false;
+        /*
         for (Node closeNode : this.closed) {
             if(closeNode.move == null){
                // System.out.println("Node in closed is move=null");
@@ -195,6 +220,8 @@ public class A_star {
             }
         }
         return false;
+        */
+        
     }
 
     private Node removeLowestF(ArrayList<Node> opened) {
