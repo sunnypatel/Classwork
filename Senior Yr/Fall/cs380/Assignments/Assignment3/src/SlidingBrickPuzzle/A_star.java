@@ -5,7 +5,9 @@
 package SlidingBrickPuzzle;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 /**
  *
@@ -15,12 +17,13 @@ public class A_star {
 
     public Node root;
     public LinkedList<Node> tree;
-    public ArrayList<Node> opened;
+    Comparator<Node> openedComparator = new OpenedComparator();
+    public PriorityQueue<Node> opened;
     public ArrayList<Node> closed;
 
     public A_star(Puzzle initState) {
         tree = new LinkedList<Node>();
-        opened = new ArrayList<Node>();
+        opened = new PriorityQueue<Node>(10, openedComparator);
         closed = new ArrayList<Node>();
 
         // create root node
@@ -62,7 +65,8 @@ public class A_star {
             
             
             
-            Node n = this.removeLowestF(opened);
+           // Node n = this.removeLowestF(opened);
+            Node n = opened.poll();
       /*
             if(n.move != null){
                 System.out.print("Picked:");
