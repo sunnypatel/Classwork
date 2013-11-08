@@ -34,7 +34,7 @@ public class GameBoard {
     
     
     public void printDimensions(){
-        System.out.println(this.getW() + " x " + this.getH());
+        System.out.println(this.getW() + "," + this.getH());
     }
     
     // Display the game board

@@ -78,10 +78,10 @@ public class A_star {
        */
             if (this.goalTest(n)) {
                 // return path to n
-                System.out.println("Solved!");
+                //System.out.println("Solved!");
                 
                 this.printPath(n);
-                
+                n.state.printDimensions();
                 n.state.printBoard();
                 return;
             }
@@ -159,8 +159,8 @@ public class A_star {
             // temp ish
             int openSize = opened.size();
             if(openSize%1000 == 0){
-                System.out.println("Opened size= " + openSize);
-                System.out.println("Closed size= " +closed.size());
+          //      System.out.println("Opened size= " + openSize);
+          //      System.out.println("Closed size= " +closed.size());
                 /*for(Node closed : closed){
                     System.out.println("******************");
                     closed.state.printBoard();
