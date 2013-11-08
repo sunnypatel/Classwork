@@ -1,0 +1,5 @@
+Extra Credit (10 points)
+A better admissible heuristic would be to calculate a rating for each move based on a two things:
+1) The distance from the master block to the zeros.
+2) The distance the master block from goal. 
+The closer the zeros are to the master block the better chance we have of getting the master block to move and then if we can get it to move then does it actually help get closer to the goal?  Using these two characteristics we can develop a formula to calculate a single rating number for each move.
