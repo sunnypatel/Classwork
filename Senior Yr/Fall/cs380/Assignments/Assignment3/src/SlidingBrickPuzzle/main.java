@@ -18,12 +18,12 @@ public class main {
         Scanner user_input = new Scanner( System.in );
         System.out.println("Enter filename to load:");
         //String filename = user_input.next();
-        String filename = "SBP-level4.txt";
+        String filename = "SBP-bricks-level1.txt";
         // String filename = "test-not-normalized.txt";
         brickPuzzle.load(filename);
         brickPuzzle.printBoard();
         
-        System.out.println("Is puzzle solved="+brickPuzzle.checkPuzzle());
+      //  System.out.println("Is puzzle solved="+brickPuzzle.checkPuzzle());
         
       //  brickPuzzle.normalize();
      /**     Puzzle clone = brickPuzzle.cloneBoard();

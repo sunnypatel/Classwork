@@ -20,13 +20,14 @@ public class A_star {
     public LinkedList<Node> tree;
     Comparator<Node> openedComparator = new OpenedComparator();
     public PriorityQueue<Node> opened;
-    public HashMap<Double,LinkedList<Node>> closed;
-
+    //public HashMap<Double,LinkedList<Node>> closed;
+    public ArrayList<Node> closed;
+    
     public A_star(Puzzle initState) {
         tree = new LinkedList<Node>();
         opened = new PriorityQueue<Node>(10, openedComparator);
-        closed = new HashMap<Double,LinkedList<Node>>();
-
+        //closed = new HashMap<Double,LinkedList<Node>>();
+        closed = new ArrayList<Node>();
         // create root node
         this.root = new Node(initState);
         // add root node to tree
@@ -86,14 +87,16 @@ public class A_star {
             }
             // The linkedList with all nodes of the same h
             // adding nodes to closed list, hopefully...
-            if(closed.get(n.h) != null){
-                closed.get(n.h).add(n);
+         /*   double distFromZero = this.distFromZero(n);
+            if(closed.get(distFromZero) != null){
+                closed.get(distFromZero).addFirst(n);
             } else{
                 LinkedList<Node> tmp = new LinkedList<Node>();
-                tmp.add(n);
-                closed.put(n.h, tmp);
+                tmp.addFirst(n);
+                closed.put(distFromZero, tmp);
             }
-            //closed.add(n);
+            */
+           closed.add(n);
             
             ArrayList<Move> allMoves = n.state.calculateAllMoves(n.state);
             
@@ -197,7 +200,7 @@ public class A_star {
            // System.out.println("Child move is null");
             return false;
         }
-        LinkedList<Node> tmpBucket = closed.get(child.h);
+      /*  LinkedList<Node> tmpBucket = closed.get(child.h);
         if(tmpBucket == null)
             return false;
         
@@ -206,7 +209,8 @@ public class A_star {
                 return true;
         }
         return false;
-        /*
+        */
+        
         for (Node closeNode : this.closed) {
             if(closeNode.move == null){
                // System.out.println("Node in closed is move=null");
@@ -220,7 +224,7 @@ public class A_star {
             }
         }
         return false;
-        */
+        
         
     }
 
@@ -294,5 +298,57 @@ public class A_star {
 
         
         return min;
+    }
+    
+    
+        public double distFromZero(Node a) {
+        ArrayList<Position> master = new ArrayList<Position>();
+        ArrayList<Position> zero = new ArrayList<Position>();
+
+        for (int w = 0; w < a.state.getW(); w++) {
+            for (int h = 0; h < a.state.getH(); h++) {
+                int piece = a.state.getPiece(w, h);
+                if (piece == 2) {
+                    // add you're position to masterBlock arrayList<Posotion>
+                    master.add(new Position(w, h));
+
+                } else if (piece == 0) {
+                    // you're the zero block add yourself to the zero location
+                    zero.add(new Position(w, h));
+                }
+            }
+        }
+        // Here we know that the master block is on the zero
+        if(zero.isEmpty())
+            return 0;
+        
+        
+        // TODO now that we know where the zero block and master block,
+        //      calculate the difference between them
+        // Hold min distance
+        double max = -1;
+        for (Position mBlock : master) {
+            for (Position gBlock : zero) {
+                // Use the distance formula
+                int tmpX = mBlock.getX() - gBlock.getX();
+                int tmpY = mBlock.getY() - gBlock.getY();
+                /*
+                int tmp = (tmpX * tmpX) + (tmpY * tmpY);
+                double dist = Math.sqrt(tmp);
+                */
+                double dist = tmpX + tmpY;
+                if (max == -1) {
+                    max = dist;
+                } else if (dist > max) {
+                    max = dist;
+                }
+                
+                
+                
+            }
+        }
+
+        
+        return max;
     }
 }
