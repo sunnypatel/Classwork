@@ -1,0 +1,59 @@
+﻿	Level
+	# nodes explored
+	Timing (sec)
+	Length of solution found (# of moves)
+
+	SBP-level0
+	27
+	0
+	11
+
+	SBP-level1
+	680
+	0
+	169
+
+	SBP-level2
+	3539
+	0
+	515
+
+	SBP-level3
+	3560
+	0
+	1331
+
+	SBP-bricks-level1
+	15512
+	6
+	1344
+
+	SBP-bricks-level2
+	10665
+	3
+	3879
+
+	SBP-bricks-level3
+	16567
+	8
+	7127
+
+	SBP-bricks-level4
+	56528
+	2min 9 sec
+	21441
+
+	SBP-bricks-level5
+	13233
+	4 sec
+	4917
+
+	SBP-bricks-level6
+	26870
+	19 sec
+	8449
+
+	SBP-bricks-level7
+	10503
+	3 sec
+	2230
