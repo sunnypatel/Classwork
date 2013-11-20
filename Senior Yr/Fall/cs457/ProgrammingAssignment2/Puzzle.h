@@ -28,8 +28,8 @@ public:
     Position getBlankSq();
     void setBlankSq(Position blankSqPos);
     
-    vector< vector<int> > getBoard();
-    void setBoard(vector< vector<int> > board);
+    vector< vector<int> > *getBoard();
+    void setBoard(vector< vector<int> > &board);
 
     void applyMove(Move move);
     Puzzle applyMoveSeparate(Puzzle state, Move move);

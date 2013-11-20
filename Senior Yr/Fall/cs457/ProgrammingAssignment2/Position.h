@@ -8,7 +8,7 @@
 #ifndef POSITION_H
 #define	POSITION_H
 
-#include "Puzzle.h"
+//#include "Puzzle.h"
 
 class Position {
     
@@ -21,7 +21,7 @@ public:
     int getY();
     void setX(int x);
     void setY(int y);
-    bool outOfBounds(Puzzle state);
+    //bool outOfBounds(Puzzle state);
     
 private:
     int x;

@@ -38,10 +38,10 @@ void Puzzle::applyMove(Move move){
 }
 
 Puzzle Puzzle::applyMoveSeparate(Puzzle state, Move move){
-    Puzzle newState = new Puzzle();
+    Puzzle newState();
     
     // set new state's board
-    newState.setBoard(state.getBoard());
+    newState.setBoard(*state.getBoard());
     // set new state's blankSq pos
     newState.setBlankSq(state.getBlankSq());
     
@@ -65,11 +65,11 @@ void Puzzle::setBlankSq(Position blankSqPos){
     this->blankSqPos = blankSqPos;
 }
 
-vector< <vector<int> > Puzzle::getBoard(){
-    return this->board;
+vector< <vector<int> > *Puzzle::getBoard(){
+    return &this->board;
 } 
 
-void Puzzle::setBoard(vector <vector<int> > board){
+void Puzzle::setBoard(vector <vector<int> > &board){
     this->board = board;
 }
 

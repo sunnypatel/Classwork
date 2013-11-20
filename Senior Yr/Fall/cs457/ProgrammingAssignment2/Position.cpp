@@ -26,9 +26,9 @@ Position::~Position() {
  * @param state
  * @return 
  */
-bool outOfBounds(Puzzle state){
-    return false;
-}
+//bool outOfBounds(Puzzle state){
+  //  return false;
+//}
 
 /**
  * Returns the X coordinate
