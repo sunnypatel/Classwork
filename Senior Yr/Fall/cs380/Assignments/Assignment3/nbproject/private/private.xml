@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/Users/sunnypatel/Fall/cs380/Assignments/Assignment3/src/SlidingBrickPuzzle/Node.java</file>
-        <file>file:/Users/sunnypatel/Fall/cs380/Assignments/Assignment3/src/SlidingBrickPuzzle/A_star.java</file>
-        <file>file:/Users/sunnypatel/Fall/cs380/Assignments/Assignment3/src/SlidingBrickPuzzle/GameBoard.java</file>
-        <file>file:/Users/sunnypatel/Fall/cs380/Assignments/Assignment3/src/SlidingBrickPuzzle/Puzzle.java</file>
-        <file>file:/Users/sunnypatel/Fall/cs380/Assignments/Assignment3/src/SlidingBrickPuzzle/main.java</file>
-    </open-files>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Sunny/Classwork/Senior%20Yr/Fall/cs380/Assignments/Assignment3/src/SlidingBrickPuzzle/OpenedComparator.java</file>
+            <file>file:/C:/Users/Sunny/Classwork/Senior%20Yr/Fall/cs380/Assignments/Assignment3/src/SlidingBrickPuzzle/A_star.java</file>
+            <file>file:/C:/Users/Sunny/Classwork/Senior%20Yr/Fall/cs380/Assignments/Assignment3/src/SlidingBrickPuzzle/main.java</file>
+            <file>file:/C:/Users/Sunny/Classwork/Senior%20Yr/Fall/cs380/Assignments/Assignment3/src/SlidingBrickPuzzle/Puzzle.java</file>
+        </group>
     </open-files>
 </project-private>

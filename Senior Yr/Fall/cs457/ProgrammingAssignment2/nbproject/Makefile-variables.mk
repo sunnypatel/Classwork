@@ -7,21 +7,21 @@ CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
 # Debug configuration
-CND_PLATFORM_Debug=GNU-MacOSX
-CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-MacOSX
+CND_PLATFORM_Debug=None-Windows
+CND_ARTIFACT_DIR_Debug=dist/Debug/None-Windows
 CND_ARTIFACT_NAME_Debug=programmingassignment2
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-MacOSX/programmingassignment2
-CND_PACKAGE_DIR_Debug=dist/Debug/GNU-MacOSX/package
+CND_ARTIFACT_PATH_Debug=dist/Debug/None-Windows/programmingassignment2
+CND_PACKAGE_DIR_Debug=dist/Debug/None-Windows/package
 CND_PACKAGE_NAME_Debug=programmingassignment2.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-MacOSX/package/programmingassignment2.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/None-Windows/package/programmingassignment2.tar
 # Release configuration
-CND_PLATFORM_Release=GNU-MacOSX
-CND_ARTIFACT_DIR_Release=dist/Release/GNU-MacOSX
+CND_PLATFORM_Release=None-Windows
+CND_ARTIFACT_DIR_Release=dist/Release/None-Windows
 CND_ARTIFACT_NAME_Release=programmingassignment2
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-MacOSX/programmingassignment2
-CND_PACKAGE_DIR_Release=dist/Release/GNU-MacOSX/package
+CND_ARTIFACT_PATH_Release=dist/Release/None-Windows/programmingassignment2
+CND_PACKAGE_DIR_Release=dist/Release/None-Windows/package
 CND_PACKAGE_NAME_Release=programmingassignment2.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-MacOSX/package/programmingassignment2.tar
+CND_PACKAGE_PATH_Release=dist/Release/None-Windows/package/programmingassignment2.tar
 #
 # include compiler specific variables
 #
