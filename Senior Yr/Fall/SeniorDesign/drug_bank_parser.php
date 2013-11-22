@@ -28,6 +28,12 @@ $count = 0;
 echo "SizeOf($Drugs)=".sizeof($drugs);
 
 
+//$query = "SELECT drug_id FROM drugs WHERE 'drug_id' = '".$drug['drugbank-id']."'";
+$query = "SELECT drug_id FROM drugs";
+$result = mysql_query($query);
+$loadedData = mysqli_fetch_array($result);
+
+
 for($i=0; $i<sizeof($drugs); $i++){
 	
 		$drug = (array)$drugs[$i];
@@ -36,11 +42,8 @@ for($i=0; $i<sizeof($drugs); $i++){
 		//$fields += $keys;
 		//$fields = array_unique($fields);
 
-		$query = "SELECT drug_id FROM drugs WHERE 'drug_id' = '".$drug['drugbank-id']."'";
-
-			$result = mysql_query($query);
-			echo $result."<br>";
-			if (empty($result)) {
+		
+			if (!in_array($drug['drugbank-id'], $loadedData)) {
 			 $count += insert_drug($drug['drugbank-id'],00,$drug['name'],$drug['description'],$drug['indication'], $drug['pharmacology']);
 			   
 			   // return 1;
