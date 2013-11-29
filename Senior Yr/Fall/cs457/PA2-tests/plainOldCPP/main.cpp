@@ -57,6 +57,8 @@ int main(int argc, char** argv){
 
 			initBoard.setBoard(board);
 			initBoard.printBoard();
+
+
 		}
 	} else {
 		cout << "Missing cmd line args\n";

@@ -10,6 +10,7 @@
 
 #include<vector>
 #include<iostream>
+#include "Move.h"
 
 using namespace std;
 
@@ -29,12 +30,21 @@ public:
 //    void applyMove(Move move);
 //    Puzzle applyMoveSeparate(Puzzle state, Move move);
     
-//    vector<Move> calculateMoves();
+	vector<Move> calculateMoves();
 //    vector<Move> calculateMoves(Puzzle state);
+
+    int findAbovePiece(int index);
+    int findLeftPiece(int index);
+    int findRightPiece(int index);
+    int findBelowPiece(int index);
     
 private:
     vector<int> board;
     int k;
+
+    int findZero();
+
+
 };
 
 #endif	/* PUZZLE_H */

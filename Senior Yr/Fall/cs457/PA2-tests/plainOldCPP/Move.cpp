@@ -16,3 +16,7 @@ Move::Move(const Move& orig) {
 Move::~Move() {
 }
 
+void Move::setPositions(int a, int b){
+	this->pos1 = a;
+	this->pos2 = b;
+}

@@ -8,17 +8,17 @@
 #ifndef MOVE_H
 #define	MOVE_H
 
-#include "Position.h"
-
 class Move {
 
 public:
     Move();
     Move(const Move& orig);
     virtual ~Move();
+
+    void setPositions(int a, int b);
 private:
-    Position pos1;
-    Position pos2;
+    int pos1;
+    int pos2;
     
 };
 
