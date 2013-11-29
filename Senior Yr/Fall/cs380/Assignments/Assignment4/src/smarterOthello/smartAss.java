@@ -12,14 +12,38 @@ import cs380.othello.OthelloState;
  * @author sunnypatel
  */
 public class smartAss extends cs380.othello.OthelloPlayer {
-
-    @Override
-    public OthelloMove getMove(OthelloState state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    int depth;
+    
+    public smartAss(int depth){
+        this.depth = depth;
     }
     
-    public OthelloMove minimaxDecision(OthelloState state){
-        return null;
+    @Override
+    /**
+     * Will search entire min-max tree for the best solution each time
+     */
+    public OthelloMove getMove(OthelloState state) {
+       return minimaxDecision(state, this.depth);
+    }
+    
+    public OthelloMove getMove(OthelloState state, int depth){
+        return minimaxDecision(state, depth);
+    }
+    
+    public OthelloMove minimaxDecision(OthelloState state, int depth){
+        int max =0;
+        OthelloMove curBestMove = null;
+        
+        for(OthelloMove a : state.generateMoves()){
+            
+            int tmpMax = maxValue(state.applyMoveCloning(a), depth);
+            
+            if(tmpMax > max){
+                max = tmpMax;
+                curBestMove = a;
+            }
+        }
+        return curBestMove;
     }
     /**
      * Recrusively traverse tree all the way down to the leaves,
@@ -27,16 +51,19 @@ public class smartAss extends cs380.othello.OthelloPlayer {
      * @param state
      * @return 
      */
-    public int maxValue(OthelloState state){
-        if(state.gameOver()){
+    public int maxValue(OthelloState state, int depth){
+        if(state.gameOver() || (state.generateMoves().isEmpty())){
             return state.score();
         }
+        
+        if(depth == 0)
+            return state.score();
         
         // set some sample score for now as basis
         int v = state.applyMoveCloning(state.generateMoves().get(0)).score();
         
         for(OthelloMove a : state.generateMoves()){
-            int u = minValue(state.applyMoveCloning(a));
+            int u = minValue(state.applyMoveCloning(a), depth--);
             if(u >= v){
                 v = u;
             }
@@ -44,14 +71,17 @@ public class smartAss extends cs380.othello.OthelloPlayer {
         return v;
     }
     
-    public int minValue(OthelloState state){
-        if(state.gameOver()) return state.score();
+    public int minValue(OthelloState state, int depth){
+        if(state.gameOver() || (state.generateMoves().isEmpty())) return state.score();
+        
+        if(depth == 0)
+            return state.score();
         
         // set some sample score for now as basis
         int v = state.applyMoveCloning(state.generateMoves().get(0)).score();
         
         for(OthelloMove a : state.generateMoves()){
-            int u = maxValue(state.applyMoveCloning(a));
+            int u = maxValue(state.applyMoveCloning(a), depth--);
             if(u <= v){
                 v = u;
             }

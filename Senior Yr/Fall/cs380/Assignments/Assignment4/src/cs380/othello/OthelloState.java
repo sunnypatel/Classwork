@@ -195,4 +195,8 @@ public class OthelloState {
         if (player==PLAYER1) return PLAYER2;
         return PLAYER1;
     }
+    
+    public int getNextPlayerToMove(){
+        return this.nextPlayerToMove;
+    }
 }
