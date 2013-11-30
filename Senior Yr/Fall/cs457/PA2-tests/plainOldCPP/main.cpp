@@ -57,7 +57,14 @@ int main(int argc, char** argv){
 
 			initBoard.setBoard(board);
 			initBoard.printBoard();
+			initBoard.printPossibleMoves();
 
+			vector<Move> tmpMoves = initBoard.calculateMoves();
+			cout << "Applying move " ;
+			tmpMoves[0].printMove();
+			cout << endl;
+			initBoard.applyMoveSeparate(initBoard,tmpMoves[0]);
+			initBoard.printBoard();
 
 		}
 	} else {

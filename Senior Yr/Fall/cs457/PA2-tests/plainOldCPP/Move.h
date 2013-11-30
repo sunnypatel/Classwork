@@ -8,17 +8,28 @@
 #ifndef MOVE_H
 #define	MOVE_H
 
+#include <iostream>
+
+using namespace std;
+
 class Move {
 
+    int pos1;
+    int pos2;
+
 public:
-    Move();
+	Move();
+    Move(int, int);
     Move(const Move& orig);
     virtual ~Move();
 
-    void setPositions(int a, int b);
-private:
-    int pos1;
-    int pos2;
+    void setPositions (int, int);
+
+    void printMove();
+
+    int getPos1();
+    int getPos2();
+
     
 };
 

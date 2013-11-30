@@ -15,34 +15,35 @@
 using namespace std;
 
 class Puzzle {
-    
+    vector<int> board;
+    int k;
+
 public:
     Puzzle();
+    Puzzle(const Puzzle& orig);
     Puzzle(int kTmp);
 
     void printBoard();
-    
-    vector<int>* getBoard();
+	void printPossibleMoves();
     void setBoard(int tmpBoard[]);
+    void setBoard(vector<int> tmpBoard);
+
+    vector<int> getBoard();
+
     void setK(int kTmp);
     int getK();
 
-//    void applyMove(Move move);
-//    Puzzle applyMoveSeparate(Puzzle state, Move move);
+	void applyMove(Move move);
+	Puzzle applyMoveSeparate(Puzzle state, Move move);
     
 	vector<Move> calculateMoves();
 //    vector<Move> calculateMoves(Puzzle state);
 
-    int findAbovePiece(int index);
-    int findLeftPiece(int index);
-    int findRightPiece(int index);
-    int findBelowPiece(int index);
-    
-private:
-    vector<int> board;
-    int k;
-
-    int findZero();
+    int findAbovePos(int index);
+    int findLeftPos(int index);
+    int findRightPos(int index);
+    int findBelowPos(int index);
+	int findZero();
 
 
 };

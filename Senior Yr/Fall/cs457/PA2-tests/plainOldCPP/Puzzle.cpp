@@ -17,6 +17,11 @@ Puzzle::Puzzle() {
     }
 }
 
+Puzzle::Puzzle(const Puzzle& orig) {
+    board = orig.board;
+    k = orig.k;
+}
+
 Puzzle::Puzzle(int kTmp){
     this->k = kTmp;
 
@@ -32,6 +37,17 @@ void Puzzle::setBoard(int tmpBoard[]){
         board[i] = tmpBoard[i];
     }
 
+}
+
+void Puzzle::setBoard(vector<int> tmpBoard){
+    int kSq = k*k;
+    for(int i=0; i < kSq; i++){
+        board[i] = tmpBoard[i];
+    }   
+}
+
+vector<int> Puzzle::getBoard(){
+    return this->board;
 }
 
 void Puzzle::setK(int kTmp){
@@ -54,81 +70,95 @@ void Puzzle::printBoard(){
     cout << "\n";
 }
 
+/**
+    Find all possible moves for moving the zero
+    @return vector of moves
+*/
 vector<Move> Puzzle::calculateMoves(){
     vector<Move> possibleMoves;
-
-
+    
     int zeroPosIndex = this->findZero();
+    int abovePos = this->findAbovePos(zeroPosIndex);
 
-    Move moveAbove;
-    moveAbove.setPositions(0, this->getAbovePiece(zeroPosIndex));
-    possibleMoves.push_back(moveAbove);
+    if(abovePos != -1) {
+        Move moveAbove(zeroPosIndex, abovePos);
+        possibleMoves.push_back(moveAbove);
 
+    }
 
     
-    int leftPiece = this->getLeftPiece(zeroPosIndex);
-    if(leftPiece != -1) {
-        Move moveLeft;
-        moveLeft.setPositions(0, leftPiece);
+    int leftPos = this->findLeftPos(zeroPosIndex);
+    if(leftPos != -1) {
+        Move moveLeft(zeroPosIndex, leftPos);
         possibleMoves.push_back(moveLeft);
     }
 
-    int rightPiece =  this->getRightPiece(zeroPosIndex);
-    if(rightPiece != -1) {
-        Move moveRight;
-        moveRight.setPositions(0, rightPiece);
+    int rightPos =  this->findRightPos(zeroPosIndex);
+    if(rightPos != -1) {
+        Move moveRight(zeroPosIndex, rightPos);
         possibleMoves.push_back(moveRight);
     }
 
-    int belowPiece = this->getBelowPiece(zeroPosIndex);
-    if(belowPiece != -1) {
-        Move moveBelow;
-        moveBelow.setPositions(0, belowPiece);
+    int belowPos = this->findBelowPos(zeroPosIndex);
+    if(belowPos != -1) {
+        Move moveBelow(zeroPosIndex, belowPos);
         possibleMoves.push_back(moveBelow);
+    }
+
+    return possibleMoves;
+}
+
+void Puzzle::printPossibleMoves(){
+    vector<Move> possibleMoves = this->calculateMoves();
+
+
+    for(int i=0; i<possibleMoves.size(); i++){\
+        possibleMoves[i].printMove();
+        cout << endl;
     }
 }
 
-/*void Puzzle::applyMove(Move move){
-    
+void Puzzle::applyMove(Move move){
+    int pos1 = move.getPos1();
+    int pos2 = move.getPos2();
+
+    int tmpPiece = board[pos2];
+    board[pos2] = board[pos1];
+    board[pos1] = tmpPiece;
 }
+
+
 Puzzle Puzzle::applyMoveSeparate(Puzzle state, Move move){
-    Puzzle newState;
+    Puzzle newState(state);
     
     // set new state's board
-    newState.setBoard(state.getBoard());
-
+    //newState.setBoard(state.getBoard());
     
-    
+    newState.applyMove(move);
+    newState.printBoard();
     return newState;
 }
 
-
-
-vector<Move> Puzzle::calculateMoves(Puzzle state){
-    
-}
-
-*/
 
 /**
 Return the piece above the piece at the index,
 return -1 if off of board
 */
-int Puzzle::findAbovePiece(int index){
+int Puzzle::findAbovePos(int index){
 
     int abovePos = index - k;
 
     if((abovePos) < 0)  // out of bounds
         return -1;
     else
-        return board[abovePos];
+        return abovePos;
 }
 
 /**
 Return the piece left the piece at the index,
 return -1 if off of board
 */
-int Puzzle::findLeftPiece(int index){
+int Puzzle::findLeftPos(int index){
     if( (index % k) == 0)
         return -1;
 
@@ -137,34 +167,34 @@ int Puzzle::findLeftPiece(int index){
     if( (leftPos+1 % k) == 0)
         return -1;
     else
-        return board[leftPos];
+        return leftPos;
 }
 
 /**
 Return the piece to the right of the piece at the index,
 return -1 if off of board
 */
-int Puzzle::findRightPiece(int index){
+int Puzzle::findRightPos(int index){
     int rightPos = index + 1;
 
     if ( (rightPos % k) == 0)
         return -1;
     else 
-        return board[rightPos];
+        return rightPos;
 }
 
 /**
 Return the piece below the piece at the index,
 return -1 if off of board
 */
-int Puzzle::findBelowPiece(int index){
+int Puzzle::findBelowPos(int index){
     int belowPiece = index + k;
     int kSq = k*k;
 
     if((belowPiece) >= kSq)
         return -1;
     else
-        return board[belowPiece];
+        return belowPiece;
 }
 
 
