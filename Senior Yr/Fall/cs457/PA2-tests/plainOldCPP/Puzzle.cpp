@@ -60,14 +60,22 @@ int Puzzle::getK(){
 }
 
 void Puzzle::printBoard(){
-
+    ofstream myfile;
+    myfile.open("./output/output_test", ios::app);
     for(int y=0; y < (this->k * this->k); y++){
         cout << "[" << this->board[y] << "]";
-
-        if( (y+1)%k == 0 )
+        myfile << "[" << this->board[y] << "]";
+        
+        if( (y+1)%k == 0 ){
+            myfile << "\n";
             cout << "\n";
+        }
+            
     }
     cout << "\n";
+    myfile << "\n";
+
+    myfile.close();
 }
 bool Puzzle::compare(Puzzle* p){
     for(int i=0; i<board.size(); i++){
@@ -84,6 +92,7 @@ vector<Move> Puzzle::calculateMoves(){
     vector<Move> possibleMoves;
     
     int zeroPosIndex = this->findPiece(0);
+   // cout << "zeroPos=" << zeroPosIndex << endl;
     int abovePos = this->findAbovePos(zeroPosIndex);
 
     if(abovePos != -1) {

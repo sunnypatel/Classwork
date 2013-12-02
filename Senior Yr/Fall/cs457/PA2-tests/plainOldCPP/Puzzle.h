@@ -11,7 +11,8 @@
 #include<vector>
 #include<iostream>
 #include "Move.h"
-
+#include <fstream>
+ 
 using namespace std;
 
 class Puzzle {

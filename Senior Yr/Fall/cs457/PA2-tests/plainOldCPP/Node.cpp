@@ -1,15 +1,17 @@
 #include "Node.h"
 
 Node::Node(){
+	parent = NULL;
 	h=0;
 	g=0;
+	depth = 0;
 }
 
 Node::Node(Node* parentTmp){
-	this->parent = parentTmp;
+	parent = parentTmp;
 	h = 0;
 	g = 0;
-
+	depth = 0;
 }
 
 Node::Node(const Node& orig){
@@ -20,24 +22,22 @@ Node::Node(const Node& orig){
     g = orig.g;
     h = orig.h;
     state = orig.state;
+    movesSoFar = orig.movesSoFar;
 }
 
 Node::~Node(){
 
 }
 
-bool Node::operator()(Node& n1, Node& n2){
-
-	int n1F = n1.g + n1.h;
-	int n2F = n1.g + n1.h;
-
-	if(n1F < n2F)
-		return true;
-
-	return false;
+void Node::setParent(Node p){
+	parent = &p;
 }
 
-void Node::addChild(Node* child){
+void Node::addMove(Move move){
+	movesSoFar.push_back(move);
+}
+
+void Node::addChild(Node child){
 	children.push_back(child);
 }
 
