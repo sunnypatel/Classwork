@@ -69,7 +69,13 @@ void Puzzle::printBoard(){
     }
     cout << "\n";
 }
-
+bool Puzzle::compare(Puzzle* p){
+    for(int i=0; i<board.size(); i++){
+        if(p->board[i] != board[i])
+            return false;
+    }
+    return true;
+}
 /**
     Find all possible moves for moving the zero
     @return vector of moves
@@ -134,7 +140,12 @@ Puzzle Puzzle::applyMoveSeparate(Puzzle state, Move move){
 
     return newState;
 }
+Puzzle Puzzle::applyMoveSeparate(Move move){
+    Puzzle newState(*this);
+    newState.applyMove(move);
 
+    return newState;
+}
 
 /**
 Return the piece above the piece at the index,

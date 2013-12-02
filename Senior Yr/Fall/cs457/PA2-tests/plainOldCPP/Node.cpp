@@ -40,3 +40,10 @@ bool Node::operator()(Node& n1, Node& n2){
 void Node::addChild(Node* child){
 	children.push_back(child);
 }
+
+bool Node::equals(Node* n){
+	if((n->move.equals(&this->move)) && (this->state.compare(&n->state)))
+		return true;
+
+	return false;
+}

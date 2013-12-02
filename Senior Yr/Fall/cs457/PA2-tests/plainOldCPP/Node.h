@@ -25,7 +25,7 @@ public:
     int depth;
     double g;
     double h;
-    Puzzle* state;
+    Puzzle state;
 
 
 	Node();
@@ -36,7 +36,7 @@ public:
     void addChild(Node*);
 
     bool operator()(Node& n1, Node& n2);
-
+    bool equals(Node* n);
 };
 
 #endif	/* NODE_H */

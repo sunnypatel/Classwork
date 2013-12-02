@@ -29,7 +29,7 @@ public:
 
     int getPos1();
     int getPos2();
-
+    bool equals(Move* m);
     
 };
 

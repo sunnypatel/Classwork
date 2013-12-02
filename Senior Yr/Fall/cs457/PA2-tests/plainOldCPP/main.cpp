@@ -67,10 +67,10 @@ int main(int argc, char** argv){
 			initBoard.printBoard();
 
 
-			Astar alg;
-			cout << "Dist of 6= " << alg.distanceFromGoal(6, 4, 3) << endl;
-			cout << "Dist of 7= " << alg.distanceFromGoal(7, 2, 3) << endl;
-			cout << "Dist of 8= " << alg.distanceFromGoal(8, 7, 3) << endl;
+			Astar alg(initBoard);
+			cout << "Dist of 6= " << alg.distanceFromGoal(6, 6, 3) << endl;
+			cout << "Dist of 7= " << alg.distanceFromGoal(7, 7, 3) << endl;
+			cout << "Dist of 8= " << alg.distanceFromGoal(8, 8, 3) << endl;
 
 			cout << "Dist of 0= " << alg.distanceFromGoal(0, 6, 3) << endl;
 			cout << "Dist of 1= " << alg.distanceFromGoal(1, 3, 3) << endl;

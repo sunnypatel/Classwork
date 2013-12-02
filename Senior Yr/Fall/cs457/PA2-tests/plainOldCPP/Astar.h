@@ -25,12 +25,15 @@ class Astar {
 
 public:
     Astar();
+    Astar(Puzzle initState);
     Astar(const Astar& orig);
     ~Astar();
    
     void Astar_search(Node*);
     int heuristic(Node*);
     int distanceFromGoal(int, int, int);
+    bool goalTest(Node* n);
+    bool checkIfClosed(Node* child);
 };
 
 #endif	/* ASTAR_H */

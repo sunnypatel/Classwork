@@ -15,10 +15,11 @@
 using namespace std;
 
 class Puzzle {
+
+public:
     vector<int> board;
     int k;
 
-public:
     Puzzle();
     Puzzle(const Puzzle& orig);
     Puzzle(int kTmp);
@@ -27,7 +28,7 @@ public:
 	void printPossibleMoves();
     void setBoard(int tmpBoard[]);
     void setBoard(vector<int> tmpBoard);
-
+    bool compare(Puzzle*);
     vector<int> getBoard();
 
     void setK(int kTmp);
@@ -35,9 +36,10 @@ public:
 
 	void applyMove(Move move);
 	Puzzle applyMoveSeparate(Puzzle state, Move move);
-    
+    Puzzle applyMoveSeparate(Move move);
+
 	vector<Move> calculateMoves();
-//    vector<Move> calculateMoves(Puzzle state);
+
 
     int findAbovePos(int index);
     int findLeftPos(int index);
