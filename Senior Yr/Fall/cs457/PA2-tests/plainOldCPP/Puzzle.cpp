@@ -130,12 +130,8 @@ void Puzzle::applyMove(Move move){
 
 Puzzle Puzzle::applyMoveSeparate(Puzzle state, Move move){
     Puzzle newState(state);
-    
-    // set new state's board
-    //newState.setBoard(state.getBoard());
-    
     newState.applyMove(move);
-    newState.printBoard();
+
     return newState;
 }
 

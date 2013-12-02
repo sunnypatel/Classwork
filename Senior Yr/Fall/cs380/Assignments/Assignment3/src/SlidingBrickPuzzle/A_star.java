@@ -44,82 +44,22 @@ public class A_star {
         opened.add(start);
         
         while (!opened.isEmpty()) {
-            
-            // Print out the open array
-            
-            
-      /*
-            for( Node open : opened){
-                if(open.move != null){
-                open.move.printMove();
-               System.out.print("  |  ");
-                }
-            }
-            System.out.println();
-            for( Node open : opened){
-                if(open.move != null){
-                System.out.print("  f()=  "+(open.g+open.h) + "  ");
-                }
-            }
-            System.out.println();
-     */
-            
-            
-            
-            
-           // Node n = this.removeLowestF(opened);
+
             Node n = opened.poll();
-      /*
-            if(n.move != null){
-                System.out.print("Picked:");
-                n.move.printMove();
-                System.out.println();
-            }
-       */
+
             if (this.goalTest(n)) {
                 // return path to n
-                //System.out.println("Solved!");
-                
+
                 this.printPath(n);
                 System.out.println("# of Explored nodes: " + closed.size());
                 n.state.printDimensions();
                 n.state.printBoard();
                 return;
             }
-            // The linkedList with all nodes of the same h
-            // adding nodes to closed list, hopefully...
-         /*   double distFromZero = this.distFromZero(n);
-            if(closed.get(distFromZero) != null){
-                closed.get(distFromZero).addFirst(n);
-            } else{
-                LinkedList<Node> tmp = new LinkedList<Node>();
-                tmp.addFirst(n);
-                closed.put(distFromZero, tmp);
-            }
-            */
+
            closed.add(n);
             
             ArrayList<Move> allMoves = n.state.calculateAllMoves(n.state);
-            
-            
-       /*
-           System.out.println();
-            System.out.println("************");
-            n.state.printBoard();
-           // System.out.println("g= " +n.g);
-           // System.out.println("h= " +n.h);
-            
-            System.out.println("List all possible moves:");
-            System.out.println("l=left, r=right, u=up, b=bottom");
-       
-            for (Move move : allMoves){
-                System.out.println("allMoves="+move.getPiece()+" to "+ move.getDirection());
-            }
-            
-       
-            System.out.println("************");
-            System.out.println();
-        */
             
             
             // create children
