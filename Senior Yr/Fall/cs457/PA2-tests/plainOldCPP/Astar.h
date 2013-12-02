@@ -30,6 +30,7 @@ public:
     ~Astar();
    
     void Astar_search(Node*);
+    void Astar_search();
     int heuristic(Node*);
     int distanceFromGoal(int, int, int);
     bool goalTest(Node* n);

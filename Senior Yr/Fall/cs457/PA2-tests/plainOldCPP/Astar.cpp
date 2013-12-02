@@ -1,26 +1,32 @@
 #include "Astar.h"
 
 Astar::Astar(){
-	
+
 }
 
 Astar::Astar(Puzzle initState){
-	Node root;
+	root.g =0;
+	root.h = 0;
 	root.state = initState;
+	//root.state.printBoard();
 }
 
 Astar::~Astar(){
 
 }
 
-void Astar::Astar_search(Node* root){
-	root->g = 0;
-	root->h = heuristic(root);
+void Astar::Astar_search(){
+	root.g = 0;
+	root.h = heuristic(&root);
 
 	opened.push(root);
 
 	while(!opened.empty()){
-		Node n = opened.top();
+		
+		Node n(opened.top());
+		cout << "openning --" << n.h << endl;
+		
+
 		opened.pop();
 
 		if(goalTest(&n)){
@@ -38,6 +44,8 @@ void Astar::Astar_search(Node* root){
 			newChild.move = allMoves[moveInx];
 			
 			newChild.state = n.state.applyMoveSeparate(allMoves[moveInx]);
+			
+			//newChild.state.printBoard();
 
 			newChild.h = heuristic(&newChild);
 
@@ -73,7 +81,7 @@ int Astar::heuristic(Node* a){
 	int h = 0;
 	Puzzle* tmp = &a->state;
 
-	for(int i=0; tmp->getBoard().size() ; i++){
+	for(int i=0; i < tmp->getBoard().size() ; i++){
 		h = h + distanceFromGoal(tmp->findAt(i), i, tmp->getK());
 	}
 	return h;

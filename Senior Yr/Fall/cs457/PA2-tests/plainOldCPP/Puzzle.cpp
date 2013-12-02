@@ -215,5 +215,6 @@ int Puzzle::findPiece(int piece){
 }
 
 int Puzzle::findAt(int pos){
+    //cout << "in findAt(" << pos << ")" << endl; 
     return board[pos];
 }
