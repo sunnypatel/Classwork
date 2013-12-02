@@ -43,8 +43,8 @@ public:
     int findLeftPos(int index);
     int findRightPos(int index);
     int findBelowPos(int index);
-	int findZero();
-
+	int findPiece(int);
+    int findAt(int pos);
 
 };
 

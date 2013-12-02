@@ -1,7 +1,8 @@
 #include "Node.h"
 
 Node::Node(){
-
+	h=0;
+	g=0;
 }
 
 Node::Node(Node* parentTmp){

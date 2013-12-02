@@ -77,7 +77,7 @@ void Puzzle::printBoard(){
 vector<Move> Puzzle::calculateMoves(){
     vector<Move> possibleMoves;
     
-    int zeroPosIndex = this->findZero();
+    int zeroPosIndex = this->findPiece(0);
     int abovePos = this->findAbovePos(zeroPosIndex);
 
     if(abovePos != -1) {
@@ -194,12 +194,15 @@ int Puzzle::findBelowPos(int index){
 }
 
 
-int Puzzle::findZero(){
+int Puzzle::findPiece(int piece){
     int kSq = k*k;
 
     for(int i=0; i < kSq; i++){
-        if(board[i] == 0)
+        if(board[i] == piece)
             return i;
     }    
 }
 
+int Puzzle::findAt(int pos){
+    return board[pos];
+}

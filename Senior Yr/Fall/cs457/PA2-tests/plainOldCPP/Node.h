@@ -17,6 +17,8 @@
 using namespace std;
 
 class Node {
+
+public:
     Node* parent;
     vector<Node*> children;
     Move move;
@@ -25,7 +27,7 @@ class Node {
     double h;
     Puzzle* state;
 
-public:
+
 	Node();
     Node(Node*);
     Node(const Node& orig);

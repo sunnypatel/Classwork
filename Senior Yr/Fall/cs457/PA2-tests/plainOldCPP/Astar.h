@@ -12,7 +12,9 @@
 #include <iostream>
 #include <queue>
 #include "Puzzle.h"
- #include "Node.h"
+#include "Node.h"
+#include <math.h>
+#include <cmath>
 
 using namespace std;
 
@@ -28,7 +30,7 @@ public:
    
     void Astar_search(Node*);
     int heuristic(Node*);
-    int distanceFromGoal(int, int);
+    int distanceFromGoal(int, int, int);
 };
 
 #endif	/* ASTAR_H */
