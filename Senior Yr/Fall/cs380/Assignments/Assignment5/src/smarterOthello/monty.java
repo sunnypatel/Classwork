@@ -5,6 +5,7 @@
 package smarterOthello;
 
 import cs380.othello.*;
+import java.util.List;
 
 /**
  *
@@ -52,5 +53,18 @@ public class monty {
         }
 
         return returnChild;
+    }
+    
+    public Node treePolicy(Node node){
+        // If 'node' still has any children that are not in the tree,
+        // then it generates one of those children ('newnode'),
+        // it adds 'newnode' as a child to 'node', and returns 'newnode'.
+        if(node.children.isEmpty()){
+            
+            List<OthelloMove> possibleMoves = node.state.generateMoves();
+            
+        }
+        
+        return null;
     }
 }
