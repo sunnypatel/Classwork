@@ -267,4 +267,14 @@ public class OthelloState {
     public int getNextPlayerToMove(){
         return this.nextPlayerToMove;
     }
+    
+    /**
+     * Import board
+     */
+    public void importBoard(int[][] board){
+        if(board[0].length > 0){
+            this.board = board;
+            this.boardSize = board[0].length;
+        }
+    }
 }
