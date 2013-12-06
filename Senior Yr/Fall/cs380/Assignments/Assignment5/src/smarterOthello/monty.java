@@ -13,10 +13,54 @@ import java.util.Random;
  *
  * @author sunnypatel
  */
-public class monty {
+public class monty extends OthelloPlayer {
     public monty(){
         
     }
+    
+    @Override
+    public OthelloMove getMove(OthelloState state) {
+        int iterations = 100000;
+        return this.MonteCarloTreeSearch(state, iterations).move;
+    }    
+    /**
+     * MonteCarloTreeSearch(board,iterations):
+        root = createNode(board);
+        for i = 0...iterations:
+          node = treePolicy(root);
+          if (node!=null)
+            node2 = defaultPolicy(node);
+            Node2Score = score(node2);
+            backup(node,Node2Score);
+        return action(bestChild(root))
+     * @param board
+     * @return 
+     */
+    public Node MonteCarloTreeSearch(int[][] board, int iterations){
+        Node root = createNode(board);
+        for(int i=0; i<iterations; i++){
+            Node node = treePolicy(root);
+            if(node!=null){
+                Node node2 = defaultPolicy(node);
+                int node2Score = score(node2);
+                backup(node, node2Score);
+            }
+        }
+        return bestChild(root);
+    }
+    
+    public Node MonteCarloTreeSearch(OthelloState state, int iterations){
+        Node root = new Node(null, state);
+        for(int i=0; i<iterations; i++){
+            Node node = treePolicy(root);
+            if(node!=null){
+                Node node2 = defaultPolicy(node);
+                int node2Score = score(node2);
+                backup(node, node2Score);
+            }
+        }
+        return bestChild(root);
+    }    
     
     public Node createNode(int[][] board){
         Node newNode = new Node();
@@ -109,7 +153,7 @@ public class monty {
      * This function just uses the random agent to select actions at random for each player,
      * until the game is over, and returns the final state of the game.
      */
-    public OthelloState defaultPolicy(Node node){
+    public Node defaultPolicy(Node node){
         OthelloRandomPlayer randomPlayer = new OthelloRandomPlayer();
         List<OthelloMove> possibleMoves = node.state.generateMoves();
         
@@ -124,6 +168,34 @@ public class monty {
                 gameOver = true;
         }
         
-        return tmpNode.state;
+        return tmpNode;
     }
+    
+    /**
+     * Returns the score of the game.
+     * 
+     * @param node
+     * @return 
+     */
+    public int score(Node node){
+        return node.state.score();
+    }
+    
+    /**
+     * Increments in 1 the number of times "node" has been visited,
+     * and updates the average score in "node" with the value "score"
+     * If "node" has a parent, then it calls "backup(node.parent,score)".
+     * @param node
+     * @param score 
+     */
+    public void backup(Node node, int score){
+        node.visitCount++;
+        node.avgScore = score;
+        
+        if(node.parent != null){
+            this.backup(node.parent, score);
+        }
+    }
+
+
 }

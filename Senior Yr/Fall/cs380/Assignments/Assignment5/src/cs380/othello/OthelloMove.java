@@ -23,6 +23,8 @@ public class OthelloMove {
     }
     
     public boolean equals(OthelloMove move){
+        if(move==null)
+            return false;
         if(move.x != this.x)
             return false;
         if(move.y != this.y)
