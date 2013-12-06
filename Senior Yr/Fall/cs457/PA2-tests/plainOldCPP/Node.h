@@ -17,24 +17,27 @@
 using namespace std;
 
 class Node {
+
+public:
     Node* parent;
-    vector<Node*> children;
+    vector<Node> children;
     Move move;
     int depth;
     double g;
     double h;
-    Puzzle* state;
+    Puzzle state;
+    vector<Move> movesSoFar;
 
-public:
 	Node();
     Node(Node*);
     Node(const Node& orig);
     ~Node();
    
-    void addChild(Node*);
-
+    void addChild(Node);
+    void addMove(Move);
+    void setParent(Node p);
     bool operator()(Node& n1, Node& n2);
-
+    bool equals(Node* n);
 };
 
 #endif	/* NODE_H */

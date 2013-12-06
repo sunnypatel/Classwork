@@ -40,3 +40,9 @@ int Move::getPos1(){
 int Move::getPos2(){
 	return this->pos2;
 }
+
+bool Move::equals(Move* m){
+	if( (m->getPos1() == this->getPos1()) && (m->getPos2() == this->getPos2()))
+		return true;
+	return false;
+}

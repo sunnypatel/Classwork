@@ -4,7 +4,7 @@
 #include <stdlib.h>     /* atoi */
 #include <stdio.h>
 #include "Puzzle.h"
-
+#include "Astar.h"
 
 using namespace std;
 
@@ -57,15 +57,27 @@ int main(int argc, char** argv){
 
 			initBoard.setBoard(board);
 			initBoard.printBoard();
-			initBoard.printPossibleMoves();
+	/*		initBoard.printPossibleMoves();
 
 			vector<Move> tmpMoves = initBoard.calculateMoves();
 			cout << "Applying move " ;
-			tmpMoves[0].printMove();
+			/*tmpMoves[0].printMove();
 			cout << endl;
-			initBoard.applyMoveSeparate(initBoard,tmpMoves[0]);
+			initBoard.applyMove(tmpMoves[0]);
 			initBoard.printBoard();
+	*/
 
+			Astar alg(initBoard);
+			vector<Move> solution = alg.Astar_search();	
+			ofstream myfile;
+    		myfile.open(outputFileName);
+    		
+    		myfile << "#k" << endl;
+    		myfile << inputSize << endl;
+    		myfile << "#moves" << endl;
+    		for(int y=0; y < (solution.size()); y++){
+    			myfile << solution[i].getPos1() << " ";
+    		}
 		}
 	} else {
 		cout << "Missing cmd line args\n";

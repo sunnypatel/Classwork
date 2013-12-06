@@ -60,16 +60,30 @@ int Puzzle::getK(){
 }
 
 void Puzzle::printBoard(){
-
+    ofstream myfile;
+    myfile.open("./output/output_test", ios::app);
     for(int y=0; y < (this->k * this->k); y++){
         cout << "[" << this->board[y] << "]";
-
-        if( (y+1)%k == 0 )
+        myfile << "[" << this->board[y] << "]";
+        
+        if( (y+1)%k == 0 ){
+            myfile << "\n";
             cout << "\n";
+        }
+            
     }
     cout << "\n";
-}
+    myfile << "\n";
 
+    myfile.close();
+}
+bool Puzzle::compare(Puzzle* p){
+    for(int i=0; i<board.size(); i++){
+        if(p->board[i] != board[i])
+            return false;
+    }
+    return true;
+}
 /**
     Find all possible moves for moving the zero
     @return vector of moves
@@ -77,7 +91,8 @@ void Puzzle::printBoard(){
 vector<Move> Puzzle::calculateMoves(){
     vector<Move> possibleMoves;
     
-    int zeroPosIndex = this->findZero();
+    int zeroPosIndex = this->findPiece(0);
+   // cout << "zeroPos=" << zeroPosIndex << endl;
     int abovePos = this->findAbovePos(zeroPosIndex);
 
     if(abovePos != -1) {
@@ -134,7 +149,12 @@ Puzzle Puzzle::applyMoveSeparate(Puzzle state, Move move){
 
     return newState;
 }
+Puzzle Puzzle::applyMoveSeparate(Move move){
+    Puzzle newState(*this);
+    newState.applyMove(move);
 
+    return newState;
+}
 
 /**
 Return the piece above the piece at the index,
@@ -194,12 +214,16 @@ int Puzzle::findBelowPos(int index){
 }
 
 
-int Puzzle::findZero(){
+int Puzzle::findPiece(int piece){
     int kSq = k*k;
 
     for(int i=0; i < kSq; i++){
-        if(board[i] == 0)
+        if(board[i] == piece)
             return i;
     }    
 }
 
+int Puzzle::findAt(int pos){
+    //cout << "in findAt(" << pos << ")" << endl; 
+    return board[pos];
+}
