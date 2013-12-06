@@ -1,0 +1,3 @@
+After playing a few games I realized it is more important to have pieces which are surrounded by your own pieces than the number of pieces you have.
+My customEval function in cs380.othello.OthelloState does just that.  For each piece it checks the surrounding pieces and the more pieces of the same player the piece has surrounding it the higher the score gets for that piece.
+So from this each piece can get a score from 1 - 8 that's positive for player1 and negative for player2.
