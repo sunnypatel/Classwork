@@ -32,12 +32,20 @@ public class Node {
     
     public Node(Node parent, OthelloMove move){
         this.parent = parent;
+        this.state = null;
         children = new ArrayList<Node>();
         this.move = move;
         visitCount = 0;
         avgScore = 0;
     }
-    
+    public Node(Node parent, OthelloState state){
+        this.parent = parent;
+        this.state = state;
+        children = new ArrayList<Node>();
+        this.move = move;
+        visitCount = 0;
+        avgScore = 0;
+    }
     public void addChild(Node child){
         children.add(child);
     }
