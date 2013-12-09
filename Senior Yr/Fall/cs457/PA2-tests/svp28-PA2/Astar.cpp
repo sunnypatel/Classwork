@@ -127,25 +127,30 @@ bool Astar::checkIfClosed(Node* child){
 
 bool Astar::goalTest(Node* n){
 	vector<int> tmpBoard = n->state.board;
-
-/*	for(int i=0; i< tmpBoard.size(); i++){
+	cout << "IN GOALTEST" << endl;
+	n->state.printBoard();
+	/*
+	for(int i=0; i< tmpBoard.size(); i++){
+		cout << "i=" << i << " | " << "tmpBoard[i]= " << tmpBoard[i] << endl;
+		
 		if( i == 15){
-			if(tmpBoard[15] != 0)
+			if(tmpBoard[15] != 0){
 				return false;
-		}
-		if(tmpBoard[i] != i+1)
+			}
+		} else if (tmpBoard[i] != (i+1)) {
 			return false;
+		}	
 
-
-	}
-*/
-	sleep(100);		
+	}*/
+	
+	
 	if(heuristic(n) == 0)
 		return true;
 	else
 		return false;
 	
 	cout << "IN GOALTEST = TRUE" << endl;
+	//sleep(10);
 	return true;
 	
 }
@@ -179,12 +184,20 @@ int Astar::distanceFromGoal(int piece, int pos, int k){
 	}
 
 
+	pos = pos + 1;
 	// X2 and Y2 is the position of piece in the current puzzle state
 	x2 = pos % k;
 	y2 = ((pos - x2) / k) + 1;
 
 	// use the variation of distance formula
 	int dist = abs(x1 - x2) + abs(y1 - y2);
+
+	if(piece < 15){
+		cout << x1 << " " << x2 << " " << y1 << " " << y2 << endl;
+		cout << "piece=" << piece << " pos= " << pos << " dist=" << dist << endl;
+
+		sleep(1);
+	}
 
 	// if i calulated this correctly, it should be the manhattan distance 
 	return dist;
