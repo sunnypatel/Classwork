@@ -22,8 +22,11 @@ struct CompareNode {
     bool operator()(Node const & n1, Node const & n2) {
         // return "true" if "p1" is ordered before "p2", for example:
         int n1F = n1.g + n1.h;
-        int n2F = n2.g + n1.h;
-        return n1F < n2F;
+        int n2F = n2.g + n2.h;
+
+				if(n2F < n1F)
+					return true;
+				return false;
     }
 };
 

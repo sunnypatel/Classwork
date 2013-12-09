@@ -53,12 +53,14 @@ vector<Move> Astar::Astar_search(){
 		//Applyingcout << "openning --" << (n.h + n.g)<< endl;
 		//cout << "Astar_search while loop";
 		//n.state.printBoard();
-
+	cout << "888888 REMOVEING 888888888 | open.size()=" << opened.size();
 		opened.pop();
+		cout << "  |   opened.size() after pop() = " << opened.size() << endl;
 		cout << " ** Node n popped from open **" << endl;
 		n.state.printBoard();
-		cout << " n.f = " << (n.h + n.g) << endl;
 		
+		cout << " n.f = " << (n.h + n.g) << endl;
+	
 		if(goalTest(&n)){
 			cout << "goal reached!" << endl;
 			return printPath(&n);
@@ -81,25 +83,27 @@ vector<Move> Astar::Astar_search(){
 
 			newChild.state = n.state.applyMoveSeparate(allMoves[moveInx]);
 			
-			cout << "--- adding child ---" << endl;
-			newChild.state.printBoard();
 			newChild.h = heuristic(&newChild);
-			cout << " f = " << (newChild.h + newChild.g)<< endl;
-			cout << endl;
 
 
 			if(!checkIfClosed(&newChild)){
+			cout << "--- adding child ---" << endl;
+				newChild.state.printBoard();
+			cout << " f = " << (newChild.h + newChild.g)<< endl;
+			cout << endl;
+		
 				n.addChild(newChild);
 				opened.push(newChild);
 			}
 		}
 		cout << "open size : " << opened.size() << endl;
 		cout << "closed size : " << closed.size() << endl;
-		if(opened.size() % 5 == 0){
+		/*if(opened.size() == 100){
 		//	cout << "open size : " << opened.size() << endl;
-
+			cout << "********** printing open ****** " << endl;
+			printOpen();	
 		}
-
+		*/
 	}
 }
 
@@ -122,10 +126,28 @@ bool Astar::checkIfClosed(Node* child){
 }
 
 bool Astar::goalTest(Node* n){
+	vector<int> tmpBoard = n->state.board;
+
+/*	for(int i=0; i< tmpBoard.size(); i++){
+		if( i == 15){
+			if(tmpBoard[15] != 0)
+				return false;
+		}
+		if(tmpBoard[i] != i+1)
+			return false;
+
+
+	}
+*/
+	sleep(100);		
 	if(heuristic(n) == 0)
 		return true;
 	else
 		return false;
+	
+	cout << "IN GOALTEST = TRUE" << endl;
+	return true;
+	
 }
 
 int Astar::heuristic(Node* a){
@@ -135,6 +157,7 @@ int Astar::heuristic(Node* a){
 	for(int i=0; i < tmp->getBoard().size() ; i++){
 		h = h + distanceFromGoal(tmp->findAt(i), i, tmp->getK());
 	}
+		
 	return h;
 }
 
@@ -145,13 +168,16 @@ int Astar::distanceFromGoal(int piece, int pos, int k){
 	int y1=0;
 	int y2=0;
 
-	piece = piece - 1;
-	if(piece == 0)
-		piece = (k*k)-1;
+	//piece = piece - 1;
+	if(piece == 0) {
+		x1 = k-1;
+		y1 = k-1;
+	} else {
+	  // X1 and Y1 is the position of the piece in the solved puzzle board
+		x1 = piece % k;
+		y1 = ((piece - x1) / k) + 1;  // which 'row' piece is on in the solved puzzle
+	}
 
-	// X1 and Y1 is the position of the piece in the solved puzzle board
-	x1 = piece % k;
-	y1 = ((piece - x1) / k) + 1;  // which 'row' piece is on in the solved puzzle
 
 	// X2 and Y2 is the position of piece in the current puzzle state
 	x2 = pos % k;
@@ -159,7 +185,6 @@ int Astar::distanceFromGoal(int piece, int pos, int k){
 
 	// use the variation of distance formula
 	int dist = abs(x1 - x2) + abs(y1 - y2);
-	
 
 	// if i calulated this correctly, it should be the manhattan distance 
 	return dist;
