@@ -41,7 +41,7 @@ public:
 
 	vector<Move> calculateMoves();
 
-
+    int computeHash();
     int findAbovePos(int index);
     int findLeftPos(int index);
     int findRightPos(int index);

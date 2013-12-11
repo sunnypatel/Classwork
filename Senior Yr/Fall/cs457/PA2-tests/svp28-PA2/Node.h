@@ -23,6 +23,7 @@ public:
     vector<Node> children;
     Move move;
     int depth;
+    int hash;
     double g;
     double h;
     Puzzle state;

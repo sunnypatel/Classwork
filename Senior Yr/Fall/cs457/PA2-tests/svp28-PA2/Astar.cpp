@@ -53,9 +53,9 @@ vector<Move> Astar::Astar_search(){
 		//Applyingcout << "openning --" << (n.h + n.g)<< endl;
 		//cout << "Astar_search while loop";
 		//n.state.printBoard();
-	cout << "888888 REMOVEING 888888888 | open.size()=" << opened.size();
+	
 		opened.pop();
-		cout << "  |   opened.size() after pop() = " << opened.size() << endl;
+	
 		cout << " ** Node n popped from open **" << endl;
 		n.state.printBoard();
 		
@@ -67,9 +67,15 @@ vector<Move> Astar::Astar_search(){
 			
 		}
 		vector<Node>::iterator it = closed.begin();
-		closed.insert(it, n);
+		closed.push_back(n);
+		//closed.insert(it, n);
+
+		
 
 		vector<Move> allMoves = n.state.calculateMoves();
+
+
+	
 
 		for(int moveInx=0; moveInx < allMoves.size(); moveInx++){
 			Node newChild(n);
@@ -80,16 +86,22 @@ vector<Move> Astar::Astar_search(){
 			newChild.parent = &n;
 
 			newChild.addMove(allMoves[moveInx]);
-
+			clock_t begin = clock();
 			newChild.state = n.state.applyMoveSeparate(allMoves[moveInx]);
-			
+			newChild.hash = newChild.state.computeHash();
+
 			newChild.h = heuristic(&newChild);
-
-
+			clock_t end = clock();
+			double elapsed = double(end-begin) / CLOCKS_PER_SEC;
+			cout << "elapsed = " << elapsed << endl;
+			if(elapsed > 0.3){
+				sleep(5);
+			}
+			
 			if(!checkIfClosed(&newChild)){
-			cout << "--- adding child ---" << endl;
-				newChild.state.printBoard();
-			cout << " f = " << (newChild.h + newChild.g)<< endl;
+			//cout << "--- adding child ---" << endl;
+			//	newChild.state.printBoard();
+			//cout << " f = " << (newChild.h + newChild.g)<< endl;
 			cout << endl;
 		
 				n.addChild(newChild);
@@ -98,12 +110,17 @@ vector<Move> Astar::Astar_search(){
 		}
 		cout << "open size : " << opened.size() << endl;
 		cout << "closed size : " << closed.size() << endl;
+		if(opened.empty())
+			cout << "no solution found!" << endl;
 		/*if(opened.size() == 100){
 		//	cout << "open size : " << opened.size() << endl;
 			cout << "********** printing open ****** " << endl;
 			printOpen();	
 		}
 		*/
+	
+
+
 	}
 }
 
@@ -117,18 +134,35 @@ void Astar::printOpen(){
 
 bool Astar::checkIfClosed(Node* child){
 	
+	
 
 	for(int i=0; i<closed.size(); i++){
-		if(closed[i].equals(child))
-			return true;
+		if(closed[i].hash == child->hash){
+				//sleep(5);
+				/*cout << "two hashs same" << endl;
+				cout << "--------------------------" << endl;
+				child->state.printBoard();
+				closed[i].state.printBoard();
+				cout << "--------------------------" << endl;
+			sleep(0);
+			*/
+			if(closed[i].equals(child)){
+				cout << "closed[i].equals(child) = true" << endl;  
+				return true;
+			}
+		}		
 	}
+
+
+
+
 	return false;
 }
 
 bool Astar::goalTest(Node* n){
 	vector<int> tmpBoard = n->state.board;
-	cout << "IN GOALTEST" << endl;
-	n->state.printBoard();
+	//cout << "IN GOALTEST" << endl;
+	//n->state.printBoard();
 	/*
 	for(int i=0; i< tmpBoard.size(); i++){
 		cout << "i=" << i << " | " << "tmpBoard[i]= " << tmpBoard[i] << endl;
@@ -183,21 +217,28 @@ int Astar::distanceFromGoal(int piece, int pos, int k){
 		y1 = ((piece - x1) / k) + 1;  // which 'row' piece is on in the solved puzzle
 	}
 
-
+	// +1 to account for the 0 in array index
 	pos = pos + 1;
-	// X2 and Y2 is the position of piece in the current puzzle state
-	x2 = pos % k;
-	y2 = ((pos - x2) / k) + 1;
+	// same thing as doing piece == 0 check but for indices of arrayh
+	if(pos == k*k){
+		x2 = k-1;
+		y2 = k-1;
+	} else {
+		// X2 and Y2 is the position of piece in the current puzzle state
+		x2 = pos % k;
+		y2 = ((pos - x2) / k) + 1;
+	}
+
 
 	// use the variation of distance formula
 	int dist = abs(x1 - x2) + abs(y1 - y2);
 
-	if(piece < 15){
+	/*if(piece < 15){
 		cout << x1 << " " << x2 << " " << y1 << " " << y2 << endl;
 		cout << "piece=" << piece << " pos= " << pos << " dist=" << dist << endl;
 
 		sleep(1);
-	}
+	}*/
 
 	// if i calulated this correctly, it should be the manhattan distance 
 	return dist;

@@ -16,6 +16,8 @@
 #include <math.h>
 #include <cmath>
 #include <fstream>
+#include <unistd.h>
+#include <ctime>
  
 using namespace std;
 struct CompareNode {

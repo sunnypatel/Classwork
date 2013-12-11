@@ -59,6 +59,16 @@ int Puzzle::getK(){
     return this->k;
 }
 
+int Puzzle::computeHash(){
+    int hash = 0;
+    for(int i =0 ; i < board.size(); i++){
+        if(board[i] == 0){
+            hash = i;
+        }
+        
+    }
+    return hash;
+}
 void Puzzle::printBoard(){
     ofstream myfile;
     myfile.open("./output/output_test", ios::app);

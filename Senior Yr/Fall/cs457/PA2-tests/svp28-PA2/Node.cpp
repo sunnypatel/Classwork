@@ -21,6 +21,7 @@ Node::Node(const Node& orig){
     depth = orig.depth;
     g = orig.g;
     h = orig.h;
+    hash = orig.hash;
     state = orig.state;
     movesSoFar = orig.movesSoFar;
 }
@@ -38,6 +39,7 @@ void Node::addMove(Move move){
 }
 
 void Node::addChild(Node child){
+	
 	children.push_back(child);
 }
 
