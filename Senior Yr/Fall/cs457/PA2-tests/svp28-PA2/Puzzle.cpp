@@ -69,6 +69,37 @@ int Puzzle::computeHash(){
     }
     return hash;
 }
+
+bool Puzzle::isSolvible(){
+    int inversions = 0;
+
+    for(int i =0; i < board.size(); i++){
+        for(int j=i; j < board.size(); j++){
+            if(board[i] > board[j])
+                inversions++;
+        }
+    }
+
+    if(k%2){
+        // width is odd
+        if((inversions % 2) == 0) // #of inversions is even
+            return true;
+
+    } else {
+        // width is even
+        int zeroPosIndex = this->findPiece(0);
+        int rowOfZero = (zeroPosIndex/k) + 1;
+        // rowOfZero from counting from bottom
+        rowOfZero = k - rowOfZero + 1;
+        if(rowOfZero%2){
+            // row of zero is odd
+            if((inversions % 2) == 0) // #of inversions is even
+                return true;
+        }
+    }
+    return false;
+}
+
 void Puzzle::printBoard(){
     ofstream myfile;
     myfile.open("./output/output_test", ios::app);
@@ -107,6 +138,9 @@ vector<Move> Puzzle::calculateMoves(){
 
     if(abovePos != -1) {
         Move moveAbove(zeroPosIndex, abovePos);
+        moveAbove.piece1 = board[zeroPosIndex];
+        moveAbove.piece2 = board[abovePos];
+
         possibleMoves.push_back(moveAbove);
 
     }
@@ -115,18 +149,27 @@ vector<Move> Puzzle::calculateMoves(){
     int leftPos = this->findLeftPos(zeroPosIndex);
     if(leftPos != -1) {
         Move moveLeft(zeroPosIndex, leftPos);
+        moveLeft.piece1 = board[zeroPosIndex];
+        moveLeft.piece2 = board[leftPos];
         possibleMoves.push_back(moveLeft);
+
     }
 
     int rightPos =  this->findRightPos(zeroPosIndex);
     if(rightPos != -1) {
         Move moveRight(zeroPosIndex, rightPos);
+        moveRight.piece1 = board[zeroPosIndex];
+        moveRight.piece2 = board[rightPos];
+
         possibleMoves.push_back(moveRight);
     }
 
     int belowPos = this->findBelowPos(zeroPosIndex);
     if(belowPos != -1) {
         Move moveBelow(zeroPosIndex, belowPos);
+        moveBelow.piece1 = board[zeroPosIndex];
+        moveBelow.piece2 = board[belowPos];
+
         possibleMoves.push_back(moveBelow);
     }
 

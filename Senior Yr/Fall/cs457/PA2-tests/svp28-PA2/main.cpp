@@ -66,17 +66,28 @@ int main(int argc, char** argv){
 			initBoard.applyMove(tmpMoves[0]);
 			initBoard.printBoard();
 	*/
+			if(initBoard.isSolvible()){
 
-			Astar alg(initBoard);
-			vector<Move> solution = alg.Astar_search();	
-			ofstream myfile;
-    		myfile.open(outputFileName.c_str());
-    		
-    		myfile << "#k" << endl;
-    		myfile << inputSize << endl;
-    		myfile << "#moves" << endl;
-    		for(int y=0; y < (solution.size()); y++){
-    			myfile << solution[y].getPos1() << " ";
+				Astar alg(initBoard);
+				vector<Move> solution = alg.Astar_search();	
+				ofstream myfile;
+	    		myfile.open(outputFileName.c_str());
+	    		
+	    		myfile << "#k" << endl;
+	    		myfile << inputSize << endl;
+	    		myfile << "#moves" << endl;
+	    		for(int y=0; y < (solution.size()); y++){
+	    			myfile << solution[y].piece2 << " ";
+	    		}
+    		} else {
+ 				ofstream myfile;
+	    		myfile.open(outputFileName.c_str());
+	    		
+	    		myfile << "#k" << endl;
+	    		myfile << inputSize << endl;
+	    		myfile << "#moves" << endl;
+	    		myfile << "no solution" << endl;  			
+    			cout << "No solution." << endl;
     		}
 		}
 	} else {

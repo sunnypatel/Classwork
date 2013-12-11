@@ -40,7 +40,7 @@ public:
     Puzzle applyMoveSeparate(Move move);
 
 	vector<Move> calculateMoves();
-
+    bool isSolvible();
     int computeHash();
     int findAbovePos(int index);
     int findLeftPos(int index);

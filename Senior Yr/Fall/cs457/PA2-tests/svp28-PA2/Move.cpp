@@ -11,6 +11,8 @@
 Move::Move(int a, int b) {
 	pos1 = a;
 	pos2 = b;
+	piece1 = 0;
+	piece2 = 0;
 }
 Move::Move(){
 
@@ -18,6 +20,8 @@ Move::Move(){
 Move::Move(const Move& orig) {
 	pos1 = orig.pos1;
 	pos2 = orig.pos2;
+	piece1 = orig.piece1;
+	piece2 = orig.piece2;
 }
 
 Move::~Move() {
@@ -30,7 +34,7 @@ void Move::setPositions(int a, int b){
 }
 
 void Move::printMove(){
-	cout << "move " << pos1 << " to " << pos2;
+	cout << "move " << piece1 << " to " << piece2;
 }
 
 int Move::getPos1(){

@@ -14,10 +14,14 @@ using namespace std;
 
 class Move {
 
-    int pos1;
-    int pos2;
+
 
 public:
+    int pos1;
+    int pos2;
+    int piece1;
+    int piece2;
+    
 	Move();
     Move(int, int);
     Move(const Move& orig);
