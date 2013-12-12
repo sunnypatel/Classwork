@@ -1,1 +1,47 @@
-I used the A* algorithm.  **The program does not work however for the test case provided.  This algorithm's running time really depends on the heuristic you decide to use.  My heuristic is the sum total of the manhattan distance of all the numbers that are out of place from the goal state.  It is important the heuristic is as close to constant time as possible since this will be run on every permuation of the state.  Hence using some algebra my heuristic is able to run in constant time worse-case.  So surely this is not the concern, there is some other c++ induced bug with pointers etc that I don't have the energy to chase after right now.   
+vector<Move> Astar::Astar_search(){
+	root.g = 0;
+	root.h = heuristic(&root);
+
+	opened.push(root);
+
+	while(!opened.empty()){
+		
+		Node n = opened.top();
+	
+		opened.pop();
+
+		if(goalTest(&n)){
+			cout << "goal reached!" << endl;
+			return printPath(&n);
+			
+		}
+		vector<Node>::iterator it = closed.begin();
+		closed.push_back(n);
+		
+		vector<Move> allMoves = n.state.calculateMoves();
+
+		for(int moveInx=0; moveInx < allMoves.size(); moveInx++){
+			Node newChild(n);
+
+			newChild.g = n.g + 1;
+			newChild.depth = n.depth + 1;
+			newChild.move = allMoves[moveInx];
+			newChild.parent = &n;
+
+			newChild.addMove(allMoves[moveInx]);
+			//clock_t begin = clock();
+			newChild.state = n.state.applyMoveSeparate(allMoves[moveInx]);
+			newChild.hash = newChild.state.computeHash();
+
+			newChild.h = heuristic(&newChild);
+			
+			if( (!checkIfClosed(&newChild)) ){
+				n.addChild(newChild);
+				opened.push(newChild);
+			}
+		}
+	
+
+
+	}
+}

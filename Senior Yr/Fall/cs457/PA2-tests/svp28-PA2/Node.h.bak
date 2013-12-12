@@ -27,6 +27,7 @@ public:
     double g;
     double h;
     Puzzle state;
+    vector<Move> movesSoFar;
 
 	Node();
     Node(Node*);

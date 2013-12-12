@@ -23,9 +23,21 @@ vector<Move> Astar::printPath(Node* n){
 	int numMoves = 0;
 	n->state.printBoard();
 
+	for(int i =0; i < n->movesSoFar.size(); i++){
+		// get pos 1
+		int piece1 = n->movesSoFar[i].piece1;
+		int piece2 = n->movesSoFar[i].piece2;
+		cout << piece2 << " ";
+		//cout << "Move " << n->state.board[pos1] << " to " << n->state.board[pos2] << endl;
+		//n->movesSoFar[i].printMove();
+		//cout << endl;
+
+		numMoves++;
+	}
+
 	cout << endl;
 	cout << "# of moves " << numMoves << endl;
-	return successMoves;
+	return n->movesSoFar;
 	
 }
 
@@ -87,13 +99,6 @@ vector<Move> Astar::Astar_search(){
 
 			newChild.h = heuristic(&newChild);
 			
-			
-			if( (!checkIfClosed(&newChild))){
-			
-		
-				n.addChild(newChild);
-				opened.push(newChild);
-			}
 			clock_t end = clock();
 			double elapsed = double(end-begin) / CLOCKS_PER_SEC;
 			cout << "elapsed = " << elapsed << endl;
@@ -101,6 +106,12 @@ vector<Move> Astar::Astar_search(){
 				sleep(5);
 			} 
 			
+			if( (!checkIfClosed(&newChild))){
+			
+		
+				n.addChild(newChild);
+				opened.push(newChild);
+			}
 		}
 		cout << "open size : " << opened.size() << endl;
 		cout << "closed size : " << closed.size() << endl;

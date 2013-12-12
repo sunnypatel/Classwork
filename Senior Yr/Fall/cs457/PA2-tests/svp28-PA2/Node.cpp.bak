@@ -23,7 +23,7 @@ Node::Node(const Node& orig){
     h = orig.h;
     hash = orig.hash;
     state = orig.state;
-  //  movesSoFar = orig.movesSoFar;
+    movesSoFar = orig.movesSoFar;
 }
 
 Node::~Node(){
@@ -35,7 +35,7 @@ void Node::setParent(Node p){
 }
 
 void Node::addMove(Move move){
-	//movesSoFar.push_back(move);
+	movesSoFar.push_back(move);
 }
 
 void Node::addChild(Node child){
