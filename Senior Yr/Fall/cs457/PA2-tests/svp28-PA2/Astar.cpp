@@ -23,9 +23,21 @@ vector<Move> Astar::printPath(Node* n){
 	int numMoves = 0;
 	n->state.printBoard();
 
+	for(int i =0; i < n->movesSoFar.size(); i++){
+		// get pos 1
+		int piece1 = n->movesSoFar[i].piece1;
+		int piece2 = n->movesSoFar[i].piece2;
+		cout << piece2 << " ";
+		//cout << "Move " << n->state.board[pos1] << " to " << n->state.board[pos2] << endl;
+		//n->movesSoFar[i].printMove();
+		//cout << endl;
+
+		numMoves++;
+	}
+
 	cout << endl;
 	cout << "# of moves " << numMoves << endl;
-	return successMoves;
+	return n->movesSoFar;
 	
 }
 
@@ -39,80 +51,63 @@ void Astar::printPathRec(Node* n){
 vector<Move> Astar::Astar_search(){
 	root.g = 0;
 	root.h = heuristic(&root);
-
+	
 	opened.push(root);
 
 	while(!opened.empty()){
-		
-		Node n = opened.top();
-		//Applyingcout << "openning --" << (n.h + n.g)<< endl;
-		//cout << "Astar_search while loop";
-		//n.state.printBoard();
+		clock_t begin = clock();
+
+		Node n2 = opened.top();
+		Node* n = &n2;
 	
 		opened.pop();
+
 	
-		//cout << " ** Node n popped from open **" << endl;
-		//n.state.printBoard();
-		
-		//cout << " n.f = " << (n.h + n.g) << endl;
-	
-		if(goalTest(&n)){
+		if(goalTest(n)){
 			cout << "goal reached!" << endl;
-			return printPath(&n);
+			return printPath(n);
 			
 		}
 		
-		closed.push_back(n);
-		//closed.insert(it, n);
+		closed.push_back(&n2);
 
-		
-
-		vector<Move> allMoves = n.state.calculateMoves();
-
-
-	
+		vector<Move> allMoves = n->state.calculateMoves();
 
 		for(int moveInx=0; moveInx < allMoves.size(); moveInx++){
 			Node newChild(n);
 
-			newChild.g = n.g + 1;
-			newChild.depth = n.depth + 1;
+			newChild.g = n->g + 1;
+			newChild.depth = n->depth + 1;
 			newChild.move = allMoves[moveInx];
-			newChild.parent = &n;
+			newChild.parent = n;
+			newChild.movesSoFar = n->movesSoFar;
 
-			//newChild.addMove(allMoves[moveInx]);
-			clock_t begin = clock();
-			newChild.state = n.state.applyMoveSeparate(allMoves[moveInx]);
+			newChild.addMove(allMoves[moveInx]);
+			//n2.state.printBoard();
+			newChild.state = n->state.applyMoveSeparate(allMoves[moveInx]);
+			
 			newChild.hash = newChild.state.computeHash();
 
 			newChild.h = heuristic(&newChild);
 			
 			
 			if( (!checkIfClosed(&newChild))){
-			
-		
-				n.addChild(newChild);
+				
+				
+				n->addChild(newChild);
 				opened.push(newChild);
 			}
-			clock_t end = clock();
-			double elapsed = double(end-begin) / CLOCKS_PER_SEC;
-			cout << "elapsed = " << elapsed << endl;
-			if(elapsed > 0.3){
-				sleep(5);
-			} 
+
 			
 		}
-		cout << "open size : " << opened.size() << endl;
-		cout << "closed size : " << closed.size() << endl;
-		if(opened.empty())
-			cout << "no solution found!" << endl;
-		
-		if((opened.size() % 100) == 0){
-			cout << "open size : " << opened.size() << endl;	
+
+		clock_t end = clock();
+		double elapsed = double(end-begin) / CLOCKS_PER_SEC;
+		//cout << "elapsed = " << elapsed << endl;
+
+		if(elapsed > 0.3){
+			//sleep(5);
 		}
-	
-
-
 	}
 }
 
@@ -128,8 +123,9 @@ bool Astar::checkIfClosed(Node* child){
 	
 	
 
+
 	for(int i=0; i<closed.size(); i++){
-		if(closed[i].hash == child->hash){
+		if(closed[i]->hash == child->hash){
 				//sleep(5);
 				/*cout << "two hashs same" << endl;
 				cout << "--------------------------" << endl;
@@ -138,8 +134,8 @@ bool Astar::checkIfClosed(Node* child){
 				cout << "--------------------------" << endl;
 			sleep(0);
 			*/
-			if(closed[i].equals(child)){
-				//cout << "closed[i].equals(child) = true" << endl;  
+			if(closed[i]->equals(child)){
+			
 				return true;
 			}
 		}		
@@ -172,7 +168,7 @@ int Astar::heuristic(Node* a){
 	for(int i=0; i < tmp->getBoard().size() ; i++){
 		h = h + distanceFromGoal(tmp->findAt(i), i, tmp->getK());
 	}
-		
+	
 	return h;
 }
 

@@ -33,11 +33,13 @@ struct CompareNode {
 };
 
 class Astar {
-    Node root;
-    priority_queue<Node, vector<Node>, CompareNode> opened;
-    vector<Node> closed;
 
 public:
+    Node root;
+    priority_queue<Node, vector<Node>, CompareNode> opened;
+    vector<Node*> closed;
+
+
     Astar();
     Astar(Puzzle initState);
     Astar(const Astar& orig);
