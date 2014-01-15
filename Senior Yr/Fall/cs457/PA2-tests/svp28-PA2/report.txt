@@ -1,4 +1,11 @@
-
+Complexity
 This is a implementation of the A* algorithm, a heuristic based path finding algorithm.  In fact it's a guided BFS.  It is exponential in memory complexity because it has to keep all the nodes it has checked as well as new nodes it finds.  Since my heuristic function is optimatized A* will run in O(n) time complexity, n being k*k.
 
+Heuristic function
+My heuristic function calculates the manhattan distance between each piece in the current state to that piece the correct solution board. Takes the total sum of this distance for each piece and returns that.   
+
+Tests
 I have tested it with multiple puzzles and some that don't have solutions.  The program will check the number of intrusions and if it's a puzzle of width that is odd and the number of intrusions is even then it's solvable.  
+
+Downsides
+The heuristic function could be better in helping the algorithm make better decisions in exploring one node vs another. This would help better approximate how close one node is from the solution which would get a solution much faster.  
