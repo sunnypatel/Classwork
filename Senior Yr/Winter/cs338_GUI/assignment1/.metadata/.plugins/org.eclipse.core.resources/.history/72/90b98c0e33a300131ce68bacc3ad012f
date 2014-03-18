@@ -1,0 +1,26 @@
+package com.example.cs_275_cloudmine;
+
+import com.cloudmine.api.CMApiCredentials;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+
+public class MainActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		
+		CMApiCredentials.initialize("c1e5c5b5981f4a16b5ec099ab3f9ec5e","951261fdbf1f4ce0a31661ba20e2583d",getApplicationContext());
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+}

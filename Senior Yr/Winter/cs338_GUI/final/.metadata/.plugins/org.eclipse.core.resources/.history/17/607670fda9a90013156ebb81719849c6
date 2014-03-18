@@ -1,0 +1,483 @@
+package drugiee;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Vector;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class Drugiee {
+
+	private Color BACKGROUND = new Color(44, 62, 80);
+	private Color FOREGROUND = new Color(236, 240, 241);
+	private JFrame frame;
+	private JCoolerButton drugSearchBox;
+	private JList searchResults;
+	private JLabel drugTitle;
+	private JTextPane drugInfo;
+	private String BUTTONPANEL = "Load Patient";
+	private String TEXTPANEL = "Search For Drug Information";
+	private Dimension DEFAULT_DIM;
+	private Vector<String> drug_results_list_data = new Vector<String>();
+	private DataLoader DATA;
+
+	private JCoolerButton patientSearchBox;
+	private Vector<String> patient_results_list_data = new Vector<String>();
+	private JList patientResults;
+	private JCoolerButton first_name;
+	private JCoolerButton last_name;
+	private JCoolerButton dob;
+	private JCoolerComboBox gender;
+	private JButton save_patient_button;
+	private JButton load_patient_button;
+	
+	private JLabel patient_first_name;
+	private JLabel patient_last_name;
+	private JLabel patient_dob ;
+	private JLabel patient_gender;
+	private JLabel patient_home_phone;
+	
+	public Drugiee() {
+		frame = new JFrame("Druggie");
+		//frame.setBackground(BACKGROUND);
+
+		// Set the default Dimensions of search results and drug info row
+		DEFAULT_DIM = new Dimension(700, 500);
+		
+		Container pane = frame.getContentPane();
+
+		// create the pane for loaded patients
+		JPanel topPane = new JPanel();
+		topPane.setLayout(new GridLayout(1,6));
+		topPane.setBorder(BorderFactory.createTitledBorder("Selected Patient"));
+		topPane.setSize(DEFAULT_DIM);
+		JLabel patient_first_name_label = new JLabel("First Name:");
+		patient_first_name = new JLabel("");
+		
+		JLabel patient_last_name_label = new JLabel("Last Name:");
+		patient_last_name = new JLabel("");
+		
+		JLabel patient_dob_label = new JLabel("DOB:");
+		patient_dob = new JLabel("");
+		
+		JLabel patient_gender_label = new JLabel("Gender:");
+		patient_gender = new JLabel("");
+		
+		JLabel patient_home_phone_label = new JLabel("Home Phone Number:");
+		patient_home_phone = new JLabel("");
+		
+		// Add new labels to topPane
+		topPane.add(patient_first_name_label);
+		topPane.add(patient_first_name);
+		topPane.add(patient_last_name_label);
+		topPane.add(patient_last_name);
+		topPane.add(patient_dob_label);
+		topPane.add(patient_dob);
+		//topPane.add(patient_gender_label);
+		//topPane.add(patient_gender);
+		//topPane.add(patient_home_phone_label);
+		//topPane.add(patient_home_phone);
+		
+		JPanel mainPane = new JPanel();
+
+		JTabbedPane tabbedPane = new JTabbedPane();
+
+		// Create the "cards".
+		JPanel card1 = new JPanel() {
+			// Make the panel wider than it really needs, so
+			// the window's wide enough for the tabs to stay
+			// in one row.
+			public Dimension getPreferredSize() {
+				Dimension size = super.getPreferredSize();
+				size.width += 100;
+				return size;
+			}
+		};
+		JPanel card2 = new JPanel();
+
+
+		tabbedPane.addTab(BUTTONPANEL, card1);
+		tabbedPane.addTab(TEXTPANEL, card2);
+		pane.setLayout(new BoxLayout(pane,BoxLayout.PAGE_AXIS));
+		pane.add(topPane);
+		pane.add(tabbedPane);
+
+		// mainPane.setBorder(new EmptyBorder(10,10,10,10));
+		// mainPane.setBackground(new Color(44, 62, 80));
+		mainPane.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.PAGE_START;
+		drugSearchBox = new JCoolerButton("Search Drug Name");
+		drugSearchBox.setColumns(30);
+		drugSearchBox.getDocument().addDocumentListener(new searchBox_DocumentListener());
+
+		c.weightx = .5;
+		// c.insets = new Insets(1,1,1,1);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		mainPane.add(drugSearchBox, c);
+
+
+		searchResults = new JList();
+		searchResults.addListSelectionListener(new SharedListSelectionHandler());
+
+		c.weighty = .5;
+		c.gridx = 0;
+		c.gridy = 1;
+
+		mainPane.add(searchResults, c);
+
+		drugTitle = new JLabel("Drug Title");
+		Font f = new Font("Helvetica", Font.PLAIN, 16);
+		drugTitle.setFont(f);
+		drugTitle.setForeground(FOREGROUND);
+		c.gridx = 1;
+		c.gridy = 0;
+		mainPane.add(drugTitle, c);
+
+		drugInfo = new JTextPane();
+		
+		drugInfo.setAutoscrolls(true);
+		drugInfo.setFont(f);
+		drugInfo.setContentType("text/html");
+		JScrollPane areaScrollPane = new JScrollPane(drugInfo);
+		areaScrollPane
+				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		areaScrollPane.setPreferredSize(DEFAULT_DIM);
+		areaScrollPane.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createCompoundBorder(
+						BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
+						BorderFactory.createEmptyBorder(5, 5, 5, 5)),
+				areaScrollPane.getBorder()));
+
+		c.gridx = 1;
+		c.gridy = 1;
+		mainPane.add(areaScrollPane, c);
+
+		/*********************************
+		 * Starting Card 2 "Load Patient"
+		 **********************************/
+
+		JPanel patientPane = new JPanel();
+		patientPane.setLayout(new GridBagLayout());
+		GridBagConstraints c2 = new GridBagConstraints();
+		
+		
+		JPanel patientPane_leftPane = new JPanel();
+		patientPane_leftPane.setLayout(new BoxLayout(patientPane_leftPane, BoxLayout.PAGE_AXIS));
+		c2.gridx = 0;
+		c2.gridy = 0;
+		c2.anchor = GridBagConstraints.PAGE_START;
+		patientSearchBox = new JCoolerButton("Search Patient Name");
+		patientSearchBox.setColumns(20);
+		patientSearchBox.getDocument().addDocumentListener(new patientSearch_DocumentListener());
+
+		patientPane_leftPane.add(patientSearchBox);
+
+		String[] data = {"Begin typing patient name"};
+
+		patientResults = new JList(data);
+		patientResults.addListSelectionListener(new PatientListSelectionHandler());
+		JScrollPane listScrollPane = new JScrollPane(patientResults);
+		listScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		listScrollPane.setBorder(listScrollPane.getBorder());
+		
+		patientPane_leftPane.add(listScrollPane);
+		patientPane.add(patientPane_leftPane,c2);
+
+		
+		// Build Right side of the patient pane
+		JPanel patientPane_rightPane = new JPanel();
+		patientPane_rightPane.setLayout(new GridLayout(0, 1));
+		patientPane_rightPane.setSize(DEFAULT_DIM);
+
+		first_name = new JCoolerButton("First Name");
+		first_name.setColumns(20);
+		patientPane_rightPane.add(first_name);
+
+		last_name = new JCoolerButton("Last Name");
+		patientPane_rightPane.add(last_name);
+
+		dob = new JCoolerButton("DOB");
+		patientPane_rightPane.add(dob);
+
+		Vector<String> genders = new Vector<String>();
+		genders.add("Male");
+		genders.add("Female");
+		gender = new JCoolerComboBox(genders);
+		//patientPane_rightPane.add(gender);
+
+		c2.gridx = 1;
+		c2.gridy = 0;
+		patientPane.add(patientPane_rightPane, c2);
+
+		JPanel patient_buttons = new JPanel();
+		patient_buttons.setLayout(new BoxLayout(patient_buttons, BoxLayout.LINE_AXIS));
+		save_patient_button = new JButton("Save");
+		c2.gridx = 1;
+		c2.gridy = 2;
+		patient_buttons.add(save_patient_button);
+
+		load_patient_button = new JButton("Load Patient");
+		load_patient_button.addActionListener(new onClickButtonListener());
+		patient_buttons.add(load_patient_button);
+		patientPane.add(patient_buttons, c2);
+
+		/*******************************
+		 * ADD CARDS TO FRAME
+		 *******************************/
+		card1.add(patientPane);
+		card2.add(mainPane);
+		DATA = new DataLoader();
+
+		frame.setMinimumSize(new Dimension(700, 700));
+		frame.pack();
+		frame.setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Drugiee frame = new Drugiee();
+
+		// frame.setLocationRelativeTo( null );
+
+	}
+
+	public String formattedWarnings(){
+		String formattedHTML_warnings = "";
+		String patient_fullName = patient_first_name.getText() + " " + patient_last_name.getText();
+		JSONObject patient_json = DATA.getPatient(patient_fullName);
+		
+		String warning_img_url = "http://www.itechpbc.com/sites/itechpbc.com/files/field/image/Warning.png";
+		
+		try {
+			String patient_id = String.valueOf(patient_json.getInt("patient_id"));
+			// Get a vector of drug_ids that this patient is taking
+			Vector<String> prescriptions = DATA.getAllPresciptions(patient_id);
+			// Get the drug_id of the selected drug from results
+			String selectedDrugId = DATA.getDrugId_fromName(drug_results_list_data.get(searchResults.getSelectedIndex()));
+			// Get all Interactions with this drug
+			Vector<String> drug_interactions = DATA.getAllDrugInteractions(selectedDrugId);
+			
+			// GET ONLY THOSE DRUG_INTERACTGIONS THAT CONFLICT WITH THIS PATIENT
+			drug_interactions.retainAll(prescriptions);
+			
+			
+			if(drug_interactions.size() > 0){
+				formattedHTML_warnings = "<table><tr>";
+				// We have found a drug interactions with this patient
+				for(int i=0; i < drug_interactions.size(); i++){
+					formattedHTML_warnings = formattedHTML_warnings + "<td><img src=\""+warning_img_url+"\" height=\"100\" width=\"100\"></td>";
+					
+				}
+				// start a new row
+				formattedHTML_warnings = formattedHTML_warnings + "</tr><tr>";
+				// start adding labels to the warnigns
+				for(int i=0; i < drug_interactions.size(); i++){
+					JSONObject drug_interaction = DATA.getDrug(drug_interactions.get(i));
+					formattedHTML_warnings = formattedHTML_warnings + "<td><center>" + drug_interaction.getString("name") + "</center></td>";
+				}
+				formattedHTML_warnings = formattedHTML_warnings + "</tr></table>";
+			}
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return formattedHTML_warnings;
+	}
+	
+	class searchBox_DocumentListener implements DocumentListener {
+		String newline = "\n";
+
+		public void insertUpdate(DocumentEvent e) {
+			updateLog(e, "inserted into");
+		}
+
+		public void removeUpdate(DocumentEvent e) {
+			updateLog(e, "removed from");
+		}
+
+		public void changedUpdate(DocumentEvent e) {
+			// Plain text components do not fire these events
+		}
+
+		public void updateLog(DocumentEvent e, String action) {
+			Document doc = (Document) e.getDocument();
+			int changeLength = e.getLength();
+			
+			drug_results_list_data.clear();
+			
+			if(drugSearchBox.getText().length() >= 2){
+				Vector<JSONObject> searchResults_drugs = DATA.getDrugName_matching(drugSearchBox.getText());
+				for (int i=0; i < searchResults_drugs.size(); i++) {
+					try {
+						drug_results_list_data.add("<html><br>"
+								+ searchResults_drugs.get(i).getString("name")
+								+ "<br></html>");
+					} catch (JSONException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+				}
+				Vector<JSONObject> searchResults_brandNames = DATA.getBrandName_matching(drugSearchBox.getText());
+				for (int i=0; i < searchResults_brandNames.size(); i++) {
+					try {
+						drug_results_list_data.add("<html><br>"
+								+ searchResults_brandNames.get(i).getString("brand_name")
+								+ "<br></html>");
+					} catch (JSONException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+				}
+				searchResults.setListData(drug_results_list_data);
+			}
+		}
+
+	}
+
+	class patientSearch_DocumentListener implements DocumentListener {
+
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+
+		}
+
+		@Override
+		public void insertUpdate(DocumentEvent arg0) {
+			update();
+
+		}
+
+		@Override
+		public void removeUpdate(DocumentEvent arg0) {
+			update();
+
+		}
+		public void update(){
+			patient_results_list_data.clear();
+			
+			Vector<JSONObject> patientSearchResults = DATA.getPatients_matching(patientSearchBox.getText());
+			for(int i=0; i<patientSearchResults.size(); i++){
+				try{
+					String full_name = patientSearchResults.get(i).getString("first_name") + " " + patientSearchResults.get(i).getString("last_name");
+					patient_results_list_data.add("<html><br>" + full_name + "<br></html>");
+				} catch(JSONException e2) {
+					e2.printStackTrace();
+				}
+			}
+			patientResults.setListData(patient_results_list_data);
+		}
+	}
+
+	class SharedListSelectionHandler implements ListSelectionListener {
+
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+
+			if (e.getSource() != null) {
+				int indexOfSelected = searchResults.getSelectedIndex();
+				String drug_id = null;
+
+				if (indexOfSelected != -1) {
+					drug_id = DATA.getDrugId_fromName(drug_results_list_data.get(indexOfSelected));
+					
+					drugTitle.setText(drug_results_list_data.get(indexOfSelected));
+					drugInfo.setText("<html>" + formattedWarnings() + DATA.getDrugInformation(drug_id) + "</html>");
+				}
+			}
+			if (e.getSource() == null) {
+
+			}
+		}
+
+	}
+	
+	class PatientListSelectionHandler implements ListSelectionListener {
+
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+
+			if (e.getSource() != null) {
+				int indexOfSelected = patientResults.getSelectedIndex();
+				String patient_id = null;
+
+				if (indexOfSelected != -1) {
+					JSONObject patient_info = DATA.getPatient(patient_results_list_data.get(indexOfSelected));
+					
+					try {
+						first_name.setText(patient_info.getString("first_name"));
+						last_name.setText(patient_info.getString("last_name"));
+						dob.setText(patient_info.getString("DOB"));
+						
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
+				}
+			}
+			if (e.getSource() == null) {
+
+			}
+		}
+
+	}
+	
+	 class onClickButtonListener implements ActionListener {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getSource() == load_patient_button){
+					loadPatient(first_name.getText(), last_name.getText());
+				}
+			}
+		 
+	}
+	
+	public void loadPatient(String first_name, String last_name){
+		// load patient information from DATA
+		JSONObject patient = DATA.getPatient(first_name + " " + last_name);
+		
+		/*topPane.add(patient_first_name_label);
+		topPane.add(patient_first_name);
+		topPane.add(patient_last_name_label);
+		topPane.add(patient_last_name);
+		topPane.add(patient_dob_label);
+		topPane.add(patient_dob);
+		topPane.add(patient_gender_label);
+		topPane.add(patient_gender);
+		topPane.add(patient_home_phone_label);
+		topPane.add(patient_home_phone);
+		*/
+		
+		try {
+			patient_first_name.setText(patient.getString("first_name"));
+			patient_last_name.setText(patient.getString("last_name"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+}

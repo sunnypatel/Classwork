@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.temboo.Library.Dropbox.FileOperations.CopyFileOrFolder"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Dropbox.FileOperations.CopyFileOrFolder.CopyFileOrFolderInputSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Dropbox.FileOperations.CopyFileOrFolder.CopyFileOrFolderResultSet"/>
+<fullyQualifiedTypeName name="com.temboo.core.TembooSession"/>
+<fullyQualifiedTypeName name="com.temboo.Library.CloudMine.FileStorage.GetFile"/>
+<fullyQualifiedTypeName name="com.temboo.Library.CloudMine.FileStorage.GetFile.GetFileInputSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.CloudMine.FileStorage.GetFile.GetFileResultSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Dropbox.FilesAndMetadata.GetFile"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Dropbox.FilesAndMetadata.GetFile.GetFileInputSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Dropbox.FilesAndMetadata.GetFile.GetFileResultSet"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+</qualifiedTypeNameHistroy>

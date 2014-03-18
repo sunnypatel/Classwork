@@ -1,0 +1,5 @@
+My screen recording did not show the next available trains because there are no trains at this time, and hence I could not show the long click train details. 
+
+As for the map, I am attempting to pull the static map down from google maps but for some odd reason my actvity is not openning properly.  It's in the OpenImageViewClickListener implements View.OnClickListener{} class if you could please explain why that is that would be great. 
+
+Thanks

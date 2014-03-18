@@ -1,0 +1,70 @@
+!SESSION 2014-03-10 09:01:33.332 -----------------------------------------------
+eclipse.buildId=4.3.0.I20130605-2000
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86 -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-03-10 09:02:23.091
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2014-03-10 17:11:07.941 -----------------------------------------------
+eclipse.buildId=4.3.0.I20130605-2000
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86 -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-03-10 17:11:35.562
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2014-03-10 18:03:22.317 -----------------------------------------------
+eclipse.buildId=4.3.0.I20130605-2000
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86 -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-03-10 18:03:36.663
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2014-03-10 18:19:38.915 -----------------------------------------------
+eclipse.buildId=4.3.0.I20130605-2000
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86 -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-03-10 18:19:53.652
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2014-03-11 15:27:50.803 -----------------------------------------------
+eclipse.buildId=4.3.0.I20130605-2000
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86 -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-03-11 15:27:58.809
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2014-03-12 03:25:04.348 -----------------------------------------------
+eclipse.buildId=4.3.0.I20130605-2000
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86 -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-03-12 03:25:13.760
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2014-03-12 16:29:52.951 -----------------------------------------------
+eclipse.buildId=4.3.0.I20130605-2000
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86 -product org.eclipse.epp.package.standard.product -pluginCustomization /Users/sunnypatel/NVPACK/eclipse/Eclipse.app/Contents/MacOS/nvpref.ini -keyring /Users/sunnypatel/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-03-12 16:30:37.021
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences

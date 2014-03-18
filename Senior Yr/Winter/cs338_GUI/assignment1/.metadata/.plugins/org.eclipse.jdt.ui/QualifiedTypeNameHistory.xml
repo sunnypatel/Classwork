@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.Vector"/>
+<fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="javax.swing.event.ListSelectionListener"/>
+<fullyQualifiedTypeName name="com.cloudmine.api.CMApiCredentials"/>
+<fullyQualifiedTypeName name="com.cloudmine.api.SimpleCMObject"/>
+<fullyQualifiedTypeName name="com.cloudmine.api.rest.callbacks.ObjectModificationResponseCallback"/>
+<fullyQualifiedTypeName name="com.cloudmine.api.rest.response.ObjectModificationResponse"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.cloudmine.api.rest.CMStore"/>
+<fullyQualifiedTypeName name="com.cloudmine.api.rest.callbacks.CMObjectResponseCallback"/>
+<fullyQualifiedTypeName name="com.cloudmine.api.rest.response.CMObjectResponse"/>
+<fullyQualifiedTypeName name="com.cloudmine.api.CMObject"/>
+<fullyQualifiedTypeName name="com.temboo.core.TembooSession"/>
+<fullyQualifiedTypeName name="com.temboo.Library.CloudMine.ObjectStorage.ObjectSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.CloudMine.ObjectStorage.ObjectSet.ObjectSetInputSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.CloudMine.ObjectStorage.ObjectSet.ObjectSetResultSet"/>
+<fullyQualifiedTypeName name="android.os.AsyncTask"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="com.temboo.Library.CloudMine.ObjectStorage.ObjectSearch.ObjectSearchInputSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.CloudMine.ObjectStorage.ObjectSearch.ObjectSearchResultSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.CloudMine.ObjectStorage.ObjectSearch"/>
+<fullyQualifiedTypeName name="com.google.gson.JsonParser"/>
+<fullyQualifiedTypeName name="com.google.gson.JsonElement"/>
+<fullyQualifiedTypeName name="com.google.gson.JsonObject"/>
+<fullyQualifiedTypeName name="android.R"/>
+</qualifiedTypeNameHistroy>

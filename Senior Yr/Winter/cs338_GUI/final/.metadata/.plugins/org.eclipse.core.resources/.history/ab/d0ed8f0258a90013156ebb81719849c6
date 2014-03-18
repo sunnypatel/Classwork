@@ -1,0 +1,20 @@
+package drugiee;
+
+import java.awt.Dimension;
+import java.util.Vector;
+
+import javax.swing.JComboBox;
+
+public class JCoolerComboBox extends JComboBox{
+
+	
+	public JCoolerComboBox(Vector<String> options){
+		String[] gend = {"asdf"};
+		
+		for(int i=0; i < options.size(); i++)
+			this.addItem("<html><br><br><br>" + options.get(i) + "<br><br></html>");
+		
+		this.setSize(new Dimension(10,20));
+		
+	}
+}

@@ -1,0 +1,51 @@
+package assignment1;
+
+import com.temboo.Library.Google.Calendar.GetAllCalendars;
+import com.temboo.Library.Google.Calendar.GetAllCalendars.GetAllCalendarsInputSet;
+import com.temboo.Library.Google.Calendar.GetAllCalendars.GetAllCalendarsResultSet;
+import com.temboo.Library.Google.OAuth.*;
+import com.temboo.Library.Google.OAuth.FinalizeOAuth.FinalizeOAuthInputSet;
+import com.temboo.Library.Google.OAuth.FinalizeOAuth.FinalizeOAuthResultSet;
+import com.temboo.Library.Google.OAuth.InitializeOAuth.InitializeOAuthInputSet;
+import com.temboo.Library.Google.OAuth.InitializeOAuth.InitializeOAuthResultSet;
+import com.temboo.core.TembooException;
+import com.temboo.core.TembooSession;
+
+public class main {
+
+	public static void main(String[] args) throws TembooException {
+		// Instantiate the Choreo, using a previously instantiated TembooSession object, eg:
+		TembooSession session = new TembooSession("dudeitssunny", "myFirstApp", "5420c8af75f84c2a8807fd35314fb75c");
+		
+		/*  *********************************
+		 *  Begin OAuth handshake for user 1
+		    ********************************* */
+		InitializeOAuth initializeOAuthChoreo = new InitializeOAuth(session);
+
+		// Get an InputSet object for the choreo
+		InitializeOAuthInputSet initializeOAuthInputs = initializeOAuthChoreo.newInputSet();
+
+		// Set inputs
+		initializeOAuthInputs.set_ClientID("597050485078-ivlv5orb4b949u1o21humuttsde5g65q.apps.googleusercontent.com");
+		initializeOAuthInputs.set_Scope("https://www.googleapis.com/auth/calendar");
+
+		// Execute Choreo
+		InitializeOAuthResultSet initializeOAuthResults = initializeOAuthChoreo.execute(initializeOAuthInputs);
+		
+		FinalizeOAuth finalizeOAuthChoreo = new FinalizeOAuth(session);
+
+		// Get an InputSet object for the choreo
+		FinalizeOAuthInputSet finalizeOAuthInputs = finalizeOAuthChoreo.newInputSet();
+
+		// Set inputs
+		finalizeOAuthInputs.set_CallbackID(initializeOAuthResults.get_CallbackID());
+		finalizeOAuthInputs.set_ClientSecret("AY9kPpDZ1WZX9uGE0RBHCIhz");
+		finalizeOAuthInputs.set_ClientID("597050485078-ivlv5orb4b949u1o21humuttsde5g65q.apps.googleusercontent.com");
+		
+		// Execute Choreo
+		FinalizeOAuthResultSet finalizeOAuthResults = finalizeOAuthChoreo.execute(finalizeOAuthInputs);
+		
+		System.out.println(finalizeOAuthResults.get_AccessToken());
+	}
+
+}

@@ -1,0 +1,391 @@
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Arrays;
+import java.util.Vector;
+
+public class flightLogger implements ActionListener{
+	public enum Directory {
+		   LIST, TABLE
+	}
+	
+	JTextField flightNumber;
+	JTextField origin;
+	JTextField destination;
+	JTextField aircraft;
+	JTextField scheduledDepartureTime;
+	JTextField status;
+	JButton add_button;
+	JButton change_button;
+	JButton delete_button;
+	JButton transferTo;
+	JButton transferFrom;
+	JList listBox;
+	JTable flight_table;
+	
+	Vector<String> flightData_list = new Vector<String>();
+	int changing_index = -1;
+	Directory change_mode;
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		JFrame frame = new JFrame("SwingApplication");
+		flightLogger app = new flightLogger();
+		Component contents = app.createComponents();
+		frame.getContentPane().add(contents, BorderLayout.CENTER);
+
+		frame.pack();
+		frame.setVisible(true);
+		
+		
+	}
+
+	public Component createComponents() {
+		// Main Panel
+		JPanel pane = new JPanel();
+		pane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		pane.setLayout(new GridLayout(0, 1));
+		
+		
+		/* ***********************************
+		 * Start init. components for top pane
+		 * ***********************************/
+		flightNumber = new JTextField();
+		origin = new JTextField();
+		destination = new JTextField();
+		aircraft = new JTextField();
+		scheduledDepartureTime = new JTextField();
+		status = new JTextField();
+		add_button = new JButton("Add");
+		
+		// Set labels for all input fields
+		JLabel flightNumber_label = new JLabel();
+		flightNumber_label.setText("Flight Number");
+		flightNumber_label.setLabelFor(flightNumber);
+		
+		JLabel origin_label = new JLabel();
+		origin_label.setText("Origin");
+		origin_label.setLabelFor(origin);
+		
+		JLabel destination_label = new JLabel();
+		destination_label.setText("Destination");
+		destination_label.setLabelFor(destination);
+
+		JLabel aircraft_label = new JLabel();
+		aircraft_label.setText("Aircraft");
+		aircraft_label.setLabelFor(aircraft);
+
+		JLabel scheduledDepartureTime_label = new JLabel();
+		scheduledDepartureTime_label.setText("Scheduled Departure Time");
+		scheduledDepartureTime_label.setLabelFor(scheduledDepartureTime);
+		
+		JLabel status_label = new JLabel();
+		status_label.setText("Status");
+		status_label.setLabelFor(status);
+		
+
+		// create grid layout for input fields top section
+		GridLayout topSection_grid = new GridLayout(0, 2);
+		topSection_grid.setHgap(5);
+		
+		JPanel titledPane = new JPanel();
+		titledPane.setBorder(BorderFactory.createTitledBorder("Add Flight Information"));
+		JPanel topPane = new JPanel();
+		//topPane.setBorder(BorderFactory.createTitledBorder("Add Flight Information"));
+		topPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		topPane.setLayout(topSection_grid);
+
+		// top section fields
+		// row 1
+		topPane.add(flightNumber_label);
+		topPane.add(aircraft_label);
+		topPane.add(flightNumber);
+		topPane.add(aircraft);
+		
+		// row 2
+		topPane.add(origin_label);
+		topPane.add(scheduledDepartureTime_label);
+		topPane.add(origin);
+		topPane.add(scheduledDepartureTime);
+		
+		// row 3
+		topPane.add(destination_label);
+		topPane.add(status_label);
+		topPane.add(destination);
+		topPane.add(status);
+		
+		// Add Button
+		topPane.add(new Label(" "));
+		topPane.add(add_button);
+		
+		titledPane.add(topPane);
+		
+		add_button.addActionListener(this);
+		
+		/* *****************************************************
+		 * create grid layout for jList and jTable bottom section
+		 * *****************************************************/
+		GridLayout bottomSection_grid = new GridLayout(0, 3);
+		JPanel bottomPane = new JPanel();
+		bottomPane.setLayout(bottomSection_grid);
+		
+		// Flight List 
+		
+		//String listData[] = { "Item 1", "Item 2", "Item 3", "Item 4" };
+		listBox = new JList();
+		listBox.setMinimumSize(new Dimension(500,50));
+		// Transfer Buttons
+		transferTo = new JButton("-->");
+		transferTo.addActionListener(this);
+		transferFrom = new JButton("<--");
+		transferFrom.addActionListener(this);
+		
+		JPanel transferButtons_pane = new JPanel();
+		//GridLayout transferButtons_grid = new GridLayout(0,1);
+		//transferButtons_pane.setLayout(transferButtons_grid);
+		BoxLayout transferButtons_box = new BoxLayout(transferButtons_pane, BoxLayout.Y_AXIS);
+		transferButtons_pane.setAlignmentX(Component.CENTER_ALIGNMENT);
+		transferButtons_pane.setLayout(transferButtons_box);
+		
+		transferButtons_pane.add(transferTo);
+		transferButtons_pane.add(transferFrom);
+		
+		
+		// Flight Table
+		String[] columnNames = {"Flight Number",
+                "Origin",
+                "Destination",
+                "Aircraft",
+                "Scheduled Departure Time",
+                "Status"};
+		
+		Object[][] data = {
+				{"F439","Phila", "Cali", "Airbus", "11:00am", "Good"},
+				{"F829","New York", "Atlanta", "Airbus", "9:00am", "Good"}
+		};
+		
+		flight_table = new JTable();
+		DefaultTableModel dm = new DefaultTableModel(0,0);  
+		dm.setColumnIdentifiers(columnNames);
+		flight_table.setModel(dm);
+		
+		bottomPane.add(listBox);
+		bottomPane.add(transferButtons_pane);
+		bottomPane.add(flight_table);
+		
+		JPanel controlButtons_pane = new JPanel();
+		//GridLayout controlButtons_grid = new GridLayout(1,3);
+		//controlButtons_pane.setLayout(controlButtons_grid);
+		controlButtons_pane.setLayout(new BoxLayout(controlButtons_pane, BoxLayout.Y_AXIS));
+		
+		change_button = new JButton("Change");
+		change_button.addActionListener(this);
+		delete_button = new JButton("Delete");
+		delete_button.addActionListener(this);
+		
+		controlButtons_pane.add(new JLabel(" "));
+		controlButtons_pane.add(change_button);
+		controlButtons_pane.add(delete_button);
+		
+		pane.add(titledPane);
+		pane.add(bottomPane);
+		pane.add(controlButtons_pane);
+		
+		
+		return pane;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == add_button){
+			
+			
+			String flight = "";
+			boolean emptyFound = false;
+			
+			if(flightNumber.getText().equals(""))
+				emptyFound = true;
+			if(origin.getText().equals(""))
+				emptyFound = true;
+			if(destination.getText().equals(""))
+				emptyFound = true;
+			if(aircraft.getText().equals(""))
+				emptyFound = true;
+			if(scheduledDepartureTime.getText().equals(""))
+				emptyFound = true;
+			if(status.getText().equals(""))
+				emptyFound = true;
+			if(!emptyFound){
+				flight = flightNumber.getText();
+				flight = flight + ", " + origin.getText();
+				flight = flight + ", " + destination.getText();
+				flight = flight + ", " + aircraft.getText();
+				flight = flight + ", " + scheduledDepartureTime.getText();
+				flight = flight + ", " + status.getText();
+			} else {
+				JOptionPane.showMessageDialog(null, "Please make sure all fields are filled in.");
+			}
+			flightData_list.add(flight);
+			
+			listBox.setListData(flightData_list);
+		}
+		
+		if(e.getSource() == change_button){
+			if(changing_index > -1){
+				if(change_mode == Directory.LIST) {
+					// update list with field entries
+					String flight = "";
+					boolean emptyFound = false;
+					
+					if(flightNumber.getText().equals(""))
+						emptyFound = true;
+					if(origin.getText().equals(""))
+						emptyFound = true;
+					if(destination.getText().equals(""))
+						emptyFound = true;
+					if(aircraft.getText().equals(""))
+						emptyFound = true;
+					if(scheduledDepartureTime.getText().equals(""))
+						emptyFound = true;
+					if(status.getText().equals(""))
+						emptyFound = true;
+					if(!emptyFound){
+						flight = flightNumber.getText();
+						flight = flight + ", " + origin.getText();
+						flight = flight + ", " + destination.getText();
+						flight = flight + ", " + aircraft.getText();
+						flight = flight + ", " + scheduledDepartureTime.getText();
+						flight = flight + ", " + status.getText();
+					} else {
+						JOptionPane.showMessageDialog(null, "Please make sure all fields are filled in.");
+					}
+					
+					flightData_list.add(changing_index, flight);
+					
+					listBox.setListData(flightData_list);
+			
+				} else if (change_mode == Directory.TABLE){
+					int index_sel = flight_table.getSelectedRow();
+					DefaultTableModel model = (DefaultTableModel) flight_table.getModel();
+					
+				}
+			} else {
+				if(listBox.getSelectedIndex() != -1){
+					String flight = flightData_list.get(listBox.getSelectedIndex());
+					String [] flight_inputs = flight.split(", ");
+					flightNumber.setText(flight_inputs[0]);
+					origin.setText(flight_inputs[1]);
+					destination.setText(flight_inputs[2]);
+					aircraft.setText(flight_inputs[3]);
+					scheduledDepartureTime.setText(flight_inputs[4]);
+					status.setText(flight_inputs[5]);
+					changing_index = listBox.getSelectedIndex();
+					change_mode = Directory.LIST;
+				} else if(flight_table.getSelectedRow() != -1){
+					
+					// Change button was pressed for a flight selected in the table
+					// get the index of the selected flight in table
+					int index_sel = flight_table.getSelectedRow();
+					DefaultTableModel model = (DefaultTableModel) flight_table.getModel();
+					// Pull data from table to populate the fields
+					flightNumber.setText((String) model.getValueAt(index_sel, 0));
+					origin.setText((String) model.getValueAt(index_sel, 1));
+					destination.setText((String) model.getValueAt(index_sel, 2));
+					aircraft.setText((String) model.getValueAt(index_sel, 3));
+					scheduledDepartureTime.setText((String) model.getValueAt(index_sel, 4));
+					status.setText((String) model.getValueAt(index_sel, 5));
+					changing_index = flight_table.getSelectedRow();
+					change_mode = Directory.TABLE;
+				} else {
+					JOptionPane.showMessageDialog(null, "Please select a flight from either the list or table.");
+				}
+			}
+		}
+		
+		if(e.getSource() == transferTo){
+			if(listBox.getSelectedIndex() != -1){
+				System.out.println("in clicked");
+				// something was selected
+				String flight = flightData_list.get(listBox.getSelectedIndex());
+				
+				// remove flight from list
+				flightData_list.remove(listBox.getSelectedIndex());
+				listBox.setListData(flightData_list);
+				
+				// add flight to table
+				String [] flight_inputs = flight.split(", ");
+				Vector<String> flight_inputs_vector = new Vector<String>(Arrays.asList(flight_inputs));
+
+				DefaultTableModel model = (DefaultTableModel) flight_table.getModel();
+				
+				// Check if this flight number was already added to table
+				// if it was then don't add it
+				int total_rows = model.getRowCount();
+				int rowCount = 0;
+				boolean found=false;
+				if(total_rows > 0)
+					while(rowCount < total_rows){
+						if(model.getValueAt(rowCount, 0).equals(flight_inputs[0]))
+							found=true;
+						rowCount++;
+					}
+				// only add if flight wasnt added before
+				if(!found)
+					model.addRow(flight_inputs_vector);
+				
+				flight_table.setModel(model);
+				flight_table.validate();
+			} else {
+				JOptionPane.showMessageDialog(null, "Please select a flight from the list.");
+			}
+		}
+		
+		if(e.getSource() == transferFrom){
+			System.out.println("Clicked Transfer From");
+			if(flight_table.getSelectedRow() != -1){
+				// A row in the table was selected to be moved back to the list
+				int index_sel = flight_table.getSelectedRow();
+				
+				String flight = "";
+				
+				DefaultTableModel model = (DefaultTableModel) flight_table.getModel();
+				flight = (String) model.getValueAt(index_sel, 0);
+				flight = flight + ", " + (String) model.getValueAt(index_sel, 1);
+				flight = flight + ", " + (String) model.getValueAt(index_sel, 2);
+				flight = flight + ", " + (String) model.getValueAt(index_sel, 3);
+				flight = flight + ", " + (String) model.getValueAt(index_sel, 4);
+				flight = flight + ", " + (String) model.getValueAt(index_sel, 5);
+				
+				model.removeRow(index_sel);
+				flightData_list.add(flight);
+				listBox.setListData(flightData_list);
+			} else {
+				JOptionPane.showMessageDialog(null, "Please select a flight from the table.");
+			}
+		}
+		
+		if(e.getSource() == delete_button){
+			if(listBox.getSelectedIndex() != -1){
+				flightData_list.remove(listBox.getSelectedIndex());
+				listBox.setListData(flightData_list);
+				
+			} else if(flight_table.getSelectedRow() != -1){
+				int index_sel = flight_table.getSelectedRow();
+				DefaultTableModel model = (DefaultTableModel) flight_table.getModel();
+				model.removeRow(index_sel);
+				flight_table.setModel(model);
+				flight_table.validate();
+				
+			} else {
+				JOptionPane.showMessageDialog(null, "Please select a flight from either the list or table.");
+			}			
+		}
+	}
+
+	
+	
+}

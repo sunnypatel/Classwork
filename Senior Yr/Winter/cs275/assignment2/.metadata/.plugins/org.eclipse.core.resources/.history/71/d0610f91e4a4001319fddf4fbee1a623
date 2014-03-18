@@ -1,0 +1,22 @@
+package com.example.septa_assignment2;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.widget.ImageView;
+
+public class TrainMapActivity extends Activity {
+
+	private ImageView imageMap;
+	
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+
+		imageMap = (ImageView) findViewById(R.id.imageMap);
+		
+
+	}
+
+}

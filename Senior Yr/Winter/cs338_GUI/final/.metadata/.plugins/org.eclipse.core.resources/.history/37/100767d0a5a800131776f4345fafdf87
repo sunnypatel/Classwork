@@ -1,0 +1,20 @@
+package drugiee;
+
+import java.awt.Color;
+import javax.swing.JTextField;
+
+public class JCoolerButton extends JTextField {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7787367931985646783L;
+
+	private JTextField button;
+	
+	public JCoolerButton(String filler){
+		button = new JTextField(filler, 24);
+		button.setBackground(new Color(236, 240, 241));
+		
+	}
+}

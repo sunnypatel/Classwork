@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.temboo.core.TembooSession"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Google.Calendar.GetAllCalendars"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Google.Calendar.GetAllCalendars.GetAllCalendarsInputSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Google.Calendar.GetAllCalendars.GetAllCalendarsResultSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Google.OAuth.InitializeOAuth"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Google.OAuth.InitializeOAuth.InitializeOAuthInputSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Google.OAuth.InitializeOAuth.InitializeOAuthResultSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Google.OAuth.FinalizeOAuth.FinalizeOAuthInputSet"/>
+<fullyQualifiedTypeName name="com.temboo.Library.Google.OAuth.FinalizeOAuth.FinalizeOAuthResultSet"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.json.JSONArray"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="java.util.Map.Entry"/>
+<fullyQualifiedTypeName name="org.json.simple.JSONObject"/>
+<fullyQualifiedTypeName name="org.json.simple.parser.JSONParser"/>
+<fullyQualifiedTypeName name="com.google.gson.Gson"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,7 @@
+package drugiee;
+
+import javax.swing.JTextField;
+
+public class JCoolerButton extends JTextField {
+
+}
